@@ -1,6 +1,18 @@
 // carousel logic
 
-function toggleMenu() {
+function loadScript(link) {
+  const script = document.createElement('script')
+  script.onload = () => {
+    console.log('script loaded!')
+  }
+  script.src = link
+  document.head.append(script)
+}
+
+loadScript('https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js')
+loadScript('https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js')
+
+export function toggleMenu() {
   const mobileMenu = document.getElementById('mobile-menu')
   const body = document.body
   const isOpen = mobileMenu.style.display === 'flex'
@@ -89,7 +101,7 @@ const data = [
 
 let currentIndex = 0
 
-function updateContent(index) {
+export function updateContent(index) {
   document.getElementById('text').textContent = data[index].text
   document.getElementById('image').src = data[index].image
   document.getElementById('description').textContent = data[index].description
@@ -110,45 +122,46 @@ function updateContent(index) {
   currentIndex = index
 }
 
-function prevSlide() {
+export function prevExploreSlide() {
   currentIndex = currentIndex > 0 ? currentIndex - 1 : data.length - 1
   updateContent(currentIndex)
 }
 
-// function nextSlide() {
-//   currentIndex = currentIndex < data.length - 1 ? currentIndex + 1 : 0
-//   updateContent(currentIndex)
-// }
+export function nextExploreSlide() {
+  currentIndex = currentIndex < data.length - 1 ? currentIndex + 1 : 0
+  updateContent(currentIndex)
+}
 
 // testimonial slider logic
 
 let Tindex = 0
-const slider = document.getElementById('slider')
-const Slides = document.querySelectorAll('.slide')
-const totalSlides = Slides.length
+let totalSlides
 
 function showSlides() {
+  const slider = document.getElementById('slider')
+  const Slides = document.querySelectorAll('.slide')
+  totalSlides = Slides.length
   let slideWidth = document.querySelector('.slide').offsetWidth + 20 // Adjust for spacing
   slider.style.transform = `translateX(-${Tindex * slideWidth}px)`
 }
 
-// function nextSlide() {
-//   if (Tindex < totalSlides - 1) {
-//     Tindex++
-//   } else {
-//     Tindex = 0
-//   }
-//   showSlides()
-// }
+export function changeNextSlide() {
+  if (Tindex < totalSlides - 1) {
+    Tindex++
+  } else {
+    Tindex = 0
+  }
+  showSlides()
+}
 
-// function prevSlide() {
-//   if (Tindex > 0) {
-//     Tindex--
-//   } else {
-//     Tindex = totalSlides - 1
-//   }
-//   showSlides()
-// }
+export function changePrevSlide() {
+  if (Tindex > 0) {
+    Tindex--
+  } else {
+    Tindex = totalSlides - 1
+  }
+  showSlides()
+}
 
 window.addEventListener('resize', showSlides)
 
@@ -201,8 +214,8 @@ window.addEventListener('resize', showSlides)
 // })
 
 // Force Swiper to update on window resize (Fix for breakpoints issue)
-window.addEventListener('resize', () => {
-  setTimeout(() => {
-    swiper.update()
-  }, 200)
-})
+// window.addEventListener('resize', () => {
+//   setTimeout(() => {
+//     swiper.update()
+//   }, 200)
+// })

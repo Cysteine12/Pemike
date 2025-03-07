@@ -1,5 +1,5 @@
 import { Link, Outlet } from 'react-router'
-import '@/assets/js/index.js'
+import { toggleMenu } from '@/assets/js/index.js'
 
 const MainLayout = () => {
   return (
@@ -33,11 +33,11 @@ const MainLayout = () => {
           <Link to="/contact">CONTACT</Link>
           <div className="book-now">Book Now</div>
         </div>
-        <div className="menu-toggle" onClick="toggleMenu()">
+        <div className="menu-toggle" onClick={() => toggleMenu()}>
           ☰
         </div>
         <div className="mobile-menu" id="mobile-menu">
-          <span className="close-menu" onClick="toggleMenu()">
+          <span className="close-menu" onClick={() => toggleMenu()}>
             &times;
           </span>
           <Link to="/">Home</Link>

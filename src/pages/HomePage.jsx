@@ -1,21 +1,28 @@
 import { Link } from 'react-router'
-import '../assets/css/HomePage.css'
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'
+import SearchModal from '../components/SearchModal'
+import '../assets/css/HomePage.css'
+import {
+  updateContent,
+  changeNextSlide,
+  changePrevSlide,
+  prevExploreSlide,
+  nextExploreSlide,
+} from '../assets/js'
 
 const HomePage = () => {
   return (
     <>
-      {/* <!-- Carousel --> */}
       <div className="carousel">
         <div
           className="carousel-item active"
-          style={{ backgroundImage: "url('./assets/slider3.jpg')" }}
+          style={{ backgroundImage: "url('../src/assets/imgs/slider3.jpg')" }}
         >
           SMOOTH RIDES <br /> AFFORDABLE FARES
         </div>
         <div
           className="carousel-item"
-          style={{ backgroundImage: "url('./assets/slider2.jpg')" }}
+          style={{ backgroundImage: "url('../src/assets/imgs/slider2.jpg')" }}
         >
           <h1 style={{ alignItems: 'center' }}>
             FAST, RELIABLE DELIVERY <br /> YOUR GOODS, ON TIME, EVERY TIME
@@ -84,7 +91,7 @@ const HomePage = () => {
         </div>
       </div>
 
-      {/* <!-- explore section  ------------> */}
+      <SearchModal />
 
       <section>
         <div className="container">
@@ -124,22 +131,22 @@ const HomePage = () => {
 
           {/* <!-- Cards (Desktop) --> */}
           <div className="cards-container">
-            <div className="card active" onClick="updateContent(0)">
+            <div className="card active" onClick={() => updateContent(0)}>
               <i className="ri-phone-fill"></i>
               <p>24/7 SERVICE</p>
             </div>
 
-            <div className="card" onClick="updateContent(1)">
+            <div className="card" onClick={() => updateContent(1)}>
               <i className="ri-bus-fill"></i>
               <p>DELIVERY</p>
             </div>
 
-            <div className="card" onClick="updateContent(2)">
+            <div className="card" onClick={() => updateContent(2)}>
               <i className="ri-time-line"></i>
               <p>TIME</p>
             </div>
 
-            <div className="card" onClick="updateContent(3)">
+            <div className="card" onClick={() => updateContent(3)}>
               <i className="ri-team-fill"></i>
               <p>TEAM</p>
             </div>
@@ -147,14 +154,14 @@ const HomePage = () => {
 
           {/* <!-- Mobile Slider --> */}
           <div className="mobile-slider">
-            <button onClick="prevSlide()">❮</button>
+            <button onClick={() => prevExploreSlide()}>❮</button>
             <div className="mobile-card active" id="mobile-card">
               <div id="mobile-icon">
                 <i className="ri-phone-fill"></i>
                 <p>24/7 SERVICE</p>
               </div>
             </div>
-            <button onClick="nextSlide()">❯</button>
+            <button onClick={() => nextExploreSlide()}>❯</button>
           </div>
         </div>
       </section>
@@ -281,10 +288,10 @@ const HomePage = () => {
         </div>
 
         <div className="navigation">
-          <button className="nav-button" onClick="prevSlide()">
+          <button className="nav-button" onClick={() => changePrevSlide()}>
             <FaArrowLeft />
           </button>
-          <button className="nav-button" onClick="nextSlide()">
+          <button className="nav-button" onClick={() => changeNextSlide()}>
             <FaArrowRight />
           </button>
         </div>
