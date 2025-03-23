@@ -1,11 +1,19 @@
+import { useEffect } from 'react'
+import { useNavigate } from 'react-router'
+import { useTripStore } from '@/stores/useTripStore'
+import useSessionStorage from '../hooks/useSessionStorage'
 import { FaSearch } from 'react-icons/fa'
 import AppButton from './AppButton'
-import useSessionStorage from '../hooks/useSessionStorage'
-import { useNavigate } from 'react-router'
 
 const SearchModal = () => {
   const navigate = useNavigate()
-  const [, setData] = useSessionStorage('searchParams')
+  const [, setUserSearchParams] = useSessionStorage('userSearchParams')
+  const { fetchTrips, trips } = useTripStore()
+
+  useEffect(() => {
+    const query = { page: null, limit: null }
+    fetchTrips(query)
+  }, [])
 
   const submitAction = async (formData) => {
     const tripType = formData.get('tripType')
@@ -20,17 +28,20 @@ const SearchModal = () => {
       tripDate,
     }
 
-    setData(searchParams)
-    navigate('/trips')
+    setUserSearchParams(searchParams)
+    navigate(`/trips?from=${encodeURIComponent(departure)}`)
   }
 
   return (
     <>
-      <section className="p-4">
-        <div className="p-4 border-4 border-gray-200 rounded-lg shadow-xl">
+      <section className="p-4 flex justify-center">
+        <div className="p-4 border-2 border-gray-200 bg-white rounded-lg shadow-xl md:max-w-80">
+          <h4 className="text-blue-500 text-center font-bold text-2xl">
+            Search for a Trip
+          </h4>
           <form action={submitAction}>
             <div className="my-1">
-              <label htmlFor="tripType" className="text-blue-500 font-bold">
+              <label htmlFor="tripType" className="text-blue-500">
                 One way or Round Trip*
               </label>
               <select
@@ -46,7 +57,7 @@ const SearchModal = () => {
 
             <div className="grid grid-cols-2 gap-4 items-center">
               <div className="my-1">
-                <label htmlFor="departure" className="text-blue-500 font-bold">
+                <label htmlFor="departure" className="text-blue-500">
                   Departure*
                 </label>
                 <select
@@ -55,21 +66,16 @@ const SearchModal = () => {
                   className="my-1 p-2 w-full border-2 border-blue-200 rounded"
                   required
                 >
-                  <option value="Lagos - Agege park">Lagos - Agege park</option>
-                  <option value="Osun - Ilobu Bus -stop">
-                    Osun - Ilobu Bus Stop
-                  </option>
-                  <option value="Lagos - Ikorodu Bus Stop">
-                    Lagos - Ikorodu Bus Stop
-                  </option>
+                  {trips.map((trip) => (
+                    <option key={trip.id} value={trip.source}>
+                      {trip.source}
+                    </option>
+                  ))}
                 </select>
               </div>
 
               <div className="my-1">
-                <label
-                  htmlFor="destination"
-                  className="text-blue-500 font-bold"
-                >
+                <label htmlFor="destination" className="text-blue-500">
                   Destination*
                 </label>
                 <select
@@ -78,24 +84,23 @@ const SearchModal = () => {
                   className="my-1 p-2 w-full border-2 border-blue-200 rounded"
                   required
                 >
-                  <option value="Lagos - Agege park">Lagos - Agege park</option>
-                  <option value="Osun - Ilobu Bus -stop">
-                    Osun - Ilobu Bus Stop
-                  </option>
-                  <option value="Lagos - Ikorodu Bus Stop">
-                    Lagos - Ikorodu Bus Stop
-                  </option>
+                  {trips.map((trip) => (
+                    <option key={trip.id} value={trip.destination}>
+                      {trip.destination}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>
 
             <div className="my-1">
-              <label htmlFor="tripDate" className="text-blue-500 font-bold">
+              <label htmlFor="tripDate" className="text-blue-500">
                 Trip Date
               </label>
               <input
                 type="date"
                 name="tripDate"
+                min={new Date().toISOString().split('T')[0]}
                 id="tripDate"
                 className="my-1 p-1 w-full border-2 border-blue-200 rounded"
                 required

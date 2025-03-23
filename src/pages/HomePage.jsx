@@ -1,6 +1,7 @@
 import { Link } from 'react-router'
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'
 import SearchModal from '../components/SearchModal'
+import { toggleMenu } from '@/assets/js/index.js'
 import '../assets/css/HomePage.css'
 import {
   updateContent,
@@ -13,6 +14,49 @@ import {
 const HomePage = () => {
   return (
     <>
+      {/* <!-- Header Section --> */}
+      <div className="header">
+        <div className="contact-info">
+          <span> 09061398691</span>
+          <span> info@pemiketransport.org</span>
+          <span> Ihiama Plaza GUO, Port Harcourt, Onitsha, Anambra</span>
+        </div>
+        <div className="social-icons">
+          <i className="ri-facebook-circle-fill"></i>
+          <i className="ri-linkedin-box-fill"></i>
+          <i className="ri-google-fill"></i>
+          <i className="ri-twitter-fill"></i>
+          <i className="ri-instagram-line"></i>
+        </div>
+      </div>
+
+      {/* <!-- Navbar --> */}
+      <nav className="navbar">
+        <div className="line"></div>
+        <img src="../src/assets/imgs/pemike_Logo.png" alt="Logo" />
+        <div className="nav-links">
+          <Link to="/" className="active">
+            HOME
+          </Link>
+          <Link to="/about">ABOUT</Link>
+          <Link to="/services">SERVICES</Link>
+          <Link to="/contact">CONTACT</Link>
+          <div className="book-now">Book Now</div>
+        </div>
+        <div className="menu-toggle" onClick={() => toggleMenu()}>
+          ☰
+        </div>
+        <div className="mobile-menu" id="mobile-menu">
+          <span className="close-menu" onClick={() => toggleMenu()}>
+            &times;
+          </span>
+          <Link to="/">Home</Link>
+          <Link to="/about">About</Link>
+          <Link to="/services">Services</Link>
+          <Link to="/contact">Contact</Link>
+          <div className="book-now">BOOK NOW</div>
+        </div>
+      </nav>
       <div className="carousel">
         <div
           className="carousel-item active"

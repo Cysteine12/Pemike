@@ -1,8 +1,9 @@
 const useSessionStorage = (key) => {
-  const data = JSON.parse(localStorage.getItem(key))
+  const sessionData = JSON.parse(sessionStorage.getItem(key)) || null
 
-  const setData = (value) => sessionStorage.setItem(key, JSON.stringify(value))
+  const setSessionData = (value) =>
+    sessionStorage.setItem(key, JSON.stringify(value))
 
-  return [data, setData]
+  return [sessionData, setSessionData]
 }
 export default useSessionStorage
