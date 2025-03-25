@@ -15,7 +15,7 @@ export const useTripStore = create((set, get) => ({
     try {
       const res = await API.get(`/trips?page=${page}&limit=${limit}`)
 
-      if (!res.data.success) toast.error(res.data.message)
+      if (!res.data.success) return toast.error(res.data.message)
 
       set({ trips: res.data.data })
     } catch (err) {
@@ -34,7 +34,7 @@ export const useTripStore = create((set, get) => ({
         `/trips/search?departure=${departure}&destination=${destination}`
       )
 
-      if (!res.data.success) toast.error(res.data.message)
+      if (!res.data.success) return toast.error(res.data.message)
 
       set({ trips: res.data.data })
     } catch (err) {
@@ -51,7 +51,7 @@ export const useTripStore = create((set, get) => ({
     try {
       const res = await API.get(`/trips/${id}`)
 
-      if (!res.data.success) toast.error(res.data.message)
+      if (!res.data.success) return toast.error(res.data.message)
 
       set({ trips: [res.data.data] })
     } catch (err) {

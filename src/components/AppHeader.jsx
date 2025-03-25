@@ -44,31 +44,25 @@ const AppHeader = () => {
             </svg>
           </button>
         </div>
-        <div className="hidden lg:flex lg:gap-x-12">
-          <div className="relative">
-            <button
-              type="button"
-              className="flex items-center gap-x-1 text-sm/6 font-semibold text-gray-900"
-              aria-expanded="false"
-            >
-              Product
-            </button>
-          </div>
+        <div className="hidden lg:flex lg:gap-x-12 text-blue-600">
+          <Link href="#" className="font-semibold">
+            Home
+          </Link>
 
-          <a href="#" className="text-sm/6 font-semibold text-gray-900">
-            Features
-          </a>
-          <a href="#" className="text-sm/6 font-semibold text-gray-900">
-            Marketplace
-          </a>
-          <a href="#" className="text-sm/6 font-semibold text-gray-900">
-            Company
-          </a>
+          <Link href="#" className="font-semibold">
+            Services
+          </Link>
+          <Link href="#" className="font-semibold">
+            About Us
+          </Link>
+          <Link href="#" className="font-semibold">
+            Contact
+          </Link>
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a href="#" className="text-sm/6 font-semibold text-gray-900">
+          <Link href="#" className="text-sm/6 font-semibold">
             Log in <span aria-hidden="true">&rarr;</span>
-          </a>
+          </Link>
         </div>
       </nav>
       {/* <!-- Mobile menu, show/hide based on menu open state. --> */}

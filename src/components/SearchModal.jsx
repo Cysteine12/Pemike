@@ -15,7 +15,7 @@ const SearchModal = () => {
     fetchTrips(query)
   }, [])
 
-  const submitAction = async (formData) => {
+  const handleSubmit = async (formData) => {
     const tripType = formData.get('tripType')
     const departure = formData.get('departure')
     const destination = formData.get('destination')
@@ -39,7 +39,7 @@ const SearchModal = () => {
           <h4 className="text-blue-500 text-center font-bold text-2xl">
             Search for a Trip
           </h4>
-          <form action={submitAction}>
+          <form action={handleSubmit}>
             <div className="my-1">
               <label htmlFor="tripType" className="text-blue-500">
                 One way or Round Trip*

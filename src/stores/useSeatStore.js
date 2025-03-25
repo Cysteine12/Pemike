@@ -16,7 +16,7 @@ export const useSeatStore = create((set, get) => ({
     try {
       const res = await API.get(`/seats/trip/${id}`)
 
-      if (!res.data.success) toast.error(res.data.message)
+      if (!res.data.success) return toast.error(res.data.message)
 
       set({ seats: res.data.data })
     } catch (err) {
@@ -33,7 +33,7 @@ export const useSeatStore = create((set, get) => ({
     try {
       const res = await API.post(`/seats/reserve`, newSeat)
 
-      if (!res.data.success) toast.error(res.data.message)
+      if (!res.data.success) return toast.error(res.data.message)
 
       set({
         seats: get().seats.map((seat) => {

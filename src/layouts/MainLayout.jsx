@@ -6,7 +6,7 @@ const MainLayout = ({ isHomePage = false }) => {
     <>
       {!isHomePage && <AppHeader />}
 
-      <div className="pb-12 bg-gray-200">
+      <div className="py-5 bg-gray-200">
         <Outlet />
       </div>
 

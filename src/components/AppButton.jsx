@@ -15,8 +15,8 @@ const AppButton = ({
   return (
     <button
       type={type}
-      className={`flex flex-row items-center rounded border bg-blue-500 p-2 py-1 text-white justify-center hover:cursor-pointer ${style}`}
-      disabled={disabled | pending}
+      className={`flex flex-row items-center rounded border bg-blue-500 p-2 py-1 text-white justify-center hover:cursor-pointer w-auto ${style}`}
+      disabled={disabled || pending}
       onClick={onClick}
     >
       {loading | pending ? <FaSpinner /> : children || text}
