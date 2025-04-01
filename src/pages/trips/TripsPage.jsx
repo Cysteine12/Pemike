@@ -12,7 +12,7 @@ const TripsPage = () => {
   let [userSearchParams] = useSessionStorage('userSearchParams')
 
   const getTrips = async () => {
-    if (searchParams.get('from') && userSearchParams) {
+    if (searchParams.get('source') && userSearchParams) {
       await searchTripsByParams(userSearchParams)
     } else {
       const query = { page: 1, limit: 10 }

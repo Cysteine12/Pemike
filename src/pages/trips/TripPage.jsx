@@ -24,9 +24,21 @@ const TripPage = () => {
     window.scrollTo(0, 0)
   }, [])
 
+  const showSeatStatus = (currentSeatNo) => {
+    const seat = seats.find(({ seatNo }) => seatNo === currentSeatNo)
+
+    if (!seat || seat.status === 'AVAILABLE') {
+      return 'bg-gray-400 hover:cursor-pointer hover:bg-blue-500'
+    }
+    if (seat.sessionToken === sessionToken && seat.status === 'RESERVED') {
+      return 'bg-green-500 hover:cursor-not-allowed'
+    }
+    return 'bg-blue-400 hover:cursor-not-allowed'
+  }
+
   const hasBeenReserved = (currentSeatNo) => {
     return seats.find(({ seatNo, status }) => {
-      return seatNo === currentSeatNo && status !== 'available'
+      return seatNo === currentSeatNo && status !== 'AVAILABLE'
     })
   }
 
@@ -48,7 +60,7 @@ const TripPage = () => {
     setSelectedSeats(seats.filter((seat) => seat.sessionToken === sessionToken))
 
     navigate(
-      `/bookings/create?tripId=${trips[0].id}&sessionToken=${sessionToken}`
+      `/profile/create?tripId=${trips[0].id}&sessionToken=${sessionToken}`
     )
   }
 
@@ -90,9 +102,9 @@ const TripPage = () => {
                   <td>
                     <button
                       onClick={(e) => handleClick(e, 1)}
-                      className={`m-4 my-5 py-1 w-8 hover:cursor-pointer hover:bg-blue-500 rounded ${
-                        hasBeenReserved(1) ? 'bg-blue-400' : 'bg-gray-400'
-                      }`}
+                      className={`m-4 my-5 py-1 w-8 rounded ${showSeatStatus(
+                        1
+                      )}`}
                       disabled={hasBeenReserved(1)}
                     >
                       1
@@ -101,9 +113,9 @@ const TripPage = () => {
                   <td>
                     <button
                       onClick={(e) => handleClick(e, 2)}
-                      className={`m-4 my-5 py-1 w-8 hover:cursor-pointer hover:bg-blue-500 rounded ${
-                        hasBeenReserved(2) ? 'bg-blue-400' : 'bg-gray-400'
-                      }`}
+                      className={`m-4 my-5 py-1 w-8 rounded ${showSeatStatus(
+                        2
+                      )}`}
                       disabled={hasBeenReserved(2)}
                     >
                       2
@@ -114,9 +126,9 @@ const TripPage = () => {
                   <td>
                     <button
                       onClick={(e) => handleClick(e, 3)}
-                      className={`m-4 my-5 py-1 w-8 hover:cursor-pointer hover:bg-blue-500 rounded ${
-                        hasBeenReserved(3) ? 'bg-blue-400' : 'bg-gray-400'
-                      }`}
+                      className={`m-4 my-5 py-1 w-8 rounded ${showSeatStatus(
+                        3
+                      )}`}
                       disabled={hasBeenReserved(3)}
                     >
                       3
@@ -125,9 +137,9 @@ const TripPage = () => {
                   <td>
                     <button
                       onClick={(e) => handleClick(e, 4)}
-                      className={`m-4 my-5 py-1 w-8 hover:cursor-pointer hover:bg-blue-500 rounded ${
-                        hasBeenReserved(4) ? 'bg-blue-400' : 'bg-gray-400'
-                      }`}
+                      className={`m-4 my-5 py-1 w-8 rounded ${showSeatStatus(
+                        4
+                      )}`}
                       disabled={hasBeenReserved(4)}
                     >
                       4
@@ -136,9 +148,9 @@ const TripPage = () => {
                   <td>
                     <button
                       onClick={(e) => handleClick(e, 5)}
-                      className={`m-4 my-5 py-1 w-8 hover:cursor-pointer hover:bg-blue-500 rounded ${
-                        hasBeenReserved(5) ? 'bg-blue-400' : 'bg-gray-400'
-                      }`}
+                      className={`m-4 my-5 py-1 w-8 rounded ${showSeatStatus(
+                        5
+                      )}`}
                       disabled={hasBeenReserved(5)}
                     >
                       5
@@ -147,9 +159,9 @@ const TripPage = () => {
                   <td>
                     <button
                       onClick={(e) => handleClick(e, 6)}
-                      className={`m-4 my-5 py-1 w-8 hover:cursor-pointer hover:bg-blue-500 rounded ${
-                        hasBeenReserved(6) ? 'bg-blue-400' : 'bg-gray-400'
-                      }`}
+                      className={`m-4 my-5 py-1 w-8 rounded ${showSeatStatus(
+                        6
+                      )}`}
                       disabled={hasBeenReserved(6)}
                     >
                       6
@@ -160,9 +172,9 @@ const TripPage = () => {
                   <td>
                     <button
                       onClick={(e) => handleClick(e, 7)}
-                      className={`m-4 my-5 py-1 w-8 hover:cursor-pointer hover:bg-blue-500 rounded ${
-                        hasBeenReserved(7) ? 'bg-blue-400' : 'bg-gray-400'
-                      }`}
+                      className={`m-4 my-5 py-1 w-8 rounded ${showSeatStatus(
+                        7
+                      )}`}
                       disabled={hasBeenReserved(7)}
                     >
                       7
@@ -171,9 +183,9 @@ const TripPage = () => {
                   <td>
                     <button
                       onClick={(e) => handleClick(e, 8)}
-                      className={`m-4 my-5 py-1 w-8 hover:cursor-pointer hover:bg-blue-500 rounded ${
-                        hasBeenReserved(8) ? 'bg-blue-400' : 'bg-gray-400'
-                      }`}
+                      className={`m-4 my-5 py-1 w-8 rounded ${showSeatStatus(
+                        8
+                      )}`}
                       disabled={hasBeenReserved(8)}
                     >
                       8
@@ -182,9 +194,9 @@ const TripPage = () => {
                   <td>
                     <button
                       onClick={(e) => handleClick(e, 9)}
-                      className={`m-4 my-5 py-1 w-8 hover:cursor-pointer hover:bg-blue-500 rounded ${
-                        hasBeenReserved(9) ? 'bg-blue-400' : 'bg-gray-400'
-                      }`}
+                      className={`m-4 my-5 py-1 w-8 rounded ${showSeatStatus(
+                        9
+                      )}`}
                       disabled={hasBeenReserved(9)}
                     >
                       9
@@ -193,9 +205,9 @@ const TripPage = () => {
                   <td>
                     <button
                       onClick={(e) => handleClick(e, 10)}
-                      className={`m-4 my-5 py-1 w-8 hover:cursor-pointer hover:bg-blue-500 rounded ${
-                        hasBeenReserved(10) ? 'bg-blue-400' : 'bg-gray-400'
-                      }`}
+                      className={`m-4 my-5 py-1 w-8 rounded ${showSeatStatus(
+                        10
+                      )}`}
                       disabled={hasBeenReserved(10)}
                     >
                       10
@@ -206,9 +218,9 @@ const TripPage = () => {
                   <td>
                     <button
                       onClick={(e) => handleClick(e, 11)}
-                      className={`m-4 my-5 py-1 w-8 hover:cursor-pointer hover:bg-blue-500 rounded ${
-                        hasBeenReserved(11) ? 'bg-blue-400' : 'bg-gray-400'
-                      }`}
+                      className={`m-4 my-5 py-1 w-8 rounded ${showSeatStatus(
+                        11
+                      )}`}
                       disabled={hasBeenReserved(11)}
                     >
                       11
@@ -217,9 +229,9 @@ const TripPage = () => {
                   <td>
                     <button
                       onClick={(e) => handleClick(e, 12)}
-                      className={`m-4 my-5 py-1 w-8 hover:cursor-pointer hover:bg-blue-500 rounded ${
-                        hasBeenReserved(12) ? 'bg-blue-400' : 'bg-gray-400'
-                      }`}
+                      className={`m-4 my-5 py-1 w-8 rounded ${showSeatStatus(
+                        12
+                      )}`}
                       disabled={hasBeenReserved(12)}
                     >
                       12
@@ -228,9 +240,9 @@ const TripPage = () => {
                   <td>
                     <button
                       onClick={(e) => handleClick(e, 13)}
-                      className={`m-4 my-5 py-1 w-8 hover:cursor-pointer hover:bg-blue-500 rounded ${
-                        hasBeenReserved(13) ? 'bg-blue-400' : 'bg-gray-400'
-                      }`}
+                      className={`m-4 my-5 py-1 w-8 rounded ${showSeatStatus(
+                        13
+                      )}`}
                       disabled={hasBeenReserved(13)}
                     >
                       13
@@ -239,9 +251,9 @@ const TripPage = () => {
                   <td>
                     <button
                       onClick={(e) => handleClick(e, 14)}
-                      className={`m-4 my-5 py-1 w-8 hover:cursor-pointer hover:bg-blue-500 rounded ${
-                        hasBeenReserved(14) ? 'bg-blue-400' : 'bg-gray-400'
-                      }`}
+                      className={`m-4 my-5 py-1 w-8 rounded ${showSeatStatus(
+                        14
+                      )}`}
                       disabled={hasBeenReserved(14)}
                     >
                       14

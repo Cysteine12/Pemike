@@ -29,13 +29,13 @@ const SearchModal = () => {
     }
 
     setUserSearchParams(searchParams)
-    navigate(`/trips?from=${encodeURIComponent(departure)}`)
+    navigate(`/trips?source=${encodeURIComponent(departure)}`)
   }
 
   return (
     <>
       <section className="p-4 flex justify-center">
-        <div className="p-4 border-2 border-gray-200 bg-white rounded-lg shadow-xl md:max-w-80">
+        <div className="p-4 bg-white rounded-lg shadow-xl md:max-w-80">
           <h4 className="text-blue-500 text-center font-bold text-2xl">
             Search for a Trip
           </h4>

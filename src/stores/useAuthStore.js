@@ -1,6 +1,12 @@
 import { create } from 'zustand'
 import { toast } from 'react-toastify'
 import API from '@/libs/api'
+import axios from 'axios'
+
+const API2 = axios.create({
+  baseURL: import.meta.env.VITE_API_URL,
+  withCredentials: true,
+})
 
 export const useAuthStore = create((set, get) => ({
   user: JSON.parse(localStorage.getItem('user')) || null,
@@ -11,19 +17,155 @@ export const useAuthStore = create((set, get) => ({
   isAuthenticated: () => !!get().user,
   userRole: () => get().user?.role,
 
-  login: async (newUser) => {
+  register: async (newUser) => {
     set({ loading: true, error: null })
 
     try {
-      const res = await API.post(`/auth`, newUser)
+      const res = await API.post(`/auth/register`, newUser)
       if (!res.data.success) return toast.error(res.data.message)
 
       set({ user: res.data.data })
       set({ message: res.data.message })
 
+      toast.success(get().message)
+
+      get().login(newUser)
+    } catch (err) {
+      set({ error: err.response?.data?.message })
+      toast.error(get().error)
+    } finally {
+      set({ loading: false })
+    }
+  },
+
+  login: async (newUser) => {
+    set({ loading: true, error: null })
+
+    try {
+      const res = await API.post(`/auth/login`, newUser)
+      if (!res.data.success) return toast.error(res.data.message)
+
+      set({ user: res.data.user })
+      set({ message: res.data.message })
+
       localStorage.setItem('user', JSON.stringify(get().user))
 
       toast.success(get().message)
+      return res.data
+    } catch (err) {
+      set({ error: err.response?.data?.message })
+      toast.error(get().error)
+      if (['passwordless-login', 'verify-email'].includes(get().error)) {
+        return { type: get().error }
+      }
+    } finally {
+      set({ loading: false })
+    }
+  },
+
+  passwordlessLogin: async (newUser) => {
+    set({ loading: true, error: null })
+
+    try {
+      const res = await API.post(`/auth/passwordless-login`, newUser)
+      if (!res.data.success) return toast.error(res.data.message)
+
+      set({ user: res.data.user })
+      set({ message: res.data.message })
+
+      localStorage.setItem('user', JSON.stringify(get().user))
+
+      toast.success(get().message)
+      return res.data
+    } catch (err) {
+      set({ error: err.response?.data?.message })
+    } finally {
+      set({ loading: false })
+    }
+  },
+
+  verifyEmail: async (newUser) => {
+    set({ loading: true, error: null })
+
+    try {
+      const res = await API.post(`/auth/verify-email`, newUser)
+      if (!res.data.success) return toast.error(res.data.message)
+
+      set({ user: res.data.user })
+      set({ message: res.data.message })
+
+      localStorage.setItem('user', JSON.stringify(get().user))
+
+      toast.success(get().message)
+      return res.data
+    } catch (err) {
+      set({ error: err.response?.data?.message })
+    } finally {
+      set({ loading: false })
+    }
+  },
+
+  refreshToken: async () => {
+    set({ loading: true, error: null })
+
+    try {
+      await API2.post(`/auth/refresh-token`)
+      return
+    } catch (err) {
+      set({ error: err.response?.data?.message })
+      toast.error(get().error)
+    } finally {
+      set({ loading: false })
+    }
+  },
+
+  logout: async () => {
+    set({ loading: true, error: null })
+
+    try {
+      const res = await API2.post(`/auth/logout`)
+      if (res.data.success) return toast.error(res.data.message)
+
+      set({ message: res.data.message })
+
+      localStorage.removeItem('user')
+      toast.success(get().message)
+
+      location.assign('/login')
+    } catch (err) {
+      set({ error: err.response?.data?.message })
+      toast.error(get().error)
+    } finally {
+      set({ loading: false })
+    }
+  },
+
+  requestOTP: async (formData) => {
+    set({ loading: true, error: null })
+
+    try {
+      const res = await API.post(`/auth/request-otp`, formData)
+      if (!res.data.success) return toast.error(res.data.message)
+
+      toast.success('OTP has been sent to your email')
+      return res.data
+    } catch (err) {
+      set({ error: err.response?.data?.message })
+      toast.error(get().error)
+    } finally {
+      set({ loading: false })
+    }
+  },
+
+  verifyOTP: async (formData) => {
+    set({ loading: true, error: null })
+
+    try {
+      const res = await API.post(`/auth/verify-otp`, formData)
+      if (!res.data.success) return toast.error(res.data.message)
+
+      toast.success('OTP verified')
+
       return res.data
     } catch (err) {
       set({ error: err.response?.data?.message })

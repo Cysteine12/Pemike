@@ -8,15 +8,36 @@ export const useUserStore = create((set, get) => ({
   message: null,
   error: null,
 
-  createUser: async (newUser) => {
+  fetchProfile: async () => {
     set({ loading: true, error: null })
 
     try {
-      const res = await API.post(`/users`, newUser)
+      const res = await API.get(`/users/profile`)
 
       if (!res.data.success) return toast.error(res.data.message)
 
-      set({ user: res.data.data })
+      set({ user: res.data.user })
+      set({ message: res.data.message })
+
+      localStorage.setItem('user', JSON.stringify(get().user))
+      toast.success(get().message)
+    } catch (err) {
+      set({ error: err.response?.data?.message })
+      toast.error(get().error)
+    } finally {
+      set({ loading: false })
+    }
+  },
+
+  createProfile: async (newUser) => {
+    set({ loading: true, error: null })
+
+    try {
+      const res = await API.post(`/users/profile`, newUser)
+
+      if (!res.data.success) return toast.error(res.data.message)
+
+      set({ user: res.data.user })
       set({ message: res.data.message })
 
       localStorage.setItem('user', JSON.stringify(get().user))

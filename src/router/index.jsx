@@ -6,7 +6,11 @@ import NotFound from '../pages/NotFoundPage'
 import TripsPage from '../pages/trips/TripsPage'
 import TripPage from '@/pages/trips/TripPage'
 import BookingCreatePage from '@/pages/bookings/BookingCreatePage'
-import BookingConfirmPage from '@/pages/bookings/BookingConfirmPage'
+import PaymentVerifyPage from '@/pages/payments/PaymentVerifyPage'
+import PaymentPage from '@/pages/payments/PaymentPage'
+import UserCreatePage from '@/pages/users/UserCreatePage'
+import UserDashboardPage from '@/pages/users/UserDashboardPage'
+import LoginPage from '@/pages/auth/LoginPage'
 
 const router = createBrowserRouter([
   {
@@ -21,6 +25,29 @@ const router = createBrowserRouter([
       {
         path: 'about',
         element: <AboutPage />,
+      },
+      {
+        path: 'login',
+        element: <LoginPage />,
+      },
+      // Customer-specific routes
+      {
+        path: '/',
+        children: [
+          {
+            path: 'dashboard',
+            element: <UserDashboardPage />,
+          },
+          {
+            path: 'profile',
+            children: [
+              {
+                path: 'create',
+                element: <UserCreatePage />,
+              },
+            ],
+          },
+        ],
       },
       {
         path: '/trips',
@@ -42,9 +69,18 @@ const router = createBrowserRouter([
             path: 'create',
             element: <BookingCreatePage />,
           },
+        ],
+      },
+      {
+        path: '/payments',
+        children: [
           {
-            path: 'confirm',
-            element: <BookingConfirmPage />,
+            path: ':id',
+            element: <PaymentPage />,
+          },
+          {
+            path: 'verify',
+            element: <PaymentVerifyPage />,
           },
         ],
       },

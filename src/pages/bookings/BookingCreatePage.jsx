@@ -1,172 +1,129 @@
-import { useEffect, useState } from 'react'
-import { useTripStore } from '@/stores/useTripStore'
-import { useNavigate, useSearchParams } from 'react-router'
-import AppSpinner from '@/components/AppSpinner'
 import AppButton from '@/components/AppButton'
-import { FaPlus } from 'react-icons/fa'
+import AppSpinner from '@/components/AppSpinner'
+import Card from '@/components/Card'
+import TripDetail from '@/features/trips/TripDetail'
+import UserDetail from '@/features/user/UserDetail'
+import useSessionStorage from '@/hooks/useSessionStorage'
+import { useBookingStore } from '@/stores/useBookingStore'
+import { useTripStore } from '@/stores/useTripStore'
 import { useUserStore } from '@/stores/useUserStore'
+import { useEffect } from 'react'
+import { useNavigate, useSearchParams } from 'react-router'
 
-const BookingCreatePage = () => {
+const BookingConfirmPage = () => {
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
   const { fetchTrip, trips, loading } = useTripStore()
-  const { loading: loadingUser, createUser } = useUserStore()
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    gender: 'male',
-  })
+  const { user } = useUserStore()
+  const { createBooking } = useBookingStore()
+  const [selectedSeats] = useSessionStorage('selectedSeats')
 
-  const tripId = searchParams.getAll('tripId')
-  const sessionToken = searchParams.getAll('sessionToken')
+  const tripId = searchParams.get('tripId')
+  const sessionToken = searchParams.get('sessionToken')
 
   useEffect(() => {
-    if (!sessionToken || !tripId) navigate(-1)
+    if (!sessionToken || !tripId || !user) navigate(-1)
     fetchTrip(tripId)
     window.scrollTo(0, 0)
   }, [])
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
+  const handleSubmit = async (formData) => {
+    if (!formData.get('arrivalBox') && !formData.get('luggageBox')) return
+
+    await createBooking({
+      userId: user.id,
+      seats: selectedSeats,
+      sessionToken,
+      tripId,
     })
-  }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    await createUser(formData)
-
-    navigate(
-      `/bookings/confirm?tripId=${trips[0].id}&sessionToken=${sessionToken}`
-    )
   }
 
   return (
     <>
       <div className="mb-4 text-center font-bold text-blue-500 text-2xl">
-        Booking Details
+        Passenger Manifest
       </div>
 
       {loading ? (
         <AppSpinner />
       ) : (
         <main className="lg:grid grid-cols-2">
-          <div className="container m-auto max-w-2xl py-24">
-            <div className="bg-white px-6 py-8 mb-4 shadow-md rounded-md border m-4 md:m-0">
-              <form onSubmit={handleSubmit}>
-                <h2 className="text-3xl text-center font-semibold mb-6">
-                  Passenger Details
-                </h2>
+          <section>
+            <TripDetail trip={trips[0]} />
 
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="mb-4">
-                    <label className="block text-gray-700 font-bold mb-2">
-                      Firstname
-                    </label>
-                    <input
-                      type="text"
-                      id="firstName"
-                      name="firstName"
-                      className="border rounded w-full py-2 px-3 mb-2"
-                      placeholder="Firstname..."
-                      value={formData.firstName}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-                  <div className="mb-4">
-                    <label className="block text-gray-700 font-bold mb-2">
-                      Surname
-                    </label>
-                    <input
-                      type="text"
-                      id="lastName"
-                      name="lastName"
-                      className="border rounded w-full py-2 px-3 mb-2"
-                      placeholder="Surname..."
-                      value={formData.lastName}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-                </div>
+            <UserDetail user={user} />
+          </section>
 
-                <div className="mb-4">
-                  <label
-                    htmlFor="contact_email"
-                    className="block text-gray-700 font-bold mb-2"
-                  >
-                    Email
-                  </label>
+          <section>
+            <Card
+              styles={'md:m-auto mx-8 mb-9 max-w-120 bg-white text-gray-700'}
+            >
+              <h4 className="my-3 text-center font-bold text-2xl">
+                Terms & Conditions
+              </h4>
+
+              <form action={handleSubmit} className="px-3">
+                <div className="mb-4 flex flex-row items-start">
                   <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    className="border rounded w-full py-2 px-3"
-                    placeholder="Email address..."
-                    value={formData.email}
-                    onChange={handleChange}
+                    type="checkbox"
+                    name="arrivalBox"
+                    id="arrivalBox"
+                    className="mt-1"
                     required
                   />
+                  <label htmlFor="arrivalBox" className="ml-2">
+                    You must be at the departure terminal at least 30 minutes
+                    before the bus departure time, else you lose your right to
+                    your selected seat(s).
+                  </label>
                 </div>
 
-                <div className="mb-4">
-                  <label
-                    htmlFor="phone"
-                    className="block text-gray-700 font-bold mb-2"
-                  >
-                    Contact Phone
-                  </label>
+                <div className="mb-4 flex flex-row items-start">
                   <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    className="border rounded w-full py-2 px-3"
-                    placeholder="Contact phone..."
-                    value={formData.phone}
-                    onChange={handleChange}
-                  />
-                </div>
-
-                <div className="mb-4">
-                  <label
-                    htmlFor="type"
-                    className="block text-gray-700 font-bold mb-2"
-                  >
-                    Gender
-                  </label>
-                  <select
-                    id="gender"
-                    name="gender"
-                    className="border rounded w-full py-2 px-3"
-                    value={formData.gender}
-                    onChange={handleChange}
+                    type="checkbox"
+                    name="luggageBox"
+                    id="luggageBox"
+                    className="mt-1"
                     required
-                  >
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                  </select>
+                  />
+                  <label htmlFor="luggageBox" className="ml-2">
+                    Luggage that exceeds the standard 10kg free luggage limit is
+                    classified as excess luggage. Excess luggage attracts
+                    charges based on the prevailing excess luggage rates per kg.
+                  </label>
+                </div>
+                <hr />
+
+                <div className="my-5 font-semibold">
+                  <div className="grid grid-cols-2">
+                    <span className="text-blue-500">Total seats: </span>
+                    <span>{selectedSeats.length}</span>
+                  </div>
+                  <div className="grid grid-cols-2">
+                    <span className="text-blue-500">Seat numbers: </span>
+                    <span>
+                      {selectedSeats.map((seat) => (
+                        <span className="mr-2">Seat {seat.seatNo}</span>
+                      ))}
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-2">
+                    <span className="text-blue-500">Total Price: </span>
+                    <span>{selectedSeats.length * trips[0].fare}</span>
+                  </div>
                 </div>
 
-                <div>
-                  <AppButton
-                    type="submit"
-                    style={'m-auto'}
-                    disabled={loadingUser}
-                  >
-                    <FaPlus className="mr-1" /> Add Profile
-                  </AppButton>
-                </div>
+                <AppButton
+                  type="submit"
+                  text={'Proceed to Payment'}
+                  style={'m-auto'}
+                />
               </form>
-            </div>
-          </div>
+            </Card>
+          </section>
         </main>
       )}
     </>
   )
 }
-
-export default BookingCreatePage
+export default BookingConfirmPage
