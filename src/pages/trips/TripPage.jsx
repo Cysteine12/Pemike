@@ -75,10 +75,14 @@ const TripPage = () => {
       {loading ? (
         <AppSpinner />
       ) : (
-        <div className="lg:grid grid-cols-2">
+        <div className="lg:grid lg:grid-cols-2">
           <TripDetail trip={trips[0]} />
 
-          <Card styles={'m-auto py-12 px-4 bg-white rounded-2xl max-w-80 '}>
+          <Card
+            styles={
+              'mx-8 py-12 px-4 bg-white rounded-2xl md:mx-auto md:min-w-100'
+            }
+          >
             {seats.length > 0 && (
               <div className="text-center font-bold">
                 Selected Seat(s):
@@ -92,7 +96,7 @@ const TripPage = () => {
               </div>
             )}
 
-            <table className="m-auto text-white">
+            <table className="mx-auto text-white">
               <tbody>
                 <tr className="table-row">
                   <td className="p-6 text-black">

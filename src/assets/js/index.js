@@ -213,7 +213,7 @@ window.addEventListener('resize', showSlides)
 //   },
 // })
 
-// Force Swiper to update on window resize (Fix for breakpoints issue)
+// // Force Swiper to update on window resize (Fix for breakpoints issue)
 // window.addEventListener('resize', () => {
 //   setTimeout(() => {
 //     swiper.update()

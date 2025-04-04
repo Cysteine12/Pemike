@@ -9,14 +9,15 @@ import {
 } from 'react-icons/fa'
 import { Link } from 'react-router'
 
-const TripCard = ({ trip, source }) => {
+const TripCard = ({ trip }) => {
   return (
-    <Card styles={'md:mx-auto bg-white'}>
-      <div className="my-3 text-center font-bold text-1xl">
-        Departure Location - ({source})
-      </div>
-      <img src={trip.vehicle.thumbnail} alt="Vehicle Image" />
-      <ul>
+    <Card styles={'mx-auto bg-white rounded-2xl p-0 my-5 lg:my-0'}>
+      <img
+        src={trip.vehicle.thumbnail}
+        alt="Vehicle Image"
+        className="rounded-2xl rounded-b h-64 w-full"
+      />
+      <ul className="mt-8">
         <li className="my-2 flex justify-between items-center">
           <span className="flex text-blue-500">
             <FaBus className={'mt-1 mr-3'} /> Vehicle:

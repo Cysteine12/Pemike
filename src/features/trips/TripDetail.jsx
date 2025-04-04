@@ -9,9 +9,13 @@ import {
 
 const TripDetail = ({ trip }) => {
   return (
-    <Card styles={'md:mx-auto mx-8 mb-9 max-w-120 bg-blue-500 text-white'}>
+    <Card
+      styles={
+        'md:mx-auto mx-8 mb-9 lg:min-w-[500px] bg-blue-500 text-white h-fit'
+      }
+    >
       <ul>
-        <li className="my-3 flex justify-between items-center">
+        <li className="my-3 flex justify-between">
           <span className="flex">
             <FaBus className={'mt-1 mr-3'} /> Vehicle
           </span>
@@ -20,7 +24,7 @@ const TripDetail = ({ trip }) => {
           </span>
         </li>
 
-        <li className="my-3 flex justify-between items-center">
+        <li className="my-3 flex justify-between">
           <span className="flex">
             <FaClock className={'mt-1 mr-3'} /> Departure
           </span>
@@ -30,7 +34,7 @@ const TripDetail = ({ trip }) => {
           </span>
         </li>
 
-        <li className="my-3 flex justify-between items-center">
+        <li className="my-3 flex justify-between">
           <span className="flex">
             <FaMapMarkerAlt className={'mt-1 mr-3'} /> Journey
           </span>

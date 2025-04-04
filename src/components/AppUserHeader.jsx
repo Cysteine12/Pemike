@@ -1,11 +1,8 @@
-import { useAuthStore } from '@/stores/useAuthStore'
 import { useRef } from 'react'
-import { FaArrowCircleRight, FaUserAlt } from 'react-icons/fa'
 import { Link } from 'react-router'
 
-const AppHeader = () => {
+const AppUserHeader = () => {
   const showMenuRef = useRef()
-  const isAuthenticated = useAuthStore((state) => state.isAuthenticated())
 
   return (
     <header className="bg-white">
@@ -52,34 +49,20 @@ const AppHeader = () => {
             Home
           </Link>
 
+          <Link to="/dashboard" className="font-semibold">
+            Dashboard
+          </Link>
           <Link to="/trips" className="font-semibold">
-            Services
+            Trips
           </Link>
-          <Link href="#" className="font-semibold">
-            About Us
-          </Link>
-          <Link href="#" className="font-semibold">
-            Contact
+          <Link to="/bookings" className="font-semibold">
+            Bookings
           </Link>
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end text-blue-600">
-          {isAuthenticated ? (
-            <>
-              <Link to="/dashboard" className="flex text-sm/6 font-semibold">
-                Dashboard
-              </Link>
-              <span className="text-2xl text-gray-400 mx-2 -mt-1.5">
-                {' | '}
-              </span>
-              <Link to="/dashboard" className="flex text-sm/6 font-semibold">
-                Logout
-              </Link>
-            </>
-          ) : (
-            <Link to="/login" className="flex text-sm/6 font-semibold">
-              Login <FaArrowCircleRight className="mt-1.5" />
-            </Link>
-          )}
+          <Link to="/logout" className="flex text-sm/6 font-semibold">
+            Logout
+          </Link>
         </div>
       </nav>
       {/* <!-- Mobile menu, show/hide based on menu open state. --> */}
@@ -190,25 +173,12 @@ const AppHeader = () => {
                   Company
                 </a>
               </div>
-              {isAuthenticated ? (
-                <div className="py-6">
-                  <Link
-                    to="/logout"
-                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
-                  >
-                    Logout
-                  </Link>
-                </div>
-              ) : (
-                <div className="py-6">
-                  <Link
-                    to="/login"
-                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
-                  >
-                    Log in
-                  </Link>
-                </div>
-              )}
+              <Link
+                to="/logout"
+                className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
+              >
+                Logout
+              </Link>
             </div>
           </div>
         </div>
@@ -216,4 +186,4 @@ const AppHeader = () => {
     </header>
   )
 }
-export default AppHeader
+export default AppUserHeader

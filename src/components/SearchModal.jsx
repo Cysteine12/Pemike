@@ -34,20 +34,20 @@ const SearchModal = () => {
 
   return (
     <>
-      <section className="p-4 flex justify-center">
-        <div className="p-4 bg-white rounded-lg shadow-xl md:max-w-80">
+      <section className="p-4 flex justify-center w-full">
+        <div className="p-4 bg-white rounded-lg shadow-xl max-w-120 lg:max-w-full">
           <h4 className="text-blue-500 text-center font-bold text-2xl">
             Search for a Trip
           </h4>
-          <form action={handleSubmit}>
-            <div className="my-1">
+          <form action={handleSubmit} className="lg:flex ">
+            <div className="my-1 lg:min-w-56">
               <label htmlFor="tripType" className="text-blue-500">
                 One way or Round Trip*
               </label>
               <select
                 name="tripType"
                 id="tripType"
-                className="my-1 p-2 w-full border-2 border-blue-200 rounded"
+                className="my-1 p-2 w-full border-2 border-blue-200 rounded lg:max-w-56"
                 required
               >
                 <option value="One Way Trip">One way Trip</option>
@@ -55,8 +55,8 @@ const SearchModal = () => {
               </select>
             </div>
 
-            <div className="grid grid-cols-2 gap-4 items-center">
-              <div className="my-1">
+            <div className="grid grid-cols-2 gap-4 items-center w-full lg:mx-5 lg:my-0">
+              <div className="my-1 lg:my-0">
                 <label htmlFor="departure" className="text-blue-500">
                   Departure*
                 </label>
@@ -66,6 +66,9 @@ const SearchModal = () => {
                   className="my-1 p-2 w-full border-2 border-blue-200 rounded"
                   required
                 >
+                  <option value="" selected disabled>
+                    Select your departure location
+                  </option>
                   {trips.map((trip) => (
                     <option key={trip.id} value={trip.source}>
                       {trip.source}
@@ -74,7 +77,7 @@ const SearchModal = () => {
                 </select>
               </div>
 
-              <div className="my-1">
+              <div className="my-1 lg:my-0">
                 <label htmlFor="destination" className="text-blue-500">
                   Destination*
                 </label>
@@ -84,6 +87,9 @@ const SearchModal = () => {
                   className="my-1 p-2 w-full border-2 border-blue-200 rounded"
                   required
                 >
+                  <option value="" selected disabled>
+                    Select your destination
+                  </option>
                   {trips.map((trip) => (
                     <option key={trip.id} value={trip.destination}>
                       {trip.destination}
@@ -102,13 +108,13 @@ const SearchModal = () => {
                 name="tripDate"
                 min={new Date().toISOString().split('T')[0]}
                 id="tripDate"
-                className="my-1 p-1 w-full border-2 border-blue-200 rounded"
+                className="my-1 p-1.5 w-full border-2 border-blue-200 rounded"
                 required
               />
             </div>
 
-            <div className="flex justify-center">
-              <AppButton type="submit" style="m-2">
+            <div className="flex justify-center items-end">
+              <AppButton type="submit" style="m-2 py-1 lg:py-2">
                 <FaSearch className="mr-1" /> Search
               </AppButton>
             </div>

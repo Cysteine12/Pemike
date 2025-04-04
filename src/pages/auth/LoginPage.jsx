@@ -49,8 +49,8 @@ const LoginPage = () => {
   }
 
   return (
-    <main>
-      <Card styles={'m-8 p-10 bg-white md:max-w-80'}>
+    <main className="flex items-center justify-center">
+      <Card styles={'m-12 md:mx-auto p-10 bg-white md:max-w-120'}>
         <h4 className="text-blue-500 text-center font-bold text-2xl">
           Welcome Back!
         </h4>
@@ -128,12 +128,6 @@ const LoginPage = () => {
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
       />
-      {/* <OTPModal
-        email={email}
-        handleSuccess={handleOTPSubmit}
-        isModalOpen={isModalOpen}
-        setIsModalOpen={setIsModalOpen}
-      /> */}
     </main>
   )
 }

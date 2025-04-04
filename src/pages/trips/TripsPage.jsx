@@ -11,6 +11,8 @@ const TripsPage = () => {
   const { fetchTrips, searchTripsByParams, trips, loading } = useTripStore()
   let [userSearchParams] = useSessionStorage('userSearchParams')
 
+  const source = searchParams.get('source')
+
   const getTrips = async () => {
     if (searchParams.get('source') && userSearchParams) {
       await searchTripsByParams(userSearchParams)
@@ -32,16 +34,17 @@ const TripsPage = () => {
           <AppSpinner />
         ) : (
           <>
-            <h4 className="my-4 text-center text-blue-500 font-bold text-2xl">
+            <h4 className="mb-4 text-center text-blue-500 font-bold text-2xl">
               List of Available Trips
             </h4>
-            {trips.map((trip) => (
-              <TripCard
-                key={trip.id}
-                trip={trip}
-                source={searchParams.get('from')}
-              />
-            ))}
+            <div className="mb-4 text-center text-gray-700 font-bold text-lg">
+              {source && <span>Search result from: {source}</span>}
+            </div>
+            <div className="mx-auto max-w-[1000px] lg:grid lg:grid-cols-2 lg:gap-12">
+              {trips.map((trip) => (
+                <TripCard key={trip.id} trip={trip} />
+              ))}
+            </div>
             {trips.length < 1 && (
               <>
                 <Card>

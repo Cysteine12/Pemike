@@ -42,15 +42,12 @@ const UserCreatePage = () => {
 
   return (
     <>
-      <div className="mb-4 text-center font-bold text-blue-500 text-2xl">
-        User Details
-      </div>
-
       <main>
-        <div className="container m-auto max-w-2xl py-24">
+        <div className="mx-auto py-5">
           <UserCreateForm
             formData={formData}
             setFormData={setFormData}
+            formTitle={'Passenger Details'}
             handleSubmit={() => setIsModalOpen(true)}
           />
         </div>

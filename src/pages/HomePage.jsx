@@ -10,8 +10,11 @@ import {
   prevExploreSlide,
   nextExploreSlide,
 } from '../assets/js'
+import { useAuthStore } from '@/stores/useAuthStore'
 
 const HomePage = () => {
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated())
+
   return (
     <>
       {/* <!-- Header Section --> */}
@@ -41,7 +44,15 @@ const HomePage = () => {
           <Link to="/about">ABOUT</Link>
           <Link to="/services">SERVICES</Link>
           <Link to="/contact">CONTACT</Link>
-          <div className="book-now">Book Now</div>
+          {isAuthenticated ? (
+            <Link to="/dashboard" className="-mt-2">
+              <div className="book-now">Dashboard</div>
+            </Link>
+          ) : (
+            <Link to="/trips" className="-mt-2">
+              <div className="book-now">Book Now</div>
+            </Link>
+          )}
         </div>
         <div className="menu-toggle" onClick={() => toggleMenu()}>
           ☰
@@ -54,7 +65,15 @@ const HomePage = () => {
           <Link to="/about">About</Link>
           <Link to="/services">Services</Link>
           <Link to="/contact">Contact</Link>
-          <div className="book-now">BOOK NOW</div>
+          {isAuthenticated ? (
+            <Link to="/dashboard" className="-mt-2">
+              <div className="book-now">Dashboard</div>
+            </Link>
+          ) : (
+            <Link to="/trips" className="-mt-2">
+              <div className="book-now">Book Now</div>
+            </Link>
+          )}
         </div>
       </nav>
       <div className="carousel">

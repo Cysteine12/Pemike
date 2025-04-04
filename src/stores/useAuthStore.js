@@ -29,7 +29,7 @@ export const useAuthStore = create((set, get) => ({
 
       toast.success(get().message)
 
-      get().login(newUser)
+      return res.data
     } catch (err) {
       set({ error: err.response?.data?.message })
       toast.error(get().error)
@@ -54,10 +54,10 @@ export const useAuthStore = create((set, get) => ({
       return res.data
     } catch (err) {
       set({ error: err.response?.data?.message })
-      toast.error(get().error)
       if (['passwordless-login', 'verify-email'].includes(get().error)) {
         return { type: get().error }
       }
+      toast.error(get().error)
     } finally {
       set({ loading: false })
     }
