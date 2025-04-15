@@ -54,31 +54,10 @@ export const useAuthStore = create((set, get) => ({
       return res.data
     } catch (err) {
       set({ error: err.response?.data?.message })
-      if (['passwordless-login', 'verify-email'].includes(get().error)) {
+      if (get().error === 'verify-email') {
         return { type: get().error }
       }
       toast.error(get().error)
-    } finally {
-      set({ loading: false })
-    }
-  },
-
-  passwordlessLogin: async (newUser) => {
-    set({ loading: true, error: null })
-
-    try {
-      const res = await API.post(`/auth/passwordless-login`, newUser)
-      if (!res.data.success) return toast.error(res.data.message)
-
-      set({ user: res.data.user })
-      set({ message: res.data.message })
-
-      localStorage.setItem('user', JSON.stringify(get().user))
-
-      toast.success(get().message)
-      return res.data
-    } catch (err) {
-      set({ error: err.response?.data?.message })
     } finally {
       set({ loading: false })
     }
@@ -107,31 +86,10 @@ export const useAuthStore = create((set, get) => ({
 
   refreshToken: async () => {
     set({ loading: true, error: null })
-
+    // console.log('ran')
     try {
       await API2.post(`/auth/refresh-token`)
       return
-    } catch (err) {
-      set({ error: err.response?.data?.message })
-      toast.error(get().error)
-    } finally {
-      set({ loading: false })
-    }
-  },
-
-  logout: async () => {
-    set({ loading: true, error: null })
-
-    try {
-      const res = await API2.post(`/auth/logout`)
-      if (res.data.success) return toast.error(res.data.message)
-
-      set({ message: res.data.message })
-
-      localStorage.removeItem('user')
-      toast.success(get().message)
-
-      location.assign('/login')
     } catch (err) {
       set({ error: err.response?.data?.message })
       toast.error(get().error)
@@ -167,6 +125,27 @@ export const useAuthStore = create((set, get) => ({
       toast.success('OTP verified')
 
       return res.data
+    } catch (err) {
+      set({ error: err.response?.data?.message })
+      toast.error(get().error)
+    } finally {
+      set({ loading: false })
+    }
+  },
+
+  logout: async () => {
+    set({ loading: true, error: null })
+
+    try {
+      const res = await API2.post(`/auth/logout`)
+      if (!res.data.success) return toast.error(res.data.message)
+
+      set({ message: res.data.message })
+
+      localStorage.removeItem('user')
+      toast.success(get().message)
+
+      location.assign('/login')
     } catch (err) {
       set({ error: err.response?.data?.message })
       toast.error(get().error)

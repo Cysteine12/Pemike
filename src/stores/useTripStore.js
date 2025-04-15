@@ -26,12 +26,12 @@ export const useTripStore = create((set, get) => ({
     }
   },
 
-  searchTripsByParams: async ({ departure, destination }) => {
+  searchTripsByParams: async ({ source, destination }) => {
     set({ loading: true, error: null })
 
     try {
       const res = await API.get(
-        `/trips/search?departure=${departure}&destination=${destination}`
+        `/trips/search?source=${source}&destination=${destination}`
       )
 
       if (!res.data.success) return toast.error(res.data.message)

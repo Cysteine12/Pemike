@@ -1,74 +1,12 @@
 import '@/assets/css/AboutPage.css'
+import AppFooter from '@/components/AppFooter'
 
 const AboutPage = () => {
   return (
     <>
-      {/* <!-- hero --> */}
-      <div
-        className="hero "
-        style={{
-          backgroundImage: "url('../src/assets/imgs/banner2.jpg')",
-          backgroundSize: 'cover',
-        }}
-      >
-        <div className="header">
-          <div className="contact-info">
-            <span> 09061398691</span>
-            <span> info@zpemiketransport.org</span>
-            <span> Ihiama Plaza GUO, Port Harcourt, Onitsha, Anambra</span>
-          </div>
-          <div className="social-icons">
-            <i className="ri-facebook-circle-fill"></i>
-            <i className="ri-linkedin-box-fill"></i>
-            <i className="ri-google-fill"></i>
-            <i className="ri-twitter-fill"></i>
-            <i className="ri-instagram-line"></i>
-          </div>
-        </div>
-      </div>
-
-      {/* <!-- Navbar --> */}
-      <nav className="navbar">
-        <div className="line"></div>
-        <img src="../src/assets/imgs/pemike_Logo.png" alt="Logo" />
-        <div className="nav-links">
-          <a href="/">HOME</a>
-          <a href="./about.html" className="active">
-            ABOUT
-          </a>
-          <a href="./services.html">SERVICES</a>
-          <a href="/contact.html">CONTACT</a>
-          <div className="book-now">Book Now</div>
-        </div>
-        <div className="menu-toggle" onClick="toggleMenu()">
-          ☰
-        </div>
-        <div className="mobile-menu" id="mobile-menu">
-          <span className="close-menu" onClick="toggleMenu()">
-            &times;
-          </span>
-          <a href="/">Home</a>
-          <a href="/about.html">About</a>
-          <a href="/services.html">Services</a>
-          <a href="/contact.html">Contact</a>
-          <div className="book-now">Book Now</div>
-        </div>
-      </nav>
-
-      <div className="about">
-        <h1>ABOUT US</h1>
-        <p style={{ textAlign: 'center' }}>
-          Home{' '}
-          <span>
-            <i className="ri-arrow-right-s-line"></i>
-          </span>{' '}
-          About Us
-        </p>
-      </div>
-
       {/* <!-- your gateway  --> */}
 
-      <div className="gateway">
+      <div className="gateway bg-white rounded-3xl mb-5">
         <div className="gateway-text">
           <h1>YOUR GATEWAY TO SEEMLESS TRANSPORTATION</h1>
 
@@ -118,6 +56,9 @@ const AboutPage = () => {
           </div>
         </div>
       </div>
+      <br />
+
+      <AppFooter />
     </>
   )
 }

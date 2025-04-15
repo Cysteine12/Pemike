@@ -3,12 +3,8 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
-// https://vite.dev/config/
 export default defineConfig({
-  plugins: [
-    react(), 
-    tailwindcss()
-  ],
+  plugins: [react(), tailwindcss()],
   server: {
     port: 3000,
     proxy: {
@@ -18,6 +14,7 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/api/, ''),
       },
     },
+    // allowedHosts: ['2c10-105-119-11-55.ngrok-free.app'],
   },
   resolve: {
     alias: {

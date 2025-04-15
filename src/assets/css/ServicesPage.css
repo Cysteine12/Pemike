@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@100;300;400;700&family=Lato:wght@100;300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
 body {
-  font-family: 'Barlow', 'sans-serif';
+  font-family: 'Barlow';
 }
 
 .hero {
@@ -11,17 +12,11 @@ body {
   height: 80vh;
 }
 
-@media (max-width: 789px) {
+@media (max-width: 768px) {
   .hero {
     height: 60vh;
   }
 }
-
-/* @media (min-width: 769px) and (max-width: 1024px) {
-    .hero {
-        height: 70vh !important;
-    }
-} */
 
 /* Header Section */
 .header {
@@ -163,138 +158,118 @@ body {
         } */
 }
 
-/* your gateway  */
-.gateway {
-  display: flex;
-  /* flex-direction: column; */
-  gap: 40px;
-  padding: 70px;
-  align-items: stretch;
+/* reliable services  */
+.reliable {
+  padding-inline: 80px;
+  padding-top: 80px;
+  padding-bottom: 80px;
   width: 90%;
   margin: auto;
-  justify-content: center;
-  /* align-items: center; */
 }
 
-.gateway-text {
-  flex: 0.7;
+.reliable-stats {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 10px;
+  /* justify-content: center; */
+  gap: 0;
 }
 
-.gateway-text h1 {
+.reliable p {
+  color: rgb(81, 77, 77);
+  font-family: 'Lato';
+  line-height: 35px;
+  font-size: 17px;
+  margin-bottom: 3.5rem;
+  font-family: 'Lato';
+  text-align: justify;
+}
+
+.reliable-header h1 {
   color: rgb(0, 65, 160);
   font-size: 2.5rem;
   padding-bottom: 20px;
-  font-family: 'Barlow';
 }
 
-.gateway-text p {
-  font-size: 17px;
-  line-height: 33px;
-  margin-bottom: 20px;
-  color: rgb(93, 92, 92);
-  font-family: 'Lato';
-  font-weight: 500;
-}
-
-.statements {
-  flex: 0.3;
+.reliable_statements {
   display: flex;
-  flex-direction: column;
-  gap: 30px;
-  justify-content: center;
+  gap: 20px;
 }
 
-.statements div {
-  background: rgb(255, 159, 12);
-  padding: 15px;
-  border-radius: 25px;
-  text-align: center;
-  /* height: 200px; */
+.reliable_statements2 {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  padding-inline: 40px;
-  padding-top: 30px;
-  padding-bottom: 30px;
-  height: 100%;
+  gap: 20px;
 }
 
-.statements p {
-  font-size: 17px;
-  font-family: 'Lato';
+.reliable_statements strong {
+  color: rgb(0, 65, 160);
+}
 
-  /* width: 200px; */
+.reliable_statements2 strong {
+  color: rgb(0, 65, 160);
+}
+
+.reliable_statements img {
+  width: 80px;
+  height: 80px;
+  border: 1px solid gray;
+  border-radius: 15px;
+  padding: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.reliable_statements2 img {
+  width: 80px;
+  height: 80px;
+  border: 1px solid gray;
+  border-radius: 15px;
+  padding: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 @media (max-width: 480px) {
   /* Small Phones */
-  .gateway {
-    flex-direction: column;
-    padding: 20px;
+  .reliable {
+    padding-inline: 37px;
+    padding-top: 50px;
   }
 
-  .gateway-text p {
-    font-size: 15px;
-    margin-bottom: 20px;
-    color: rgb(93, 92, 92);
-    padding-inline: 30px;
-  }
-
-  .gateway-text h1 {
+  .reliable-header h1 {
     font-size: 1.5rem;
-    padding-top: 20px;
-    padding-inline: 30px;
+  }
+
+  .reliable p {
+    font-size: 17px;
+  }
+
+  .reliable_statements {
+    display: block;
+    gap: 90px;
+  }
+
+  .reliable_statements2 {
+    display: flex;
+    flex-direction: column-reverse;
   }
 }
 
 @media (min-width: 481px) and (max-width: 768px) {
   /* Tablets & Large Phones */
-  .gateway {
-    flex-direction: column;
-  }
-}
-
-@media (min-width: 769px) and (max-width: 1024px) {
-  /* Small Laptops */
-  .gateway {
-    flex-direction: column;
+  .reliable_statements {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 30px;
   }
 
-  .gateway-text h1 {
-    color: blue;
-    font-size: 1.5rem;
-    padding-bottom: 20px;
-  }
-
-  .gateway-text p {
-    font-size: 20px;
-    margin-bottom: 20px;
-    color: rgb(93, 92, 92);
-  }
-
-  .statements {
-    flex-direction: column;
+  .reliable_statements2 {
+    display: flex;
+    flex-direction: column-reverse;
   }
 }
 
 @media (min-width: 1025px) {
   /* Desktops */
-  .gateway {
-    flex-direction: row;
-  }
-
-  .statements {
-    flex-direction: column;
-  }
 }
 
-/* footer  */
 /* Footer Styling */
 .footer {
   background: rgb(20, 0, 115);

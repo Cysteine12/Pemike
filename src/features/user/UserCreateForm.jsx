@@ -2,9 +2,9 @@ import AppButton from '@/components/AppButton'
 import Card from '@/components/Card'
 import { useAuthStore } from '@/stores/useAuthStore'
 import { FaRegArrowAltCircleRight } from 'react-icons/fa'
+import { toast } from 'react-toastify'
 
 const UserCreateForm = ({
-  children,
   formTitle,
   formFooter,
   formData,
@@ -23,6 +23,9 @@ const UserCreateForm = ({
   const submitForm = async (e) => {
     e.preventDefault()
 
+    if (formData.password !== formData.confirmPassword) {
+      return toast.error('Password does not match')
+    }
     handleSubmit()
   }
 
@@ -117,7 +120,39 @@ const UserCreateForm = ({
           </select>
         </div>
 
-        {children}
+        <div className="grid grid-cols-2 gap-4">
+          <div className="mb-4">
+            <label className="block text-blue-500 font-bold mb-2">
+              Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              className="w-full border-2 border-blue-400 rounded py-2 px-3 mb-2"
+              placeholder="Password..."
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-blue-500 font-bold mb-2">
+              Confirm Password
+            </label>
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              className="w-full border-2 border-blue-400 rounded py-2 px-3 mb-2"
+              placeholder="Confirm Password..."
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              required
+            />
+          </div>
+        </div>
 
         <div className="flex justify-center">
           <AppButton

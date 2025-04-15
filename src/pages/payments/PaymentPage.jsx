@@ -1,23 +1,24 @@
 import { useEffect } from 'react'
 import { usePaymentStore } from '@/stores/usePaymentStore'
 import AppSpinner from '@/components/AppSpinner'
-import Card from '@/components/Card'
 import { useParams } from 'react-router'
+import PaymentDetail from '@/features/payments/PaymentDetail'
+import TripDetail from '@/features/trips/TripDetail'
 
 const PaymentPage = () => {
   const { id } = useParams()
   const { fetchPayment, payments, loading } = usePaymentStore()
+  console.log(loading)
 
   useEffect(() => {
-    fetchPayment(id)
+    ;(async () => await fetchPayment(id))()
     window.scrollTo(0, 0)
   }, [])
 
   return (
     <>
-      <br />
       <div className="text-center font-bold text-blue-500 text-2xl">
-        Available Payments
+        Payment Detail
       </div>
       <br />
 
@@ -25,7 +26,9 @@ const PaymentPage = () => {
         <AppSpinner />
       ) : (
         <div className="lg:grid grid-cols-2">
-          <Card>{JSON.stringify(payments)}</Card>
+          <PaymentDetail payment={payments[0]} />
+
+          <TripDetail trip={payments[0].booking.trip} />
         </div>
       )}
     </>

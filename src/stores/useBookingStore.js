@@ -21,8 +21,7 @@ export const useBookingStore = create((set, get) => ({
       set({ bookings: [res.data.data] })
 
       const newPayment = {
-        email: res.data.data.user.email,
-        amount: res.data.data.trip.fare,
+        ...newBooking,
         bookingId: res.data.data.id,
       }
 

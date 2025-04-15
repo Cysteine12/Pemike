@@ -1,13 +1,14 @@
 import OTPModal from '@/features/auth/OTPModal'
 import UserCreateForm from '@/features/user/UserCreateForm'
+import useSessionStorage from '@/hooks/useSessionStorage'
 import { useAuthStore } from '@/stores/useAuthStore'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router'
-import { toast } from 'react-toastify'
 
 const RegisterPage = () => {
   const navigate = useNavigate()
   const { register, login, verifyEmail } = useAuthStore()
+  const [redirect] = useSessionStorage('redirect')
 
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [formData, setFormData] = useState({
@@ -20,17 +21,7 @@ const RegisterPage = () => {
     confirmPassword: '',
   })
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    })
-  }
-
   const handleFormSubmit = async () => {
-    if (formData.password !== formData.confirmPassword)
-      return toast.error('Password does not match')
-
     const res = await register(formData)
     if (!res || !res.success) return
 
@@ -46,6 +37,11 @@ const RegisterPage = () => {
       password: formData.password,
     })
     if (!loginRes || !loginRes.success) return
+
+    if (redirect) {
+      sessionStorage.removeItem('redirect')
+      return navigate(redirect)
+    }
     navigate('/dashboard')
   }
 
@@ -57,41 +53,7 @@ const RegisterPage = () => {
         formTitle={'Create an Account!'}
         formFooter={<FormFooter />}
         handleSubmit={handleFormSubmit}
-      >
-        <div className="grid grid-cols-2 gap-4">
-          <div className="mb-4">
-            <label className="block text-blue-500 font-bold mb-2">
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              className="w-full border-2 border-blue-400 rounded py-2 px-3 mb-2"
-              placeholder="Password..."
-              value={formData.password}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className="mb-4">
-            <label className="block text-blue-500 font-bold mb-2">
-              Confirm Password
-            </label>
-            <input
-              type="password"
-              id="confirmPassword"
-              name="confirmPassword"
-              className="w-full border-2 border-blue-400 rounded py-2 px-3 mb-2"
-              placeholder="Confirm Password..."
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              required
-            />
-          </div>
-        </div>
-      </UserCreateForm>
+      />
 
       <OTPModal
         email={formData.email}

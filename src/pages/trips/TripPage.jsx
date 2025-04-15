@@ -4,18 +4,17 @@ import { FaCog } from 'react-icons/fa'
 import { useNavigate, useParams } from 'react-router'
 import { useSeatStore } from '@/stores/useSeatStore'
 import AppSpinner from '@/components/AppSpinner'
-import { useCountdown } from '@/hooks/useCountdown'
 import Card from '@/components/Card'
 import AppButton from '@/components/AppButton'
 import TripDetail from '@/features/trips/TripDetail'
 import useSessionStorage from '@/hooks/useSessionStorage'
+import SeatButton from '@/features/trips/SeatButton'
 
 const TripPage = () => {
   const { id } = useParams()
   const navigate = useNavigate()
   const { fetchTrip, trips, loading } = useTripStore()
-  const { fetchSeatsByTrip, reserveSeat, seats, sessionToken } = useSeatStore()
-  const { isCountdownActive, startCountdown } = useCountdown()
+  const { fetchSeatsByTrip, seats, sessionID } = useSeatStore()
   const [, setSelectedSeats] = useSessionStorage('selectedSeats')
 
   useEffect(() => {
@@ -24,49 +23,14 @@ const TripPage = () => {
     window.scrollTo(0, 0)
   }, [])
 
-  const showSeatStatus = (currentSeatNo) => {
-    const seat = seats.find(({ seatNo }) => seatNo === currentSeatNo)
-
-    if (!seat || seat.status === 'AVAILABLE') {
-      return 'bg-gray-400 hover:cursor-pointer hover:bg-blue-500'
-    }
-    if (seat.sessionToken === sessionToken && seat.status === 'RESERVED') {
-      return 'bg-green-500 hover:cursor-not-allowed'
-    }
-    return 'bg-blue-400 hover:cursor-not-allowed'
-  }
-
-  const hasBeenReserved = (currentSeatNo) => {
-    return seats.find(({ seatNo, status }) => {
-      return seatNo === currentSeatNo && status !== 'AVAILABLE'
-    })
-  }
-
-  const handleClick = async (e, seatNo) => {
-    e.target.disabled = true
-
-    let newSeat = {
-      tripId: id,
-      seatNo,
-      sessionToken,
-    }
-    const res = await reserveSeat(newSeat)
-    if (!res?.success) return
-
-    if (!isCountdownActive) startCountdown()
-  }
-
   const handleSubmit = () => {
-    setSelectedSeats(seats.filter((seat) => seat.sessionToken === sessionToken))
+    setSelectedSeats(seats.filter((seat) => seat.sessionID === sessionID))
 
-    navigate(
-      `/profile/create?tripId=${trips[0].id}&sessionToken=${sessionToken}`
-    )
+    navigate(`/bookings/create?tripId=${trips[0].id}&sessionID=${sessionID}`)
   }
 
   return (
     <>
-      <br />
       <div className="text-center font-bold text-blue-500 text-2xl">
         Available Seats
       </div>
@@ -88,7 +52,7 @@ const TripPage = () => {
                 Selected Seat(s):
                 {seats.map((seat) => (
                   <span key={seat.id}>
-                    {seat.sessionToken === sessionToken && (
+                    {seat.sessionID === sessionID && (
                       <span className="mx-1">{seat.seatNo}</span>
                     )}
                   </span>
@@ -96,178 +60,69 @@ const TripPage = () => {
               </div>
             )}
 
-            <table className="mx-auto text-white">
-              <tbody>
-                <tr className="table-row">
-                  <td className="p-6 text-black">
-                    <FaCog />
-                  </td>
-                  <td></td>
-                  <td>
-                    <button
-                      onClick={(e) => handleClick(e, 1)}
-                      className={`m-4 my-5 py-1 w-8 rounded ${showSeatStatus(
-                        1
-                      )}`}
-                      disabled={hasBeenReserved(1)}
-                    >
-                      1
-                    </button>
-                  </td>
-                  <td>
-                    <button
-                      onClick={(e) => handleClick(e, 2)}
-                      className={`m-4 my-5 py-1 w-8 rounded ${showSeatStatus(
-                        2
-                      )}`}
-                      disabled={hasBeenReserved(2)}
-                    >
-                      2
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <button
-                      onClick={(e) => handleClick(e, 3)}
-                      className={`m-4 my-5 py-1 w-8 rounded ${showSeatStatus(
-                        3
-                      )}`}
-                      disabled={hasBeenReserved(3)}
-                    >
-                      3
-                    </button>
-                  </td>
-                  <td>
-                    <button
-                      onClick={(e) => handleClick(e, 4)}
-                      className={`m-4 my-5 py-1 w-8 rounded ${showSeatStatus(
-                        4
-                      )}`}
-                      disabled={hasBeenReserved(4)}
-                    >
-                      4
-                    </button>
-                  </td>
-                  <td>
-                    <button
-                      onClick={(e) => handleClick(e, 5)}
-                      className={`m-4 my-5 py-1 w-8 rounded ${showSeatStatus(
-                        5
-                      )}`}
-                      disabled={hasBeenReserved(5)}
-                    >
-                      5
-                    </button>
-                  </td>
-                  <td>
-                    <button
-                      onClick={(e) => handleClick(e, 6)}
-                      className={`m-4 my-5 py-1 w-8 rounded ${showSeatStatus(
-                        6
-                      )}`}
-                      disabled={hasBeenReserved(6)}
-                    >
-                      6
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <button
-                      onClick={(e) => handleClick(e, 7)}
-                      className={`m-4 my-5 py-1 w-8 rounded ${showSeatStatus(
-                        7
-                      )}`}
-                      disabled={hasBeenReserved(7)}
-                    >
-                      7
-                    </button>
-                  </td>
-                  <td>
-                    <button
-                      onClick={(e) => handleClick(e, 8)}
-                      className={`m-4 my-5 py-1 w-8 rounded ${showSeatStatus(
-                        8
-                      )}`}
-                      disabled={hasBeenReserved(8)}
-                    >
-                      8
-                    </button>
-                  </td>
-                  <td>
-                    <button
-                      onClick={(e) => handleClick(e, 9)}
-                      className={`m-4 my-5 py-1 w-8 rounded ${showSeatStatus(
-                        9
-                      )}`}
-                      disabled={hasBeenReserved(9)}
-                    >
-                      9
-                    </button>
-                  </td>
-                  <td>
-                    <button
-                      onClick={(e) => handleClick(e, 10)}
-                      className={`m-4 my-5 py-1 w-8 rounded ${showSeatStatus(
-                        10
-                      )}`}
-                      disabled={hasBeenReserved(10)}
-                    >
-                      10
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <button
-                      onClick={(e) => handleClick(e, 11)}
-                      className={`m-4 my-5 py-1 w-8 rounded ${showSeatStatus(
-                        11
-                      )}`}
-                      disabled={hasBeenReserved(11)}
-                    >
-                      11
-                    </button>
-                  </td>
-                  <td>
-                    <button
-                      onClick={(e) => handleClick(e, 12)}
-                      className={`m-4 my-5 py-1 w-8 rounded ${showSeatStatus(
-                        12
-                      )}`}
-                      disabled={hasBeenReserved(12)}
-                    >
-                      12
-                    </button>
-                  </td>
-                  <td>
-                    <button
-                      onClick={(e) => handleClick(e, 13)}
-                      className={`m-4 my-5 py-1 w-8 rounded ${showSeatStatus(
-                        13
-                      )}`}
-                      disabled={hasBeenReserved(13)}
-                    >
-                      13
-                    </button>
-                  </td>
-                  <td>
-                    <button
-                      onClick={(e) => handleClick(e, 14)}
-                      className={`m-4 my-5 py-1 w-8 rounded ${showSeatStatus(
-                        14
-                      )}`}
-                      disabled={hasBeenReserved(14)}
-                    >
-                      14
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            {seats.length > 0 && (
+              <table className="mx-auto text-white">
+                <tbody>
+                  <tr className="table-row">
+                    <td className="p-6 text-black">
+                      <FaCog />
+                    </td>
+                    <td></td>
+                    <td>
+                      <SeatButton seatNo={1} />
+                    </td>
+                    <td>
+                      <SeatButton seatNo={2} />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <SeatButton seatNo={3} />
+                    </td>
+                    <td>
+                      <SeatButton seatNo={4} />
+                    </td>
+                    <td>
+                      <SeatButton seatNo={5} />
+                    </td>
+                    <td>
+                      <SeatButton seatNo={6} />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <SeatButton seatNo={7} />
+                    </td>
+                    <td>
+                      <SeatButton seatNo={8} />
+                    </td>
+                    <td>
+                      <SeatButton seatNo={9} />
+                    </td>
+                    <td>
+                      <SeatButton seatNo={10} />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <SeatButton seatNo={11} />
+                    </td>
+                    <td>
+                      <SeatButton seatNo={12} />
+                    </td>
+                    <td>
+                      <SeatButton seatNo={13} />
+                    </td>
+                    <td>
+                      <SeatButton seatNo={14} />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            )}
             <br />
-            {sessionToken && (
+
+            {sessionID && (
               <AppButton
                 onClick={handleSubmit}
                 text={'Proceed'}

@@ -1,11 +1,12 @@
 import { useAuthStore } from '@/stores/useAuthStore'
 import { useRef } from 'react'
-import { FaArrowCircleRight, FaUserAlt } from 'react-icons/fa'
+import { FaArrowCircleRight } from 'react-icons/fa'
 import { Link } from 'react-router'
 
 const AppHeader = () => {
   const showMenuRef = useRef()
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated())
+  const { logout } = useAuthStore()
 
   return (
     <header className="bg-white">
@@ -48,17 +49,17 @@ const AppHeader = () => {
           </button>
         </div>
         <div className="hidden lg:flex lg:gap-x-12 text-blue-600">
-          <Link href="#" className="font-semibold">
+          <Link href="/" className="font-semibold">
             Home
           </Link>
 
           <Link to="/trips" className="font-semibold">
-            Services
+            Trips
           </Link>
-          <Link href="#" className="font-semibold">
+          <Link to="/about" className="font-semibold">
             About Us
           </Link>
-          <Link href="#" className="font-semibold">
+          <Link to="/contact-us" className="font-semibold">
             Contact
           </Link>
         </div>
@@ -71,13 +72,19 @@ const AppHeader = () => {
               <span className="text-2xl text-gray-400 mx-2 -mt-1.5">
                 {' | '}
               </span>
-              <Link to="/dashboard" className="flex text-sm/6 font-semibold">
+              <button
+                onClick={() => logout()}
+                className="flex text-sm/6 font-semibold cursor-pointer"
+              >
                 Logout
-              </Link>
+              </button>
             </>
           ) : (
-            <Link to="/login" className="flex text-sm/6 font-semibold">
-              Login <FaArrowCircleRight className="mt-1.5" />
+            <Link
+              to="/login"
+              className="flex items-center text-sm/6 font-semibold"
+            >
+              Login <FaArrowCircleRight className="ml-1.5" />
             </Link>
           )}
         </div>
@@ -94,14 +101,14 @@ const AppHeader = () => {
         <div className="fixed inset-0 z-10"></div>
         <div className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
-            <a href="#" className="-m-1.5 p-1.5">
+            <Link to="/" className="-m-1.5 p-1.5">
               <span className="sr-only">Pemike</span>
               <img
                 className="h-8 w-auto"
                 src="../src/assets/imgs/pemike_Logo.png"
                 alt=""
               />
-            </a>
+            </Link>
             <button
               onClick={() => showMenuRef.current.classList.toggle('hidden')}
               type="button"
@@ -128,76 +135,33 @@ const AppHeader = () => {
           <div className="mt-6 flow-root">
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className="space-y-2 py-6">
-                <div className="-mx-3">
-                  <button
-                    type="button"
-                    className="flex w-full items-center justify-between rounded-lg py-2 pr-3.5 pl-3 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
-                    aria-controls="disclosure-1"
-                    aria-expanded="false"
-                  >
-                    Product
-                    {/* <!--
-                  Expand/collapse icon, toggle classes based on menu open state.
-
-                  Open: "rotate-180", Closed: ""
-                --> */}
-                    <svg
-                      className="size-5 flex-none"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                      aria-hidden="true"
-                      data-slot="icon"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </button>
-                  {/* <!-- 'Product' sub-menu, show/hide based on menu state. --> */}
-                  <div className="mt-2 space-y-2" id="disclosure-1">
-                    <a
-                      href="#"
-                      className="block rounded-lg py-2 pr-3 pl-6 text-sm/7 font-semibold text-gray-900 hover:bg-gray-50"
-                    >
-                      Analytics
-                    </a>
-                    <a
-                      href="#"
-                      className="block rounded-lg py-2 pr-3 pl-6 text-sm/7 font-semibold text-gray-900 hover:bg-gray-50"
-                    >
-                      Engagement
-                    </a>
-                  </div>
-                </div>
-                <a
-                  href="#"
+                <Link
+                  to="/trips"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
                 >
-                  Features
-                </a>
-                <a
-                  href="#"
+                  Trips
+                </Link>
+                <Link
+                  to="/about"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
                 >
-                  Marketplace
-                </a>
-                <a
-                  href="#"
+                  About Us
+                </Link>
+                <Link
+                  to="/contact-us"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
                 >
-                  Company
-                </a>
+                  Contact Us
+                </Link>
               </div>
               {isAuthenticated ? (
                 <div className="py-6">
-                  <Link
-                    to="/logout"
-                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
+                  <button
+                    onClick={() => logout()}
+                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50 cursor-pointer"
                   >
                     Logout
-                  </Link>
+                  </button>
                 </div>
               ) : (
                 <div className="py-6">

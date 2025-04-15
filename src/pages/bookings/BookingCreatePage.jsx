@@ -7,22 +7,24 @@ import useSessionStorage from '@/hooks/useSessionStorage'
 import { useBookingStore } from '@/stores/useBookingStore'
 import { useTripStore } from '@/stores/useTripStore'
 import { useUserStore } from '@/stores/useUserStore'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import { FaTrashAlt } from 'react-icons/fa'
 import { useNavigate, useSearchParams } from 'react-router'
 
 const BookingConfirmPage = () => {
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
-  const { fetchTrip, trips, loading } = useTripStore()
   const { user } = useUserStore()
+  const { fetchTrip, trips, loading } = useTripStore()
   const { createBooking } = useBookingStore()
   const [selectedSeats] = useSessionStorage('selectedSeats')
+  const [seats, setSeats] = useState(selectedSeats)
 
   const tripId = searchParams.get('tripId')
-  const sessionToken = searchParams.get('sessionToken')
+  const sessionID = searchParams.get('sessionID')
 
   useEffect(() => {
-    if (!sessionToken || !tripId || !user) navigate(-1)
+    if (!sessionID || !tripId || selectedSeats?.length < 1) navigate(-1)
     fetchTrip(tripId)
     window.scrollTo(0, 0)
   }, [])
@@ -31,11 +33,14 @@ const BookingConfirmPage = () => {
     if (!formData.get('arrivalBox') && !formData.get('luggageBox')) return
 
     await createBooking({
-      userId: user.id,
-      seats: selectedSeats,
-      sessionToken,
+      seats,
+      sessionID,
       tripId,
     })
+  }
+
+  const handleDelete = async (seatNo) => {
+    setSeats(seats.filter((seat) => seat.seatNo !== seatNo))
   }
 
   return (
@@ -48,9 +53,9 @@ const BookingConfirmPage = () => {
         <AppSpinner />
       ) : (
         <main className="lg:grid grid-cols-2">
-          <section>
+          <section className="mx-auto max-w-120">
             <TripDetail trip={trips[0]} />
-
+            <br />
             <UserDetail user={user} />
           </section>
 
@@ -95,21 +100,32 @@ const BookingConfirmPage = () => {
                 <hr />
 
                 <div className="my-5 font-semibold">
-                  <div className="grid grid-cols-2">
+                  <div className="my-2 grid grid-cols-2">
                     <span className="text-blue-500">Total seats: </span>
-                    <span>{selectedSeats.length}</span>
+                    <span>{seats.length}</span>
                   </div>
-                  <div className="grid grid-cols-2">
+                  <div className="my-2 grid grid-cols-2">
                     <span className="text-blue-500">Seat numbers: </span>
                     <span>
-                      {selectedSeats.map((seat) => (
-                        <span className="mr-2">Seat {seat.seatNo}</span>
+                      {seats.map((seat) => (
+                        <div
+                          key={seat.id}
+                          className="flex justify-between my-1 bg-gray-200 text-white rounded"
+                        >
+                          <span className="p-1 px-2 text-blue-500 rounded-l">
+                            {seat.seatNo}
+                          </span>
+                          <FaTrashAlt
+                            onClick={() => handleDelete(seat.seatNo)}
+                            className="mt-2 mr-2 text-red-500 cursor-pointer"
+                          />
+                        </div>
                       ))}
                     </span>
                   </div>
-                  <div className="grid grid-cols-2">
+                  <div className="my-2 grid grid-cols-2">
                     <span className="text-blue-500">Total Price: </span>
-                    <span>{selectedSeats.length * trips[0].fare}</span>
+                    <span>₦{seats.length * trips[0].fare}</span>
                   </div>
                 </div>
 
@@ -117,6 +133,7 @@ const BookingConfirmPage = () => {
                   type="submit"
                   text={'Proceed to Payment'}
                   style={'m-auto'}
+                  disabled={seats.length < 1}
                 />
               </form>
             </Card>

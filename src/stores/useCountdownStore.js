@@ -1,6 +1,5 @@
 import { create } from 'zustand'
 import { toast } from 'react-toastify'
-import { useNavigate } from 'react-router'
 
 export const useCountdownStore = create((set, get) => ({
   minute: 0,
@@ -8,7 +7,7 @@ export const useCountdownStore = create((set, get) => ({
   timer: '',
   isCountdownActive: false,
 
-  startCountdown: async () => {
+  startCountdown: async (navigate) => {
     set({ minute: 10, second: 0, timer: '⏰ 10:00', isCountdownActive: true })
 
     const toastId = toast(get().timer, {
@@ -26,13 +25,13 @@ export const useCountdownStore = create((set, get) => ({
 
     const intervalId = setInterval(() => {
       if (!get().minute && !get().second) {
-        get().stopCountdown(intervalId, toastId)
+        get().stopCountdown(intervalId, toastId, navigate)
       }
       if (!get().second) {
-        set({ minute: 1 })
+        set((state) => ({ minute: state.minute - 1 }))
         set({ second: 59 })
       } else {
-        set({ second: 1 })
+        set((state) => ({ second: state.second - 1 }))
       }
 
       const formatDigit = (digit) => {
@@ -49,7 +48,7 @@ export const useCountdownStore = create((set, get) => ({
     }, 1000)
   },
 
-  stopCountdown: (intervalId, toastId) => {
+  stopCountdown: (intervalId, toastId, navigate) => {
     set({ isCountdownActive: false })
 
     toast.update(toastId, {
@@ -61,10 +60,7 @@ export const useCountdownStore = create((set, get) => ({
     }, 2000)
 
     clearInterval(intervalId)
-    return get().navigate('/')
-  },
 
-  navigate: (path) => {
-    return useNavigate(path)
+    return navigate('/')
   },
 }))

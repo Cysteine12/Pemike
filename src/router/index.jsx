@@ -10,10 +10,13 @@ import TripPage from '@/pages/trips/TripPage'
 import BookingCreatePage from '@/pages/bookings/BookingCreatePage'
 import PaymentVerifyPage from '@/pages/payments/PaymentVerifyPage'
 import PaymentPage from '@/pages/payments/PaymentPage'
-import UserCreatePage from '@/pages/users/UserCreatePage'
+import ProfileUpdatePage from '@/pages/users/ProfileUpdatePage'
 import UserDashboardPage from '@/pages/users/UserDashboardPage'
 import LoginPage from '@/pages/auth/LoginPage'
 import RegisterPage from '@/pages/auth/RegisterPage'
+import PaymentsPage from '@/pages/payments/PaymentsPage'
+import ContactPage from '@/pages/ContactPage'
+import ServicesPage from '@/pages/ServicesPage'
 
 const router = createBrowserRouter([
   {
@@ -44,11 +47,19 @@ const router = createBrowserRouter([
         element: <AboutPage />,
       },
       {
+        path: 'contact-us',
+        element: <ContactPage />,
+      },
+      {
+        path: 'services',
+        element: <ServicesPage />,
+      },
+      {
         path: 'profile',
         children: [
           {
-            path: 'create',
-            element: <UserCreatePage />,
+            path: 'edit',
+            element: <ProfileUpdatePage />,
           },
         ],
       },
@@ -94,6 +105,10 @@ const router = createBrowserRouter([
       {
         path: '/payments',
         children: [
+          {
+            path: '',
+            element: <PaymentsPage />,
+          },
           {
             path: ':id',
             element: <PaymentPage />,

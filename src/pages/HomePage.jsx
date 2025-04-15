@@ -1,5 +1,12 @@
 import { Link } from 'react-router'
-import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'
+import {
+  FaArrowLeft,
+  FaArrowRight,
+  FaBus,
+  FaClock,
+  FaPhone,
+  FaUsers,
+} from 'react-icons/fa'
 import SearchModal from '../components/SearchModal'
 import { toggleMenu } from '@/assets/js/index.js'
 import '../assets/css/HomePage.css'
@@ -38,12 +45,30 @@ const HomePage = () => {
         <div className="line"></div>
         <img src="../src/assets/imgs/pemike_Logo.png" alt="Logo" />
         <div className="nav-links">
-          <Link to="/" className="active">
+          <Link
+            to="/"
+            className="p-10 rounded-2xl text-white hover:bg-amber-600"
+          >
             HOME
           </Link>
-          <Link to="/about">ABOUT</Link>
-          <Link to="/services">SERVICES</Link>
-          <Link to="/contact">CONTACT</Link>
+          <Link
+            className="p-10 rounded-2xl text-white hover:bg-amber-600"
+            to="/about"
+          >
+            ABOUT
+          </Link>
+          <Link
+            className="p-10 rounded-2xl text-white hover:bg-amber-600"
+            to="/services"
+          >
+            SERVICES
+          </Link>
+          <Link
+            className="p-10 rounded-2xl text-white hover:bg-amber-600"
+            to="/contact-us"
+          >
+            CONTACT
+          </Link>
           {isAuthenticated ? (
             <Link to="/dashboard" className="-mt-2">
               <div className="book-now">Dashboard</div>
@@ -157,12 +182,12 @@ const HomePage = () => {
       <SearchModal />
 
       <section>
-        <div className="container">
+        <div className="bg-white rounded-2xl shadow-2xl p-10 m-4">
           {/* <!-- Text and Image --> */}
           <div className="content-container">
             {/* <!-- Text Content --> */}
             <div className="content">
-              <h2 id="text">EXPLORE THE FREIGHT SERVICE</h2>
+              <h2 id="text">EXPLORE THE TRANSPORT SERVICE</h2>
               <p className="description" id="description">
                 Pemike Transport is your trusted partner for 24/7 transportation
                 and logistics services. We specialize in the seamless movement
@@ -195,22 +220,22 @@ const HomePage = () => {
           {/* <!-- Cards (Desktop) --> */}
           <div className="cards-container">
             <div className="card active" onClick={() => updateContent(0)}>
-              <i className="ri-phone-fill"></i>
+              <FaPhone className="text-[50px]" />
               <p>24/7 SERVICE</p>
             </div>
 
             <div className="card" onClick={() => updateContent(1)}>
-              <i className="ri-bus-fill"></i>
+              <FaBus className="text-[50px]" />
               <p>DELIVERY</p>
             </div>
 
             <div className="card" onClick={() => updateContent(2)}>
-              <i className="ri-time-line"></i>
+              <FaClock className="text-[50px]" />
               <p>TIME</p>
             </div>
 
             <div className="card" onClick={() => updateContent(3)}>
-              <i className="ri-team-fill"></i>
+              <FaUsers className="text-[50px]" />
               <p>TEAM</p>
             </div>
           </div>
@@ -247,7 +272,7 @@ const HomePage = () => {
 
         <div className="overlay flex flex-col md:flex-row">
           <div>
-            <i className="ri-bus-fill "></i>
+            <FaBus className="text-[70px] m-auto text-blue-600" />
 
             <p>Passenger Transit</p>
             <h1>
@@ -256,7 +281,7 @@ const HomePage = () => {
               destinations
             </h1>
 
-            <Link to="/">Read More</Link>
+            <Link to="/about">Read More</Link>
           </div>
           <hr className="hh" />
 
@@ -266,6 +291,7 @@ const HomePage = () => {
                 src="../src/assets/imgs/lucide--baggage-claim (1).svg"
                 alt=""
                 style={{ width: '70px' }}
+                className="m-auto"
               />
             </i>
 
@@ -291,7 +317,7 @@ const HomePage = () => {
               <img
                 src="../src/assets/imgs/Yakubu-Ibrahim-3.jpg"
                 alt="Yakubu Ibrahim"
-                className="profile-img"
+                className="profile-img mx-auto"
               />
               <h3>
                 Yakubu Ibrahim <span>Kano</span>
@@ -306,7 +332,7 @@ const HomePage = () => {
               <img
                 src="../src/assets/imgs/Chioma-Okafor-1.jpg"
                 alt="Chioma Okafor"
-                className="profile-img"
+                className="profile-img mx-auto"
               />
               <h3>
                 Chioma Okafor <span>Anambra</span>
@@ -321,7 +347,7 @@ const HomePage = () => {
               <img
                 src="../src/assets/imgs/Kehinde-Olatunji-1-200x300.jpg"
                 alt="Kehinde Olatunji"
-                className="profile-img"
+                className="profile-img mx-auto"
               />
               <h3>
                 Kehinde Olatunji, <span>Oyo</span>
@@ -336,7 +362,7 @@ const HomePage = () => {
               <img
                 src="../src/assets/imgs/Adetola-Adebayo.jpg"
                 alt="Adetola Adedayo"
-                className="profile-img"
+                className="profile-img mx-auto"
               />
               <h3>
                 Adetola Adedayo, <span>Kano</span>

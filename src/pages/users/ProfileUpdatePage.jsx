@@ -1,15 +1,13 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router'
-import { useUserStore } from '@/stores/useUserStore'
 import OTPModal from '@/features/auth/OTPModal'
 import UserCreateForm from '@/features/user/UserCreateForm'
 import { useAuthStore } from '@/stores/useAuthStore'
 
-const UserCreatePage = () => {
+const ProfileUpdatePage = () => {
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
-  const { createProfile } = useUserStore()
-  const { verifyOTP } = useAuthStore()
+  const { register, login, verifyEmail } = useAuthStore()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [formData, setFormData] = useState({
     firstName: '',
@@ -17,27 +15,35 @@ const UserCreatePage = () => {
     email: '',
     phone: '',
     gender: 'MALE',
+    password: '',
+    confirmPassword: '',
   })
 
   const tripId = searchParams.get('tripId')
-  const sessionToken = searchParams.get('sessionToken')
+  const sessionID = searchParams.get('sessionID')
 
   useEffect(() => {
-    if (!sessionToken || !tripId) navigate(-1)
+    if (!sessionID || !tripId) navigate(-1)
     window.scrollTo(0, 0)
   }, [])
 
   const handleFormSubmit = async () => {
-    await createProfile(formData)
+    const res = await register(formData)
+    if (!res || !res.success) return
 
-    navigate(`/bookings/create?tripId=${tripId}&sessionToken=${sessionToken}`)
+    setIsModalOpen(true)
   }
 
   const handleOTPSubmit = async (otp) => {
-    const res = await verifyOTP({ email: formData.email, otp, type: 'general' })
-    if (!res.success) return
+    const verifyRes = await verifyEmail({ email: formData.email, otp })
+    if (!verifyRes || !verifyRes.success) return
 
-    return handleFormSubmit()
+    const loginRes = await login({
+      email: formData.email,
+      password: formData.password,
+    })
+    if (!loginRes || !loginRes.success) return
+    navigate(`/bookings/create?tripId=${tripId}&sessionID=${sessionID}`)
   }
 
   return (
@@ -48,13 +54,14 @@ const UserCreatePage = () => {
             formData={formData}
             setFormData={setFormData}
             formTitle={'Passenger Details'}
-            handleSubmit={() => setIsModalOpen(true)}
+            handleSubmit={handleFormSubmit}
           />
         </div>
 
         <OTPModal
           isModalOpen={isModalOpen}
           setIsModalOpen={setIsModalOpen}
+          hasSentOTP={true}
           handleSubmit={handleOTPSubmit}
           email={formData.email}
         />
@@ -63,4 +70,4 @@ const UserCreatePage = () => {
   )
 }
 
-export default UserCreatePage
+export default ProfileUpdatePage

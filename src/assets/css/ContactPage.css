@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@100;300;400;700&family=Lato:wght@100;300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
 body {
-  font-family: 'Barlow', 'sans-serif';
+  font-family: 'Barlow';
 }
 
 .hero {
@@ -11,17 +12,11 @@ body {
   height: 80vh;
 }
 
-@media (max-width: 789px) {
+@media (max-width: 768px) {
   .hero {
     height: 60vh;
   }
 }
-
-/* @media (min-width: 769px) and (max-width: 1024px) {
-    .hero {
-        height: 70vh !important;
-    }
-} */
 
 /* Header Section */
 .header {
@@ -74,6 +69,12 @@ body {
 @media (min-width: 769px) and (max-width: 1180px) {
   /* Small Laptops */
   .header {
+    display: none;
+    /* gap: 10px; */
+    font-size: 5px;
+  }
+
+  .line {
     display: none;
   }
 }
@@ -163,138 +164,184 @@ body {
         } */
 }
 
-/* your gateway  */
-.gateway {
-  display: flex;
-  /* flex-direction: column; */
-  gap: 40px;
-  padding: 70px;
-  align-items: stretch;
-  width: 90%;
-  margin: auto;
-  justify-content: center;
-  /* align-items: center; */
+/* get in touch  */
+.get_in_touch {
+  /* padding-inline: 80px; */
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
-.gateway-text {
-  flex: 0.7;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 10px;
-}
-
-.gateway-text h1 {
+.get_in_touch_header h1 {
   color: rgb(0, 65, 160);
   font-size: 2.5rem;
-  padding-bottom: 20px;
-  font-family: 'Barlow';
-}
-
-.gateway-text p {
-  font-size: 17px;
-  line-height: 33px;
-  margin-bottom: 20px;
-  color: rgb(93, 92, 92);
-  font-family: 'Lato';
-  font-weight: 500;
-}
-
-.statements {
-  flex: 0.3;
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-  justify-content: center;
-}
-
-.statements div {
-  background: rgb(255, 159, 12);
-  padding: 15px;
-  border-radius: 25px;
+  padding-bottom: 10px;
   text-align: center;
-  /* height: 200px; */
+}
+
+/* Contact Section */
+.contact {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 30px;
+  padding: 50px 8rem;
+  font-family: 'Lato', sans-serif;
+}
+
+/* Contact Address Styling */
+.contact_address {
+  background-color: rgb(255, 159, 12);
+  border-radius: 25px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
   color: white;
-  padding-inline: 40px;
-  padding-top: 30px;
-  padding-bottom: 30px;
-  height: 100%;
+  padding: 3rem;
+  flex: 1;
+  /* Makes it take 50% width */
+  padding-block: 6rem;
 }
 
-.statements p {
+.contact_address div {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+  gap: 15px;
+}
+
+.contact_address div i {
+  font-size: 25px;
+  color: rgb(0, 65, 160);
+}
+
+.contact_address div p {
   font-size: 17px;
+  line-height: 30px;
+}
+
+.contact_address div p strong {
+  font-size: 27px;
+}
+
+.contact_address div p b {
+  font-size: 17px;
+}
+
+/* Form Styling */
+.form-container {
+  flex: 1;
+  /* Makes it take 50% width */
+  background: #f5f5f5;
+  padding: 3rem;
+  border-radius: 25px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
   font-family: 'Lato';
-
-  /* width: 200px; */
 }
 
-@media (max-width: 480px) {
-  /* Small Phones */
-  .gateway {
-    flex-direction: column;
-    padding: 20px;
-  }
+.form {
+  display: flex;
+  flex-direction: column;
+}
 
-  .gateway-text p {
-    font-size: 15px;
-    margin-bottom: 20px;
-    color: rgb(93, 92, 92);
-    padding-inline: 30px;
-  }
+.form label {
+  font-size: 17px;
+  color: #333;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
 
-  .gateway-text h1 {
+.form input,
+.form textarea {
+  width: 100%;
+  padding: 12px 20px;
+  border-radius: 50px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.form textarea {
+  border-radius: 20px;
+  height: 150px;
+  resize: none;
+}
+
+.form input:focus,
+.form textarea:focus {
+  border-color: 007bff;
+  outline: none;
+}
+
+.submit-button {
+  background-color: rgb(0, 65, 160);
+  color: white;
+  padding: 15px;
+  border-radius: 50px;
+  font-family: 'Lato';
+  font-size: 17px;
+  box-shadow: none;
+  border: 0;
+}
+
+/* Responsive Layout */
+
+/* Mobile Screens (max-width 768px) */
+@media (max-width: 768px) {
+  .get_in_touch_header {
     font-size: 1.5rem;
-    padding-top: 20px;
-    padding-inline: 30px;
+  }
+
+  .contact {
+    flex-direction: column;
+    padding: 30px 20px;
+    gap: 20px;
+  }
+
+  .contact_address,
+  .form-container {
+    width: 100%;
+    padding: 2rem;
+  }
+
+  .contact_address div {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .contact_address div i {
+    font-size: 30px;
+  }
+
+  .contact_address div p {
+    font-size: 16px;
+  }
+
+  .form label {
+    font-size: 18px;
+  }
+
+  .form input,
+  .form textarea {
+    font-size: 14px;
+    padding: 10px 15px;
   }
 }
 
-@media (min-width: 481px) and (max-width: 768px) {
-  /* Tablets & Large Phones */
-  .gateway {
+/* Tablet Screens (769px - 1024px) */
+@media (min-width: 769px) and (max-width: 1180px) {
+  .contact {
     flex-direction: column;
+    padding: 50px;
+  }
+
+  .contact_address,
+  .form-container {
+    width: 100%;
+    padding: 3rem;
   }
 }
 
-@media (min-width: 769px) and (max-width: 1024px) {
-  /* Small Laptops */
-  .gateway {
-    flex-direction: column;
-  }
-
-  .gateway-text h1 {
-    color: blue;
-    font-size: 1.5rem;
-    padding-bottom: 20px;
-  }
-
-  .gateway-text p {
-    font-size: 20px;
-    margin-bottom: 20px;
-    color: rgb(93, 92, 92);
-  }
-
-  .statements {
-    flex-direction: column;
-  }
-}
-
-@media (min-width: 1025px) {
-  /* Desktops */
-  .gateway {
-    flex-direction: row;
-  }
-
-  .statements {
-    flex-direction: column;
-  }
-}
-
-/* footer  */
 /* Footer Styling */
 .footer {
   background: rgb(20, 0, 115);
@@ -383,13 +430,17 @@ body {
   .footer {
     flex-direction: column;
     text-align: left;
-    padding: 50px 30px !important;
+    padding: 50px 25px !important;
   }
 
   .footer-column {
     text-align: left;
     width: 100%;
   }
+
+  /* .footer-column img{
+        width: 270px;
+    } */
 
   .footer-column h2 {
     font-size: 20px;

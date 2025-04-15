@@ -4,10 +4,27 @@ import API from '@/libs/api'
 
 export const usePaymentStore = create((set, get) => ({
   payments: [],
-  loading: false,
+  loading: true,
   message: null,
   total: null,
   error: null,
+
+  fetchPayments: async ({ page, limit }) => {
+    set({ loading: true, error: null })
+
+    try {
+      const res = await API.get(`/payments?page=${page}&limit=${limit}`)
+
+      if (!res.data.success) return toast.error(res.data.message)
+
+      set({ payments: res.data.data })
+    } catch (err) {
+      set({ error: err.response?.data?.message })
+      toast.error(get().error)
+    } finally {
+      set({ loading: false })
+    }
+  },
 
   fetchPayment: async (id) => {
     set({ loading: true, error: null })
@@ -34,6 +51,8 @@ export const usePaymentStore = create((set, get) => ({
 
       if (!res.data.success) return toast.error(res.data.message)
 
+      toast.info('Redirecting...')
+
       window.location.assign(res.data.data)
     } catch (err) {
       set({ error: err.response?.data?.message })
@@ -52,8 +71,9 @@ export const usePaymentStore = create((set, get) => ({
       if (!res.data.success) return toast.error(res.data.message)
 
       set({ payments: [res.data.data] })
+      toast.success(res.data.message)
 
-      navigate(`/payments/${res.data.id}`)
+      navigate(`/payments/${res.data.data.id}`)
     } catch (err) {
       set({ error: err.response?.data?.message })
       toast.error(get().error)

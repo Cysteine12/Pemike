@@ -4,7 +4,7 @@ import API from '@/libs/api'
 
 export const useSeatStore = create((set, get) => ({
   seats: [],
-  sessionToken: null,
+  sessionID: null,
   total: null,
   loading: true,
   message: null,
@@ -35,13 +35,19 @@ export const useSeatStore = create((set, get) => ({
 
       if (!res.data.success) return toast.error(res.data.message)
 
-      set({
-        seats: get().seats.map((seat) => {
-          if (seat.seatNo === res.data.data.seatNo) seat = res.data.data
-          return seat
-        }),
-        sessionToken: res.data.data.sessionToken,
-      })
+      const isExist = get().seats.find((seat) => seat.seatNo === newSeat.seatNo)
+      if (isExist) {
+        set({
+          seats: get().seats.map((seat) => {
+            if (seat.seatNo === res.data.data.seatNo) return res.data.data
+            return seat
+          }),
+        })
+      } else {
+        set({ seats: [...get().seats, res.data.data] })
+      }
+
+      set({ sessionID: res.data.data.sessionID })
 
       return res.data
     } catch (err) {

@@ -26,7 +26,9 @@ const OTPModal = ({
 
   const triggerNext = (e, next) => {
     if (!/^[0-9]?$/.test(e.target.value)) return (e.target.value = '')
-    if (String(e.target.value).length < 1 || next > 6) return
+
+    if (e.target.value.length < 1 || next > 6) return
+
     document.getElementById(`box-${next}`).focus()
   }
 

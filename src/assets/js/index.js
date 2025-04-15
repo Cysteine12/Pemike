@@ -1,17 +1,5 @@
 // carousel logic
 
-function loadScript(link) {
-  const script = document.createElement('script')
-  script.onload = () => {
-    console.log('script loaded!')
-  }
-  script.src = link
-  document.head.append(script)
-}
-
-loadScript('https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js')
-loadScript('https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js')
-
 export function toggleMenu() {
   const mobileMenu = document.getElementById('mobile-menu')
   const body = document.body
@@ -165,57 +153,84 @@ export function changePrevSlide() {
 
 window.addEventListener('resize', showSlides)
 
-// swiper settings
-// var swiper = new Swiper('.mySwiper', {
-//   loop: true,
-//   autoplay: {
-//     delay: 3000,
-//     disableOnInteraction: false,
-//   },
-//   slidesPerView: 3, // Default (for large screens)
-//   centeredSlides: true, // Center slides
-//   spaceBetween: 20, // Space between slides
-//   pagination: {
-//     el: '.swiper-pagination',
-//     clickable: true,
-//   },
-//   navigation: {
-//     nextEl: '.swiper-button-next',
-//     prevEl: '.swiper-button-prev',
-//   },
-//   breakpoints: {
-//     1200: {
-//       // Large screens (desktops)
-//       slidesPerView: 3,
-//       centeredSlides: true,
-//     },
-//     992: {
-//       // Medium screens (tablets)
-//       slidesPerView: 2,
-//       centeredSlides: false,
-//     },
-//     768: {
-//       // Small tablets
-//       slidesPerView: 2,
-//       centeredSlides: true,
-//     },
-//     576: {
-//       // Mobile screens
-//       slidesPerView: 1,
-//       centeredSlides: true,
-//     },
-//     0: {
-//       // Extra small screens (below 576px)
-//       slidesPerView: 1,
-//       centeredSlides: true,
-//       spaceBetween: 10, // Reduce space for better fit
-//     },
-//   },
-// })
+function loadScript(src) {
+  return new Promise((resolve, reject) => {
+    const script = document.createElement('script')
+    script.src = src
+    script.async = true
+    script.onload = resolve
+    script.onerror = reject
+    document.body.appendChild(script)
+  })
+}
 
-// // Force Swiper to update on window resize (Fix for breakpoints issue)
-// window.addEventListener('resize', () => {
-//   setTimeout(() => {
-//     swiper.update()
-//   }, 200)
-// })
+async function loadSwiper() {
+  try {
+    await loadScript(
+      'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js'
+    )
+    await loadScript('https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js')
+
+    if (window.Swiper) {
+      // swiper settings
+
+      var swiper = new window.Swiper('.mySwiper', {
+        loop: true,
+        autoplay: {
+          delay: 3000,
+          disableOnInteraction: false,
+        },
+        slidesPerView: 3, // Default (for large screens)
+        centeredSlides: true, // Center slides
+        spaceBetween: 20, // Space between slides
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true,
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+        breakpoints: {
+          1200: {
+            // Large screens (desktops)
+            slidesPerView: 3,
+            centeredSlides: true,
+          },
+          992: {
+            // Medium screens (tablets)
+            slidesPerView: 2,
+            centeredSlides: false,
+          },
+          768: {
+            // Small tablets
+            slidesPerView: 2,
+            centeredSlides: true,
+          },
+          576: {
+            // Mobile screens
+            slidesPerView: 1,
+            centeredSlides: true,
+          },
+          0: {
+            // Extra small screens (below 576px)
+            slidesPerView: 1,
+            centeredSlides: true,
+            spaceBetween: 10, // Reduce space for better fit
+          },
+        },
+      })
+
+      // // Force Swiper to update on window resize (Fix for breakpoints issue)
+
+      window.addEventListener('resize', () => {
+        setTimeout(() => {
+          swiper.update()
+        }, 200)
+      })
+    }
+  } catch (err) {
+    console.log('Failed to load swiper script')
+  }
+}
+loadSwiper()

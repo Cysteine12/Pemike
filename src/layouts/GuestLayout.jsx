@@ -2,7 +2,7 @@ import { useAuthStore } from '@/stores/useAuthStore'
 import { Navigate, Outlet } from 'react-router'
 
 const GuestLayout = () => {
-  const { isAuthenticated } = useAuthStore()
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated())
 
   return (
     <div className="bg-gray-200 overflow-auto h-screen">

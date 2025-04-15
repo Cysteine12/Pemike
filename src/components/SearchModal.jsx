@@ -17,19 +17,19 @@ const SearchModal = () => {
 
   const handleSubmit = async (formData) => {
     const tripType = formData.get('tripType')
-    const departure = formData.get('departure')
+    const source = formData.get('source')
     const destination = formData.get('destination')
     const tripDate = formData.get('tripDate')
 
     const searchParams = {
       tripType,
-      departure,
+      source,
       destination,
       tripDate,
     }
 
     setUserSearchParams(searchParams)
-    navigate(`/trips?source=${encodeURIComponent(departure)}`)
+    navigate(`/trips?source=${encodeURIComponent(source)}`)
   }
 
   return (
@@ -57,16 +57,17 @@ const SearchModal = () => {
 
             <div className="grid grid-cols-2 gap-4 items-center w-full lg:mx-5 lg:my-0">
               <div className="my-1 lg:my-0">
-                <label htmlFor="departure" className="text-blue-500">
+                <label htmlFor="source" className="text-blue-500">
                   Departure*
                 </label>
                 <select
-                  name="departure"
-                  id="departure"
+                  name="source"
+                  defaultValue={''}
+                  id="source"
                   className="my-1 p-2 w-full border-2 border-blue-200 rounded"
                   required
                 >
-                  <option value="" selected disabled>
+                  <option value="" disabled hidden>
                     Select your departure location
                   </option>
                   {trips.map((trip) => (
@@ -83,11 +84,12 @@ const SearchModal = () => {
                 </label>
                 <select
                   name="destination"
+                  defaultValue={''}
                   id="destination"
                   className="my-1 p-2 w-full border-2 border-blue-200 rounded"
                   required
                 >
-                  <option value="" selected disabled>
+                  <option value="" disabled hidden>
                     Select your destination
                   </option>
                   {trips.map((trip) => (

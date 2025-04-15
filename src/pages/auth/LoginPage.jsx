@@ -1,6 +1,7 @@
 import AppButton from '@/components/AppButton'
 import Card from '@/components/Card'
 import OTPModal from '@/features/auth/OTPModal'
+import useSessionStorage from '@/hooks/useSessionStorage'
 import { useAuthStore } from '@/stores/useAuthStore'
 import { useRef, useState } from 'react'
 import { FaRegArrowAltCircleRight } from 'react-icons/fa'
@@ -9,18 +10,12 @@ import { Link, useNavigate } from 'react-router'
 const LoginPage = () => {
   const navigate = useNavigate()
   const passwordRef = useRef()
-  const { login, passwordlessLogin, verifyEmail } = useAuthStore()
+  const { login, verifyEmail } = useAuthStore()
+  const [redirect] = useSessionStorage('redirect')
 
-  const [email, setEmail] = useState()
-  const [password, setPassword] = useState()
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [requestType, setRequestType] = useState()
-
-  const togglePassword = () => {
-    if (passwordRef.current.type === 'text')
-      passwordRef.current.type = 'password'
-    else passwordRef.current.type = 'text'
-  }
 
   const handleFormSubmit = async (e) => {
     e.preventDefault()
@@ -29,23 +24,33 @@ const LoginPage = () => {
 
     const res = await login({ email, password })
     if (!res) return
-    if (['passwordless-login', 'verify-email'].includes(res.type)) {
+    if (res.type === 'verify-email') {
       setIsModalOpen(true)
-      setRequestType(res.type)
       return
+    }
+
+    if (redirect) {
+      sessionStorage.removeItem('redirect')
+      return navigate(redirect)
     }
     navigate('/dashboard')
   }
 
   const handleOTPSubmit = async (otp) => {
-    let res
-    if (requestType === 'passwordless-login') {
-      res = await passwordlessLogin({ email, otp })
-    } else if (requestType === 'verify-email') {
-      res = await verifyEmail({ email, otp })
-    }
+    const res = await verifyEmail({ email, otp })
     if (!res || !res.success) return
+
+    if (redirect) {
+      sessionStorage.removeItem('redirect')
+      return navigate(redirect)
+    }
     navigate('/dashboard')
+  }
+
+  const togglePassword = () => {
+    if (passwordRef.current.type === 'text')
+      passwordRef.current.type = 'password'
+    else passwordRef.current.type = 'text'
   }
 
   return (
@@ -60,7 +65,7 @@ const LoginPage = () => {
               Email
             </label>
             <input
-              type="text"
+              type="email"
               name="email"
               id="email"
               placeholder="Enter your email address..."
@@ -111,12 +116,17 @@ const LoginPage = () => {
           </div>
 
           <div className="mt-5 text-center text-sm text-blue-500">
-            <Link class="my-1" to="/forgot-password">
+            <Link className="my-2" to="/forgot-password">
               Forgot Password?
             </Link>
             <br />
-            <Link class="my-1" to="/register">
+            <Link className="my-2" to="/register">
               Create an Account!
+            </Link>
+          </div>
+          <div className="mt-5 text-center text-blue-600">
+            <Link className="my-2" to="/">
+              Go to our Home Page
             </Link>
           </div>
         </form>

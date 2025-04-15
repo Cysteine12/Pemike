@@ -4,7 +4,9 @@ import { FaGoogle, FaPhoneAlt, FaUser, FaUserFriends } from 'react-icons/fa'
 const UserDetail = ({ user }) => {
   return (
     <Card
-      styles={'md:m-auto mx-8 mb-9 max-w-120 bg-white font-bold text-blue-500'}
+      styles={
+        'md:mx-auto mx-8 mb-9 lg:min-w-[500px] bg-white font-bold text-blue-500 h-fit'
+      }
     >
       <ul>
         <li className="my-3 flex justify-between items-center">
