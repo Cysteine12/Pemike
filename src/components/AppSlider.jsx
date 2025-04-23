@@ -1,6 +1,6 @@
 import Slider from 'react-slick'
-// import 'slick-carousel/slick/slick.css'
-// import 'slick-carousel/slick/slick-theme.css'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
 
 export default function AppSlider() {
   var settings = {
@@ -9,38 +9,60 @@ export default function AppSlider() {
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
-    // responsive: [
-    //   {
-    //     breakpoint: 1024,
-    //     settings: {
-    //       slidesToShow: 2,
-    //     },
-    //   },
-    //   {
-    //     breakpoint: 760,
-    //     settings: {
-    //       slidesToShow: 1,
-    //     },
-    //   },
-    // ],
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+        },
+      },
+      {
+        breakpoint: 760,
+        settings: {
+          slidesToShow: 1,
+        },
+      },
+    ],
   }
   return (
-    <Slider {...settings}>
-      <div>
-        <img src="../src/assets/imgs/Pemike_1.1.jpg" alt="Slide 1" />
-      </div>
-      <div>
-        <img src="../src/assets/imgs/Pemike_2.1.jpg" alt="Slide 2" />
-      </div>
-      <div>
-        <img src="../src/assets/imgs/Pemike_3.1.jpg" alt="Slide 3" />
-      </div>
-      <div>
-        <img src="../src/assets/imgs/Pemike_4.1.jpg" alt="Slide 4" />
-      </div>
-      <div>
-        <img src="../src/assets/imgs/Pemike_5.1.jpg" alt="Slide 4" />
-      </div>
-    </Slider>
+    <div className="mt-8 mx-auto px-16">
+      <Slider {...settings}>
+        <div className="max-w-96">
+          <img
+            src="../src/assets/imgs/Pemike_1.1.jpg"
+            alt="Slide 1"
+            className="rounded-2xl"
+          />
+        </div>
+        <div className="max-w-96">
+          <img
+            src="../src/assets/imgs/Pemike_2.1.jpg"
+            alt="Slide 2"
+            className="rounded-2xl"
+          />
+        </div>
+        <div className="max-w-96">
+          <img
+            src="../src/assets/imgs/Pemike_3.1.jpg"
+            alt="Slide 3"
+            className="rounded-2xl"
+          />
+        </div>
+        <div className="max-w-96">
+          <img
+            src="../src/assets/imgs/Pemike_4.1.jpg"
+            alt="Slide 4"
+            className="rounded-2xl"
+          />
+        </div>
+        <div className="max-w-96">
+          <img
+            src="../src/assets/imgs/Pemike_5.1.jpg"
+            alt="Slide 4"
+            className="rounded-2xl"
+          />
+        </div>
+      </Slider>
+    </div>
   )
 }
