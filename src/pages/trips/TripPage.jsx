@@ -14,7 +14,12 @@ const TripPage = () => {
   const { id } = useParams()
   const navigate = useNavigate()
   const { fetchTrip, trips, loading } = useTripStore()
-  const { fetchSeatsByTrip, seats, sessionID } = useSeatStore()
+  const {
+    fetchSeatsByTrip,
+    seats,
+    sessionID,
+    loading: loadingSeats,
+  } = useSeatStore()
   const [, setSelectedSeats] = useSessionStorage('selectedSeats')
 
   useEffect(() => {
@@ -47,7 +52,7 @@ const TripPage = () => {
               'mx-8 py-12 px-4 bg-white rounded-2xl md:mx-auto md:min-w-100'
             }
           >
-            {seats.length > 0 && (
+            {!loadingSeats && (
               <div className="text-center font-bold">
                 Selected Seat(s):
                 {seats.map((seat) => (
@@ -60,7 +65,7 @@ const TripPage = () => {
               </div>
             )}
 
-            {seats.length > 0 && (
+            {!loadingSeats && (
               <table className="mx-auto text-white">
                 <tbody>
                   <tr className="table-row">

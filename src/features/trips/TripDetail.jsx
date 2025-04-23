@@ -9,6 +9,18 @@ import {
 } from 'react-icons/fa'
 
 const TripDetail = ({ trip }) => {
+  const lowestPrice = trip.FareCondition?.reduce((pre, curr) => {
+    if (curr.childPrice < pre) return curr.childPrice
+    return pre
+  }, trip.FareCondition[0].childPrice)
+
+  const highestPrice = trip.FareCondition?.reduce((pre, curr) => {
+    if (curr.adultPrice > pre) return curr.adultPrice
+    return pre
+  }, 0)
+
+  const priceRange = `₦${lowestPrice} - ₦${highestPrice}`
+
   return (
     <Card
       styles={
@@ -37,9 +49,9 @@ const TripDetail = ({ trip }) => {
 
         <li className="my-3 flex justify-between">
           <span className="flex text-blue-600">
-            <FaMoneyBill className={'mt-1 mr-3'} /> Fare
+            <FaMoneyBill className={'mt-1 mr-3'} /> Fare Range
           </span>
-          <span className="flex">₦{trip.fare}</span>
+          <span className="flex">{priceRange}</span>
         </li>
 
         <li className="my-3 flex justify-between">

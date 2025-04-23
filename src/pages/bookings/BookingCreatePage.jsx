@@ -7,6 +7,7 @@ import useSessionStorage from '@/hooks/useSessionStorage'
 import { useBookingStore } from '@/stores/useBookingStore'
 import { useTripStore } from '@/stores/useTripStore'
 import { useUserStore } from '@/stores/useUserStore'
+import { getWeeksLeft } from '@/utils/getWeeksLeft'
 import { useEffect, useState } from 'react'
 import { FaTrashAlt } from 'react-icons/fa'
 import { useNavigate, useSearchParams } from 'react-router'
@@ -28,6 +29,51 @@ const BookingConfirmPage = () => {
     fetchTrip(tripId)
     window.scrollTo(0, 0)
   }, [])
+
+  const getMatchingFare = (passengerType) => {
+    const weeksLeft = getWeeksLeft(trips[0].departureSchedule)
+
+    const matchingFareCondition = trips[0].FareCondition.filter(
+      (fareCondition) => {
+        if (
+          fareCondition.maxWeeksBefore === null &&
+          weeksLeft > fareCondition.minWeeksBefore
+        )
+          return true
+
+        if (
+          fareCondition.maxWeeksBefore &&
+          fareCondition.maxWeeksBefore >= weeksLeft &&
+          weeksLeft >= fareCondition.minWeeksBefore
+        )
+          return true
+
+        return false
+      }
+    )
+
+    if (passengerType === 'CHILD') {
+      return matchingFareCondition[0].childPrice
+    } else if (passengerType === 'ADULT_WITHOUT_INFANT') {
+      return matchingFareCondition[0].adultPrice
+    } else {
+      return (
+        matchingFareCondition[0].adultPrice +
+        matchingFareCondition[0].infantPrice
+      )
+    }
+  }
+
+  const handlePassengerTypeChange = (seatId, passengerType) => {
+    const newSeats = seats.map((seat) => {
+      if (seat.id === seatId) {
+        seat.passengerType = passengerType
+        seat.price = getMatchingFare(passengerType)
+      }
+      return seat
+    })
+    setSeats(newSeats)
+  }
 
   const handleSubmit = async (formData) => {
     if (!formData.get('arrivalBox') && !formData.get('luggageBox')) return
@@ -100,32 +146,59 @@ const BookingConfirmPage = () => {
                 <hr />
 
                 <div className="my-5 font-semibold">
-                  <div className="my-2 grid grid-cols-2">
-                    <span className="text-blue-500">Total seats: </span>
-                    <span>{seats.length}</span>
-                  </div>
-                  <div className="my-2 grid grid-cols-2">
-                    <span className="text-blue-500">Seat numbers: </span>
-                    <span>
+                  <div className="my-2">
+                    <div className="text-center my-2 text-blue-500">
+                      Selected Seat(s)
+                    </div>
+                    <div>
                       {seats.map((seat) => (
                         <div
                           key={seat.id}
-                          className="flex justify-between my-1 bg-gray-200 text-white rounded"
+                          className="grid grid-cols-[15%_50%_20%_15%] items-center py-2 my-1 bg-gray-200 text-white rounded"
                         >
-                          <span className="p-1 px-2 text-blue-500 rounded-l">
+                          <span className="grid-p-1 px-2 text-blue-500 rounded-l">
                             {seat.seatNo}
                           </span>
+
+                          <select
+                            name="passengerType"
+                            id={`passengerType_${seat.id}`}
+                            className="h-fit w-auto py-1 border-1 font-normal text-gray-700 rounded lg:max-w-56"
+                            defaultValue={''}
+                            onChange={(e) =>
+                              handlePassengerTypeChange(seat.id, e.target.value)
+                            }
+                            required
+                          >
+                            <option value="" disabled>
+                              Select Passenger Type
+                            </option>
+                            <option value="ADULT_WITHOUT_INFANT">
+                              Adult without infant
+                            </option>
+                            <option value="ADULT_WITH_INFANT">
+                              Adult with infant
+                            </option>
+                            <option value="CHILD">Child</option>
+                          </select>
+
+                          <span className="grid-p-1 px-2 text-blue-500 rounded-l justify-self-end">
+                            ₦{seat.price || 0}
+                          </span>
+
                           <FaTrashAlt
                             onClick={() => handleDelete(seat.seatNo)}
-                            className="mt-2 mr-2 text-red-500 cursor-pointer"
+                            className="flex mx-2 text-red-500 cursor-pointer justify-self-end"
                           />
                         </div>
                       ))}
-                    </span>
+                    </div>
                   </div>
-                  <div className="my-2 grid grid-cols-2">
+                  <div className="my-8 grid grid-cols-2">
                     <span className="text-blue-500">Total Price: </span>
-                    <span>₦{seats.length * trips[0].fare}</span>
+                    <span>
+                      ₦{seats.reduce((pre, curr) => pre + (curr.price || 0), 0)}
+                    </span>
                   </div>
                 </div>
 

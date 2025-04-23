@@ -1,6 +1,6 @@
 import { useAuthStore } from '@/stores/useAuthStore'
 import { useRef } from 'react'
-import { FaDirections, FaMoneyBill, FaUser } from 'react-icons/fa'
+import { FaDirections, FaList, FaUser } from 'react-icons/fa'
 import { Link } from 'react-router'
 
 const AppUserHeader = () => {
@@ -65,7 +65,7 @@ const AppUserHeader = () => {
           </Link>
         </div>
 
-        {loading && (
+        {!loading && (
           <div className="hidden lg:flex lg:flex-1 lg:justify-end text-blue-600">
             <button
               onClick={() => menuBar.current.classList.toggle('hidden')}
@@ -78,19 +78,31 @@ const AppUserHeader = () => {
               ref={menuBar}
               className="absolute hidden mt-10 p-3 text-gray-500 bg-white rounded shadow-2xl"
             >
-              <li className="flex my-2 hover:text-blue-500">
-                <FaUser className="text-sm mt-1 mr-2" />
-                <Link to={'/dashboard'}>My Profile</Link>
+              <li>
+                <Link
+                  to={'/dashboard'}
+                  className="flex my-2 hover:text-blue-500"
+                >
+                  <FaUser className="text-sm mt-1 mr-2" />
+                  <span>My Profile</span>
+                </Link>
               </li>
-              <li className="flex my-2 hover:text-blue-500">
-                <FaMoneyBill className="text-sm mt-1 mr-2" />
-                <Link to={'/payments'}>Payment History</Link>
+
+              <li>
+                <Link
+                  to={'/payments'}
+                  className="flex my-2 hover:text-blue-500"
+                >
+                  <FaList className="text-sm mt-1 mr-2" />
+                  <span>Payment History</span>
+                </Link>
               </li>
-              <hr />
-              <li className="flex my-2 hover:text-blue-500">
+
+              <li>
+                <hr />
                 <button
                   onClick={() => logout()}
-                  className="flex cursor-pointer "
+                  className="flex my-2 hover:text-blue-500 cursor-pointer "
                 >
                   <FaDirections className="mt-1 mr-2" />
                   <span>Logout</span>

@@ -18,6 +18,7 @@ import {
   nextExploreSlide,
 } from '../assets/js'
 import { useAuthStore } from '@/stores/useAuthStore'
+import AppSlider from '@/components/AppSlider'
 
 const HomePage = () => {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated())
@@ -391,33 +392,7 @@ const HomePage = () => {
         <div className="vehicles">
           <p>Our Vehicles</p>
 
-          {/* <!-- swiper  --> */}
-          <div className="swiper mySwiper">
-            <div className="swiper-wrapper">
-              <div className="swiper-slide">
-                <img src="../src/assets/imgs/Pemike_1.1.jpg" alt="Slide 1" />
-              </div>
-              <div className="swiper-slide">
-                <img src="../src/assets/imgs/Pemike_2.1.jpg" alt="Slide 2" />
-              </div>
-              <div className="swiper-slide">
-                <img src="../src/assets/imgs/Pemike_3.1.jpg" alt="Slide 3" />
-              </div>
-              <div className="swiper-slide">
-                <img src="../src/assets/imgs/Pemike_4.1.jpg" alt="Slide 4" />
-              </div>
-              <div className="swiper-slide">
-                <img src="../src/assets/imgs/Pemike_5.1.jpg" alt="Slide 4" />
-              </div>
-            </div>
-
-            {/* <!-- Pagination --> */}
-            <div className="swiper-pagination"></div>
-
-            {/* <!-- Navigation Buttons --> */}
-            <div className="swiper-button-next"></div>
-            <div className="swiper-button-prev"></div>
-          </div>
+          <AppSlider />
         </div>
       </section>
     </>

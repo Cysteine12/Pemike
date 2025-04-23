@@ -86,7 +86,7 @@ export const useAuthStore = create((set, get) => ({
 
   refreshToken: async () => {
     set({ loading: true, error: null })
-    // console.log('ran')
+    console.log('ran')
     try {
       await API2.post(`/auth/refresh-token`)
       return

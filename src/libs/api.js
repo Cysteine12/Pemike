@@ -10,7 +10,6 @@ const API = axios.create({
 API.interceptors.response.use(
   (response) => response,
   async (error) => {
-    console.log(error)
     const originalRequest = error.config
 
     if (error.response?.status === 429) {
@@ -22,9 +21,7 @@ API.interceptors.response.use(
 
       const { refreshToken, logout } = useAuthStore()
       try {
-        console.log('refresh-token1')
         await refreshToken()
-        console.log('refresh-token2')
 
         return API(originalRequest)
       } catch (err) {
@@ -36,5 +33,38 @@ API.interceptors.response.use(
     return Promise.reject(error)
   }
 )
+
+// API.interceptors.response.use(
+//   (response) => response,
+//   async (error) => {
+//     console.log(error.message)
+//     const originalRequest = error.config
+
+// if (error.response?.status === 429) {
+//   toast.error(error.response?.message)
+// }
+
+//     if (error.response?.status === 401 && !originalRequest._retry) {
+//       console.log('refresh-token1')
+//       originalRequest._retry = true
+//       console.log('refresh-token2')
+
+//       const { refreshToken, logout } = useAuthStore()
+//       console.log('refresh-token3')
+//       try {
+//         console.log('refresh-token4')
+//         await refreshToken()
+//         console.log('refresh-token5')
+
+//         return API(originalRequest)
+//       } catch (err) {
+//         await logout()
+
+//         return Promise.reject(err)
+//       }
+//     }
+//     return Promise.reject(error)
+//   }
+// )
 
 export default API

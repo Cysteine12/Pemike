@@ -1,6 +1,6 @@
 import OTPModal from '@/features/auth/OTPModal'
 import UserCreateForm from '@/features/user/UserCreateForm'
-import useSessionStorage from '@/hooks/useSessionStorage'
+import useAuthNavigate from '@/hooks/useAuthNavigate'
 import { useAuthStore } from '@/stores/useAuthStore'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router'
@@ -8,7 +8,7 @@ import { Link, useNavigate } from 'react-router'
 const RegisterPage = () => {
   const navigate = useNavigate()
   const { register, login, verifyEmail } = useAuthStore()
-  const [redirect] = useSessionStorage('redirect')
+  const { authNavigate } = useAuthNavigate(navigate)
 
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [formData, setFormData] = useState({
@@ -38,11 +38,7 @@ const RegisterPage = () => {
     })
     if (!loginRes || !loginRes.success) return
 
-    if (redirect) {
-      sessionStorage.removeItem('redirect')
-      return navigate(redirect)
-    }
-    navigate('/dashboard')
+    return authNavigate(loginRes.user)
   }
 
   return (

@@ -17,6 +17,9 @@ import RegisterPage from '@/pages/auth/RegisterPage'
 import PaymentsPage from '@/pages/payments/PaymentsPage'
 import ContactPage from '@/pages/ContactPage'
 import ServicesPage from '@/pages/ServicesPage'
+import AdminLayout from '@/layouts/AdminLayout'
+import AdminDashboardPage from '@/pages/admin/AdminDashboardPage'
+import AdminTripsPage from '@/pages/admin/trips/TripsPage'
 
 const router = createBrowserRouter([
   {
@@ -121,6 +124,28 @@ const router = createBrowserRouter([
       },
     ],
   },
+
+  // Admin-specific routes
+  {
+    path: '/admin',
+    element: <AdminLayout />,
+    children: [
+      {
+        path: 'dashboard',
+        element: <AdminDashboardPage />,
+      },
+      {
+        path: 'trips',
+        children: [
+          {
+            path: '',
+            element: <AdminTripsPage />,
+          },
+        ],
+      },
+    ],
+  },
+
   {
     path: '/',
     element: <MainLayout />,

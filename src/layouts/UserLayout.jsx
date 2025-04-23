@@ -28,18 +28,20 @@ const UserLayout = () => {
 
   return (
     <>
-      <AppUserHeader />
+      {loading ? (
+        <AppSpinner className="py-12 bg-gray-200" />
+      ) : isAuthenticated ? (
+        <>
+          <AppUserHeader />
 
-      <div className="pb-8 bg-gray-200">
-        <br />
-        {loading ? (
-          <AppSpinner className="pb-8 bg-gray-200" />
-        ) : isAuthenticated ? (
-          <Outlet />
-        ) : (
-          <Navigate to={`/login`} replace />
-        )}
-      </div>
+          <div className="pb-8 bg-gray-200">
+            <br />
+            <Outlet />
+          </div>
+        </>
+      ) : (
+        <Navigate to={`/login`} replace />
+      )}
 
       <AppFooter />
     </>

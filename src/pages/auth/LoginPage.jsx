@@ -1,7 +1,7 @@
 import AppButton from '@/components/AppButton'
 import Card from '@/components/Card'
 import OTPModal from '@/features/auth/OTPModal'
-import useSessionStorage from '@/hooks/useSessionStorage'
+import useAuthNavigate from '@/hooks/useAuthNavigate'
 import { useAuthStore } from '@/stores/useAuthStore'
 import { useRef, useState } from 'react'
 import { FaRegArrowAltCircleRight } from 'react-icons/fa'
@@ -11,7 +11,7 @@ const LoginPage = () => {
   const navigate = useNavigate()
   const passwordRef = useRef()
   const { login, verifyEmail } = useAuthStore()
-  const [redirect] = useSessionStorage('redirect')
+  const { authNavigate } = useAuthNavigate(navigate)
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -24,27 +24,16 @@ const LoginPage = () => {
 
     const res = await login({ email, password })
     if (!res) return
-    if (res.type === 'verify-email') {
-      setIsModalOpen(true)
-      return
-    }
+    if (res.type === 'verify-email') return setIsModalOpen(true)
 
-    if (redirect) {
-      sessionStorage.removeItem('redirect')
-      return navigate(redirect)
-    }
-    navigate('/dashboard')
+    return authNavigate(res.user)
   }
 
   const handleOTPSubmit = async (otp) => {
     const res = await verifyEmail({ email, otp })
     if (!res || !res.success) return
 
-    if (redirect) {
-      sessionStorage.removeItem('redirect')
-      return navigate(redirect)
-    }
-    navigate('/dashboard')
+    return authNavigate(res.user)
   }
 
   const togglePassword = () => {

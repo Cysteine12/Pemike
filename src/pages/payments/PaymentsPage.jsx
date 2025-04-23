@@ -4,6 +4,7 @@ import AppSpinner from '@/components/AppSpinner'
 import PaymentDetail from '@/features/payments/PaymentDetail'
 import AppButton from '@/components/AppButton'
 import { Link } from 'react-router'
+import Card from '@/components/Card'
 
 const PaymentsPage = () => {
   const { fetchPayments, payments, loading } = usePaymentStore()
@@ -34,6 +35,7 @@ const PaymentsPage = () => {
               </div>
             </PaymentDetail>
           ))}
+          <Card styles={'m-5 bg-white'}>No payment record found!</Card>
         </div>
       )}
     </>
