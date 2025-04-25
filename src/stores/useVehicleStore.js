@@ -2,22 +2,22 @@ import { create } from 'zustand'
 import { toast } from 'react-toastify'
 import API from '@/libs/api'
 
-export const useTripStore = create((set, get) => ({
-  trips: [],
+export const useVehicleStore = create((set, get) => ({
+  vehicles: [],
   total: null,
   loading: true,
   message: null,
   error: null,
 
-  fetchTrips: async ({ page, limit }) => {
+  fetchVehicles: async ({ page, limit }) => {
     set({ loading: true, error: null })
 
     try {
-      const res = await API.get(`/trips?page=${page}&limit=${limit}`)
+      const res = await API.get(`/vehicles?page=${page}&limit=${limit}`)
 
       if (!res.data.success) return toast.error(res.data.message)
 
-      set({ trips: res.data.data })
+      set({ vehicles: res.data.data })
     } catch (err) {
       set({ error: err.response?.data?.message })
       toast.error(get().error)
@@ -26,17 +26,15 @@ export const useTripStore = create((set, get) => ({
     }
   },
 
-  searchTripsByParams: async ({ source, destination }) => {
+  searchVehiclesByLicense: async ({ licenseNo }) => {
     set({ loading: true, error: null })
 
     try {
-      const res = await API.get(
-        `/trips/search?source=${source}&destination=${destination}`
-      )
+      const res = await API.get(`/vehicles/search?licenseNo=${licenseNo}`)
 
       if (!res.data.success) return toast.error(res.data.message)
 
-      set({ trips: res.data.data })
+      set({ vehicles: res.data.data })
     } catch (err) {
       set({ error: err.response?.data?.message })
       toast.error(get().error)
@@ -45,15 +43,15 @@ export const useTripStore = create((set, get) => ({
     }
   },
 
-  fetchTrip: async (id) => {
+  fetchVehicle: async (id) => {
     set({ loading: true, error: null })
 
     try {
-      const res = await API.get(`/trips/${id}`)
+      const res = await API.get(`/vehicles/${id}`)
 
       if (!res.data.success) return toast.error(res.data.message)
 
-      set({ trips: [res.data.data] })
+      set({ vehicles: [res.data.data] })
     } catch (err) {
       set({ error: err.response?.data?.message })
       toast.error(get().error)
@@ -62,15 +60,15 @@ export const useTripStore = create((set, get) => ({
     }
   },
 
-  createTrip: async (newTrip) => {
+  createVehicle: async (newVehicle) => {
     set({ loading: true, error: null })
 
     try {
-      const res = await API.post(`/trips`, newTrip)
+      const res = await API.post(`/vehicles`, newVehicle)
 
       if (!res.data.success) return toast.error(res.data.message)
 
-      set({ trips: [res.data.data] })
+      set({ vehicles: [res.data.data] })
 
       toast.success(res.data.message)
       return res.data
@@ -82,11 +80,11 @@ export const useTripStore = create((set, get) => ({
     }
   },
 
-  updateTrip: async (id, newTrip) => {
+  updateVehicle: async (id, newVehicle) => {
     set({ loading: true, error: null })
 
     try {
-      const res = await API.patch(`/trips/${id}`, newTrip)
+      const res = await API.patch(`/vehicles/${id}`, newVehicle)
 
       if (!res.data.success) return toast.error(res.data.message)
 
@@ -100,15 +98,15 @@ export const useTripStore = create((set, get) => ({
     }
   },
 
-  deleteTrip: async (id) => {
+  deleteVehicle: async (id) => {
     set({ loading: true, error: null })
 
     try {
-      const res = await API.delete(`/trips/${id}`)
+      const res = await API.delete(`/vehicles/${id}`)
 
       if (!res.data.success) return toast.error(res.data.message)
 
-      set({ trips: get().trips.filter((trip) => trip.id !== id) })
+      set({ vehicles: get().vehicles.filter((vehicle) => vehicle.id !== id) })
 
       toast.success(res.data.message)
       return res.data

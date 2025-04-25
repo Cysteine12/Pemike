@@ -1,5 +1,9 @@
-import AppFooter from '@/components/AppFooter'
 import '../assets/css/ServicesPage.css'
+import Icon1 from '@/assets/imgs/icon7-1.png'
+import Icon2 from '@/assets/imgs/icon11.png'
+import Icon3 from '@/assets/imgs/icon10.png'
+import Icon4 from '@/assets/imgs/icon9.png'
+import Icon5 from '@/assets/imgs/icon10.png'
 
 const ServicesPage = () => {
   return (
@@ -19,7 +23,7 @@ const ServicesPage = () => {
 
         <div className="reliable-stats">
           <div className="reliable_statements">
-            <img src="../src/assets/imgs/icon7-1.png" alt="Icon" />
+            <img src={Icon1} alt="Icon" />
             <p>
               <strong>Comfort & Safety First</strong>
               Our vehicles are designed with passenger comfort in mind, offering
@@ -40,11 +44,11 @@ const ServicesPage = () => {
               professional coordination, you can confidently plan your trips
               without the fear of unexpected setbacks.
             </p>
-            <img src="../src/assets/imgs/icon11.png" alt="" />
+            <img src={Icon2} alt="" />
           </div>
 
           <div className="reliable_statements">
-            <img src="../src/assets/imgs/icon10.png" alt="" />
+            <img src={Icon3} alt="" />
             <p>
               <strong>Flexible Routes</strong>
               Whether you’re traveling between major cities or to remote
@@ -66,11 +70,11 @@ const ServicesPage = () => {
               service standards. We offer <b>clear, upfront pricing</b> with no
               hidden fees, ensuring you get the best value for your money.
             </p>
-            <img src="../src/assets/imgs/icon9.png" alt="" />
+            <img src={Icon4} alt="" />
           </div>
 
           <div className="reliable_statements">
-            <img src="../src/assets/imgs/icon10.png" alt="" />
+            <img src={Icon5} alt="" />
             <p>
               <strong>Free Wi-Fi & Brunch Onboard</strong>
               Stay connected while on the move! Our vehicles are equipped with{' '}
@@ -84,9 +88,6 @@ const ServicesPage = () => {
           </div>
         </div>
       </section>
-      <br />
-
-      <AppFooter />
     </>
   )
 }

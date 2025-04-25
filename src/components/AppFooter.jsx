@@ -1,12 +1,13 @@
+import AppLogo from '@/assets/imgs/pemike_Logo.png'
 import { Link } from 'react-router'
 
 const AppFooter = () => {
   return (
     <section>
-      <footer className="footer">
+      <footer className="footer bg-blue-600">
         {/* <!-- Column 1 --> */}
         <div className="footer-column">
-          <img src="../src/assets/imgs/pemike_Logo.png" alt="Pemike Logo" />
+          <img src={AppLogo} alt="Pemike Logo" />
           <p>
             Pemike Transport is a trusted provider of reliable and efficient
             land transportation services, specializing in passenger transit and
@@ -31,16 +32,6 @@ const AppFooter = () => {
               <Link to="/contact">Contact</Link>
             </li>
           </ul>
-        </div>
-
-        {/* <!-- Column 3 --> */}
-        <div className="footer-column">
-          <h2>CONNECT WITH US</h2>
-          <p id="icons">
-            <i className="ri-facebook-fill"></i>
-            <i className="fa-brands fa-x-twitter"></i>
-            <i className="ri-instagram-line"></i>
-          </p>
         </div>
 
         {/* <!-- Column 4 --> */}

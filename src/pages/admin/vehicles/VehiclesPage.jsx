@@ -1,38 +1,40 @@
 import { useEffect } from 'react'
-import { useTripStore } from '@/stores/useTripStore'
 import AppSpinner from '@/components/AppSpinner'
-import { Link, useNavigate, useSearchParams } from 'react-router'
+import { Link, useSearchParams } from 'react-router'
 import Card from '@/components/Card'
 import AppButton from '@/components/AppButton'
-import { formatDateIntl, formatTime } from '@/utils/dateFormatter'
-import {
-  FaArrowAltCircleRight,
-  FaEdit,
-  FaEye,
-  FaFileAlt,
-  FaTrashAlt,
-} from 'react-icons/fa'
+import { FaEdit, FaEye, FaFileAlt, FaTrashAlt } from 'react-icons/fa'
+import { useVehicleStore } from '@/stores/useVehicleStore'
 
-const TripsPage = () => {
-  const navigate = useNavigate()
+const VehiclesPage = () => {
   const [searchParams] = useSearchParams()
-  const { fetchTrips, searchTripsByParams, trips, loading } = useTripStore()
+  const {
+    fetchVehicles,
+    deleteVehicle,
+    searchVehiclesByLicense,
+    vehicles,
+    loading,
+  } = useVehicleStore()
 
   const source = searchParams.get('source')
 
-  const getTrips = async () => {
+  const getVehicles = async () => {
     if (searchParams.get('source')) {
-      await searchTripsByParams({ source })
+      await searchVehiclesByLicense({ source })
     } else {
       const query = { page: 1, limit: 10 }
-      await fetchTrips(query)
+      await fetchVehicles(query)
     }
   }
 
   useEffect(() => {
     window.scrollTo(0, 0)
-    getTrips()
+    getVehicles()
   }, [])
+
+  const handleDelete = async (vehicleId) => {
+    await deleteVehicle(vehicleId)
+  }
 
   return (
     <>
@@ -43,14 +45,16 @@ const TripsPage = () => {
           <>
             <div className="mb-4 flex mx-auto max-w-[1000px]">
               <div className="mx-auto text-center text-blue-500 font-bold text-2xl ">
-                List of Available Trips
+                List of Available Vehicles
               </div>
-              <AppButton
-                onClick={() => navigate('/admin/trips/create')}
-                style={'flex items-center self-end'}
+              <Link
+                to={'/admin/vehicles/create'}
+                className={
+                  'flex items-center self-end bg-blue-500 px-2 py-1 text-white rounded'
+                }
               >
-                <FaFileAlt /> Add New Trip
-              </AppButton>
+                <FaFileAlt /> Add New Vehicle
+              </Link>
             </div>
             <div className="mb-4 text-center text-gray-700 font-bold text-lg">
               {source && <span>Search result from: {source}</span>}
@@ -59,45 +63,37 @@ const TripsPage = () => {
               <Card styles={'bg-white'}>
                 <table className="rounded-2xl" width="100%">
                   <thead className="">
-                    <tr className="py-3 px-5">
+                    <tr>
                       <th className="py-3 px-2"></th>
                       <th className="py-3 px-2">Vehicle</th>
-                      <th className="py-3 px-2">Departure</th>
-                      <th className="py-3 px-2">Journey</th>
-                      <th className="py-3 px-2">Updated</th>
+                      <th className="py-3 px-2">Capacity</th>
+                      <th className="py-3 px-2">License</th>
+                      <th className="py-3 px-2">Status</th>
                       <th className="py-3 px-2">Manage</th>
                     </tr>
                   </thead>
 
                   <tbody>
-                    {trips.map((trip, index) => (
+                    {vehicles.map((vehicle, index) => (
                       <tr
-                        key={trip.id}
+                        key={vehicle.id}
                         className="text-nowrap capitalize text-sm"
                       >
                         <td className="py-3 px-2">{index + 1}</td>
                         <td className="py-3 px-2">
-                          {trip.vehicle.brand} {trip.vehicle.model}{' '}
-                          {trip.vehicle.category}
+                          {vehicle.brand} {vehicle.model} {vehicle.category}
                         </td>
                         <td className="py-3 px-2">
-                          {formatDateIntl(trip.departureSchedule)} |{' '}
-                          {formatTime(trip.departureSchedule)}
+                          {vehicle.totalPassengerSeat}
                         </td>
+                        <td className="py-3 px-2">{vehicle.licenseNo}</td>
                         <td className="py-3 px-2">
-                          <span className="flex">
-                            {trip.source}
-                            <FaArrowAltCircleRight className="mt-1 mx-2" />
-                            {trip.destination}
-                          </span>
-                        </td>
-                        <td className="py-3 px-2">
-                          {formatDateIntl(trip.updatedAt)}
+                          {vehicle.available ? 'Available' : 'Unavailable'}
                         </td>
                         <td className="py-3 px-2">
                           <div className="flex">
                             <Link
-                              to={`/admin/trips/${trip.id}`}
+                              to={`/admin/vehicles/${vehicle.id}`}
                               className="mx-1"
                             >
                               <AppButton
@@ -110,7 +106,7 @@ const TripsPage = () => {
                             </Link>
 
                             <Link
-                              to={`/admin/trips/${trip.id}/edit`}
+                              to={`/admin/vehicles/${vehicle.id}/edit`}
                               className="mx-1"
                             >
                               <AppButton
@@ -123,6 +119,7 @@ const TripsPage = () => {
                             </Link>
 
                             <AppButton
+                              onClick={() => handleDelete(vehicle.id)}
                               style={'bg-red-500 text-white btn-sm min-w-auto'}
                               className="mx-1"
                             >
@@ -136,10 +133,10 @@ const TripsPage = () => {
                 </table>
               </Card>
             </div>
-            {trips.length < 1 && (
+            {vehicles.length < 1 && (
               <>
                 <Card>
-                  No trip matches your current location.Try another location.
+                  No vehicle matches your current location.Try another location.
                 </Card>
               </>
             )}
@@ -149,4 +146,4 @@ const TripsPage = () => {
     </>
   )
 }
-export default TripsPage
+export default VehiclesPage

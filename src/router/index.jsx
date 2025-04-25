@@ -20,49 +20,56 @@ import ServicesPage from '@/pages/ServicesPage'
 import AdminLayout from '@/layouts/AdminLayout'
 import AdminDashboardPage from '@/pages/admin/AdminDashboardPage'
 import AdminTripsPage from '@/pages/admin/trips/TripsPage'
+import AdminTripPage from '@/pages/admin/trips/TripPage'
+import TripCreatePage from '@/pages/admin/trips/TripCreatePage'
+import VehiclesPage from '@/pages/admin/vehicles/VehiclesPage'
+import VehiclePage from '@/pages/admin/vehicles/VehiclePage'
+import VehicleCreatePage from '@/pages/admin/vehicles/VehicleCreatePage'
+import VehicleEditPage from '@/pages/admin/vehicles/VehicleEditPage'
+import ErrorBoundary from '@/components/ErrorBoundary'
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <GuestLayout />,
+    element: <ErrorBoundary children={<GuestLayout />} />,
     children: [
       {
         path: '/login',
-        element: <LoginPage />,
+        element: <ErrorBoundary children={<LoginPage />} />,
       },
       {
         path: '/register',
-        element: <RegisterPage />,
+        element: <ErrorBoundary children={<RegisterPage />} />,
       },
     ],
   },
   {
     path: '/',
-    element: <MainLayout />,
+    element: <ErrorBoundary children={<MainLayout />} />,
     children: [
       {
         path: '',
         index: true,
-        element: <HomePage />,
+        element: <ErrorBoundary children={<HomePage />} />,
       },
       {
         path: 'about',
-        element: <AboutPage />,
+        element: <ErrorBoundary children={<AboutPage />} />,
       },
       {
         path: 'contact-us',
-        element: <ContactPage />,
+        element: <ErrorBoundary children={<ContactPage />} />,
       },
       {
         path: 'services',
-        element: <ServicesPage />,
+        element: <ErrorBoundary children={<ServicesPage />} />,
       },
       {
         path: 'profile',
         children: [
           {
             path: 'edit',
-            element: <ProfileUpdatePage />,
+            element: <ErrorBoundary children={<ProfileUpdatePage />} />,
           },
         ],
       },
@@ -71,11 +78,11 @@ const router = createBrowserRouter([
         children: [
           {
             path: '',
-            element: <TripsPage />,
+            element: <ErrorBoundary children={<TripsPage />} />,
           },
           {
             path: ':id',
-            element: <TripPage />,
+            element: <ErrorBoundary children={<TripPage />} />,
           },
         ],
       },
@@ -85,14 +92,14 @@ const router = createBrowserRouter([
   // Customer-specific routes
   {
     path: '/',
-    element: <UserLayout />,
+    element: <ErrorBoundary children={<UserLayout />} />,
     children: [
       {
         path: '/',
         children: [
           {
             path: 'dashboard',
-            element: <UserDashboardPage />,
+            element: <ErrorBoundary children={<UserDashboardPage />} />,
           },
         ],
       },
@@ -101,7 +108,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: 'create',
-            element: <BookingCreatePage />,
+            element: <ErrorBoundary children={<BookingCreatePage />} />,
           },
         ],
       },
@@ -110,15 +117,15 @@ const router = createBrowserRouter([
         children: [
           {
             path: '',
-            element: <PaymentsPage />,
+            element: <ErrorBoundary children={<PaymentsPage />} />,
           },
           {
             path: ':id',
-            element: <PaymentPage />,
+            element: <ErrorBoundary children={<PaymentPage />} />,
           },
           {
             path: 'verify',
-            element: <PaymentVerifyPage />,
+            element: <ErrorBoundary children={<PaymentVerifyPage />} />,
           },
         ],
       },
@@ -128,18 +135,47 @@ const router = createBrowserRouter([
   // Admin-specific routes
   {
     path: '/admin',
-    element: <AdminLayout />,
+    element: <ErrorBoundary children={<AdminLayout />} />,
     children: [
       {
         path: 'dashboard',
-        element: <AdminDashboardPage />,
+        element: <ErrorBoundary children={<AdminDashboardPage />} />,
       },
       {
         path: 'trips',
         children: [
           {
             path: '',
-            element: <AdminTripsPage />,
+            element: <ErrorBoundary children={<AdminTripsPage />} />,
+          },
+          {
+            path: ':id',
+            element: <ErrorBoundary children={<AdminTripPage />} />,
+          },
+          {
+            path: 'create',
+            element: <ErrorBoundary children={<TripCreatePage />} />,
+          },
+        ],
+      },
+      {
+        path: 'vehicles',
+        children: [
+          {
+            path: '',
+            element: <ErrorBoundary children={<VehiclesPage />} />,
+          },
+          {
+            path: ':id',
+            element: <ErrorBoundary children={<VehiclePage />} />,
+          },
+          {
+            path: 'create',
+            element: <ErrorBoundary children={<VehicleCreatePage />} />,
+          },
+          {
+            path: ':id/edit',
+            element: <ErrorBoundary children={<VehicleEditPage />} />,
           },
         ],
       },
@@ -148,7 +184,7 @@ const router = createBrowserRouter([
 
   {
     path: '/',
-    element: <MainLayout />,
+    element: <ErrorBoundary children={<MainLayout />} />,
     children: [
       {
         path: '*',

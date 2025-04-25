@@ -1,3 +1,4 @@
+import AppLogo from '@/assets/imgs/pemike_Logo.png'
 import { useAuthStore } from '@/stores/useAuthStore'
 import { useRef } from 'react'
 import { FaArrowCircleRight } from 'react-icons/fa'
@@ -17,11 +18,7 @@ const AppHeader = () => {
         <div className="flex lg:flex-1">
           <Link href="/" className="-m-1.5 p-1.5">
             <span className="sr-only">Pemike</span>
-            <img
-              className="h-8 w-auto"
-              src="../src/assets/imgs/pemike_Logo.png"
-              alt=""
-            />
+            <img className="h-8 w-auto" src={AppLogo} alt="" />
           </Link>
         </div>
         <div className="flex lg:hidden">
@@ -103,11 +100,7 @@ const AppHeader = () => {
           <div className="flex items-center justify-between">
             <Link to="/" className="-m-1.5 p-1.5">
               <span className="sr-only">Pemike</span>
-              <img
-                className="h-8 w-auto"
-                src="../src/assets/imgs/pemike_Logo.png"
-                alt=""
-              />
+              <img className="h-8 w-auto" src={AppLogo} alt="" />
             </Link>
             <button
               onClick={() => showMenuRef.current.classList.toggle('hidden')}

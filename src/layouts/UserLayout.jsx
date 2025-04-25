@@ -12,6 +12,7 @@ const UserLayout = () => {
   const [loading, setLoading] = useState(true)
   const { fetchProfile, loading: loadingUser } = useUserStore()
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated())
+  const userRole = useAuthStore((state) => state.userRole())
   const [, setSessionData] = useSessionStorage('redirect')
 
   useEffect(() => {
@@ -30,7 +31,7 @@ const UserLayout = () => {
     <>
       {loading ? (
         <AppSpinner className="py-12 bg-gray-200" />
-      ) : isAuthenticated ? (
+      ) : isAuthenticated && userRole === 'CUSTOMER' ? (
         <>
           <AppUserHeader />
 

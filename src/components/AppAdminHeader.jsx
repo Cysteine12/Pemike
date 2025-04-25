@@ -1,3 +1,4 @@
+import AppLogo from '@/assets/imgs/pemike_Logo.png'
 import { useAuthStore } from '@/stores/useAuthStore'
 import { useRef } from 'react'
 import { FaDirections, FaList, FaUser } from 'react-icons/fa'
@@ -18,11 +19,7 @@ const AppAdminHeader = () => {
         <div className="flex lg:flex-1">
           <Link href="/" className="-m-1.5 p-1.5">
             <span className="sr-only">Pemike</span>
-            <img
-              className="h-8 w-auto"
-              src="../src/assets/imgs/pemike_Logo.png"
-              alt=""
-            />
+            <img className="h-8 w-auto" src={AppLogo} alt="" />
           </Link>
         </div>
         <div className="flex lg:hidden">
@@ -50,15 +47,14 @@ const AppAdminHeader = () => {
           </button>
         </div>
         <div className="hidden lg:flex lg:gap-x-12 text-blue-600">
-          <Link to="/" className="font-semibold">
-            Home
-          </Link>
-
           <Link to="/admin/dashboard" className="font-semibold">
             Dashboard
           </Link>
           <Link to="/admin/trips" className="font-semibold">
             Trips
+          </Link>
+          <Link to="/admin/vehicles" className="font-semibold">
+            Vehicles
           </Link>
           <Link to="/bookings" className="font-semibold">
             Bookings
@@ -130,11 +126,7 @@ const AppAdminHeader = () => {
           <div className="flex items-center justify-between">
             <Link to="/" className="-m-1.5 p-1.5">
               <span className="sr-only">Pemike</span>
-              <img
-                className="h-8 w-auto"
-                src="../src/assets/imgs/pemike_Logo.png"
-                alt=""
-              />
+              <img className="h-8 w-auto" src={AppLogo} alt="" />
             </Link>
             <button
               onClick={() => showMenuRef.current.classList.toggle('hidden')}
@@ -163,12 +155,6 @@ const AppAdminHeader = () => {
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className="space-y-2 py-6">
                 <Link
-                  to="/"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
-                >
-                  Home
-                </Link>
-                <Link
                   to="/admin/dashboard"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
                 >
@@ -179,6 +165,12 @@ const AppAdminHeader = () => {
                   className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
                 >
                   Trips
+                </Link>
+                <Link
+                  to="/admin/vehicles"
+                  className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
+                >
+                  Vehicles
                 </Link>
                 <Link
                   to="/admin/payments"

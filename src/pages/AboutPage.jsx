@@ -1,5 +1,4 @@
 import '@/assets/css/AboutPage.css'
-import AppFooter from '@/components/AppFooter'
 
 const AboutPage = () => {
   return (
@@ -57,8 +56,6 @@ const AboutPage = () => {
         </div>
       </div>
       <br />
-
-      <AppFooter />
     </>
   )
 }

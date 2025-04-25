@@ -15,7 +15,7 @@ const AppButton = ({
   return (
     <button
       type={type}
-      className={`flex flex-row items-center rounded border bg-blue-500 p-2 py-1 text-white justify-center hover:cursor-pointer ${style} min-w-25`}
+      className={`flex flex-row items-center rounded border bg-blue-500 p-2 py-1 text-white justify-center hover:cursor-pointer min-w-25 ${style}`}
       disabled={disabled || pending}
       onClick={onClick}
     >

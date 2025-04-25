@@ -1,3 +1,7 @@
+import IMG1 from '@/assets/imgs/primike-transport-768x661.png'
+import IMG2 from '@/assets/imgs/primike-transport-r-768x320.png'
+import IMG3 from '@/assets/imgs/container_goods-2.jpg'
+import IMG4 from '@/assets/imgs/delivery-man-2.jpg'
 // carousel logic
 
 export function toggleMenu() {
@@ -10,36 +14,40 @@ export function toggleMenu() {
   body.classList.toggle('no-scroll', !isOpen)
 }
 // Carousel Functionality
-const slides = document.querySelectorAll('.carousel-item')
-const dots = document.querySelectorAll('.carousel-dot')
-let index = 0
+export const startCarousel = () => {
+  const slides = document.querySelectorAll('.carousel-item')
+  const dots = document.querySelectorAll('.carousel-dot')
+  let index = 0
 
-function showSlide(i) {
-  slides.forEach((slide, idx) => {
-    slide.classList.toggle('active', idx === i)
-    dots[idx].classList.toggle('active', idx === i)
-  })
-}
+  function showSlide(i) {
+    slides.forEach((slide, idx) => {
+      // console.log('')
+      dots[idx].classList.toggle('active', idx === i)
+      slide.classList.toggle('active', idx === i)
+    })
+    return
+  }
 
-function nextSlide() {
-  index = (index + 1) % slides.length
-  showSlide(index)
-}
-
-dots.forEach((dot, i) => {
-  dot.addEventListener('click', () => {
-    index = i
+  function nextSlide() {
+    index = (index + 1) % slides.length
     showSlide(index)
-  })
-})
+  }
 
-setInterval(nextSlide, 5000)
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+      index = i
+      showSlide(index)
+    })
+  })
+
+  return setInterval(nextSlide, 5000)
+}
 
 // explore section logic
 const data = [
   {
     text: 'EXPLORE THE FREIGHT SERVICE',
-    image: '../src/assets/imgs/primike-transport-768x661.png',
+    image: IMG1,
     description:
       'Pemike Transport is your trusted partner for 24/7 transportation and logistics services. We specialize in the seamless movement of people and goods, ensuring reliability, safety, and efficiency at all times. Whether you need timely passenger transportation or secure logistics solutions, Pemike Transport is committed to meeting your needs around the clock. With a focus on customer satisfaction and operational excellence, we make every journey and delivery smooth and stress-free.',
     benefit1: '✔ Round-the-Clock Availability',
@@ -51,7 +59,7 @@ const data = [
   },
   {
     text: 'EXPLORE OUR VEHICLES',
-    image: '../src/assets/imgs/primike-transport-r-768x320.png',
+    image: IMG2,
     description:
       'Discover our fleet of reliable, well-maintained vehicles designed to meet all your transportation and logistics needs. From spacious vans and trucks for heavy-duty deliveries to comfortable cars for passenger rides, our vehicles are equipped to provide safety, efficiency, and convenience. No matter the journey or the load, we have the right solution for you!',
     benefit1: '✔ Comfort and Safety',
@@ -63,7 +71,7 @@ const data = [
   },
   {
     text: 'DELIVERY ON TIME',
-    image: '../src/assets/imgs/container_goods-2.jpg',
+    image: IMG3,
     description:
       'At Pemike Transport, we prioritize punctuality to ensure your logistics needs are met without delay. Our well-organized processes and reliable fleet guarantee that your goods are delivered on time, every time. Whether it’s a single package or bulk freight, we understand the importance of meeting deadlines and work tirelessly to exceed your expectations. With us, your trust is never misplaced!',
     benefit1: '✔ Reliability You Can Trust',
@@ -75,7 +83,7 @@ const data = [
   },
   {
     text: 'FULLY DEDICATED TEAM',
-    image: '../src/assets/imgs/delivery-man-2.jpg',
+    image: IMG4,
     description:
       'Our team is deeply committed to delivering exceptional customer satisfaction. With unwavering dedication, we go above and beyond to understand your needs, provide personalized solutions, and ensure every interaction leaves you feeling valued. From timely deliveries to seamless support, our passion for excellence drives us to make your experience with us outstanding.',
     benefit1: '✔ Personalized Service',
@@ -153,13 +161,13 @@ export function changePrevSlide() {
 
 window.addEventListener('resize', showSlides)
 
-function loadScript(src) {
-  return new Promise((resolve, reject) => {
-    const script = document.createElement('script')
-    script.src = src
-    script.async = true
-    script.onload = resolve
-    script.onerror = reject
-    document.body.appendChild(script)
-  })
-}
+// function loadScript(src) {
+//   return new Promise((resolve, reject) => {
+//     const script = document.createElement('script')
+//     script.src = src
+//     script.async = true
+//     script.onload = resolve
+//     script.onerror = reject
+//     document.body.appendChild(script)
+//   })
+// }

@@ -1,4 +1,11 @@
 import { Link } from 'react-router'
+import VehicleImage from '@/assets/imgs/primike-transport-768x661.png'
+import BaggageImg from '@/assets/imgs/lucide--baggage-claim (1).svg'
+import Person1 from '@/assets/imgs/Yakubu-Ibrahim-3.jpg'
+import Person2 from '@/assets/imgs/Chioma-Okafor-1.jpg'
+import Person3 from '@/assets/imgs/Kehinde-Olatunji-1-200x300.jpg'
+import Person4 from '@/assets/imgs/Adetola-Adebayo.jpg'
+import AppLogo from '@/assets/imgs/pemike_Logo.png'
 import {
   FaArrowLeft,
   FaArrowRight,
@@ -8,7 +15,7 @@ import {
   FaUsers,
 } from 'react-icons/fa'
 import SearchModal from '../components/SearchModal'
-import { toggleMenu } from '@/assets/js/index.js'
+import { toggleMenu, startCarousel } from '@/assets/js/index.js'
 import '../assets/css/HomePage.css'
 import {
   updateContent,
@@ -19,9 +26,18 @@ import {
 } from '../assets/js'
 import { useAuthStore } from '@/stores/useAuthStore'
 import AppSlider from '@/components/AppSlider'
+import { useEffect } from 'react'
 
 const HomePage = () => {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated())
+
+  useEffect(() => {
+    const intervalId = startCarousel()
+
+    return () => {
+      clearInterval(intervalId)
+    }
+  }, [])
 
   return (
     <>
@@ -44,7 +60,7 @@ const HomePage = () => {
       {/* <!-- Navbar --> */}
       <nav className="navbar">
         <div className="line"></div>
-        <img src="../src/assets/imgs/pemike_Logo.png" alt="Logo" />
+        <img src={AppLogo} alt="Logo" />
         <div className="nav-links">
           <Link
             to="/"
@@ -105,13 +121,13 @@ const HomePage = () => {
       <div className="carousel">
         <div
           className="carousel-item active"
-          style={{ backgroundImage: "url('../src/assets/imgs/slider3.jpg')" }}
+          style={{ backgroundImage: "url('./imgs/slider3.jpg')" }}
         >
           SMOOTH RIDES <br /> AFFORDABLE FARES
         </div>
         <div
           className="carousel-item"
-          style={{ backgroundImage: "url('../src/assets/imgs/slider2.jpg')" }}
+          style={{ backgroundImage: "url('./imgs/slider2.jpg')" }}
         >
           <h1 style={{ alignItems: 'center' }}>
             FAST, RELIABLE DELIVERY <br /> YOUR GOODS, ON TIME, EVERY TIME
@@ -210,11 +226,7 @@ const HomePage = () => {
             </div>
 
             <div className="image-container">
-              <img
-                id="image"
-                src="../src/assets/imgs/primike-transport-768x661.png"
-                alt="Dynamic Image"
-              />
+              <img id="image" src={VehicleImage} alt="Dynamic Image" />
             </div>
           </div>
 
@@ -289,7 +301,7 @@ const HomePage = () => {
           <div>
             <i>
               <img
-                src="../src/assets/imgs/lucide--baggage-claim (1).svg"
+                src={BaggageImg}
                 alt=""
                 style={{ width: '70px' }}
                 className="m-auto"
@@ -316,7 +328,7 @@ const HomePage = () => {
           <div className="slider" id="slider">
             <div className="slide">
               <img
-                src="../src/assets/imgs/Yakubu-Ibrahim-3.jpg"
+                src={Person1}
                 alt="Yakubu Ibrahim"
                 className="profile-img mx-auto"
               />
@@ -331,7 +343,7 @@ const HomePage = () => {
             </div>
             <div className="slide">
               <img
-                src="../src/assets/imgs/Chioma-Okafor-1.jpg"
+                src={Person2}
                 alt="Chioma Okafor"
                 className="profile-img mx-auto"
               />
@@ -346,7 +358,7 @@ const HomePage = () => {
             </div>
             <div className="slide">
               <img
-                src="../src/assets/imgs/Kehinde-Olatunji-1-200x300.jpg"
+                src={Person3}
                 alt="Kehinde Olatunji"
                 className="profile-img mx-auto"
               />
@@ -361,7 +373,7 @@ const HomePage = () => {
             </div>
             <div className="slide">
               <img
-                src="../src/assets/imgs/Adetola-Adebayo.jpg"
+                src={Person4}
                 alt="Adetola Adedayo"
                 className="profile-img mx-auto"
               />

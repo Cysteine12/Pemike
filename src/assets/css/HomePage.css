@@ -922,7 +922,6 @@ body.menu-open {
 
 /* Footer Styling */
 .footer {
-  background: rgb(20, 0, 115);
   color: #fff;
   padding-inline: 10px;
 
@@ -937,7 +936,7 @@ body.menu-open {
 .footer-column {
   min-width: 250px;
   max-width: 300px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   text-align: left;
   align-items: left;
 }
@@ -997,7 +996,7 @@ body.menu-open {
 
 /* Copyright Section */
 .copyright {
-  background: rgb(11, 1, 60);
+  background: rgb(35, 15, 134);
   color: #bbb;
   text-align: center;
   padding: 10px;
@@ -1106,7 +1105,7 @@ body.menu-open {
 /* Large Devices (Laptops & Desktops: 1025px - 1440px) */
 @media (min-width: 1025px) and (max-width: 1440px) {
   .footer {
-    padding: 80px 8rem;
+    padding: 30px 8rem;
     justify-content: space-between;
   }
 
@@ -1135,7 +1134,7 @@ body.menu-open {
 /* Extra Large Devices (1441px and above) */
 @media (min-width: 1441px) {
   .footer {
-    padding: 100px 10rem;
+    padding: 20px 10rem;
   }
 
   .footer-column {

@@ -1,5 +1,4 @@
 import '@/assets/css/ContactPage.css'
-import AppFooter from '@/components/AppFooter'
 
 const ContactPage = () => {
   return (
@@ -82,8 +81,6 @@ const ContactPage = () => {
           </div>
         </div>
       </section>
-
-      <AppFooter />
     </>
   )
 }
