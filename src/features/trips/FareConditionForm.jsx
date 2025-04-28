@@ -1,9 +1,9 @@
 import Card from '@/components/Card'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const FareConditionForm = ({ label, formData, setFormData }) => {
   const [fareConditionFormData, setFareConditionFormData] = useState({
-    conditionLabel: '',
+    conditionLabel: label,
     adultPrice: '',
     childPrice: '',
     infantPrice: '',
@@ -12,90 +12,47 @@ const FareConditionForm = ({ label, formData, setFormData }) => {
     cancelLessThan48h: '',
   })
 
+  useEffect(() => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      fareConditions: [...prevFormData.fareConditions, fareConditionFormData],
+    }))
+  }, [])
+
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
+    setFareConditionFormData({
+      ...fareConditionFormData,
       [e.target.name]: e.target.value,
     })
+    setFormData({
+      ...formData,
+      fareConditions: formData.fareConditions.map((fareCondition) => {
+        if (fareCondition.conditionLabel === label) return fareConditionFormData
+        return fareCondition
+      }),
+    })
+    console.log(formData)
   }
 
   return (
-    <Card styles={'m-12 md:mx-auto p-6 bg-white md:max-w-120'}>
-      <span className="text-xl">{label}</span>
+    <Card styles={'m-6 md:mx-auto p-6 bg-white md:max-w-120'}>
+      <div className="text-xl my-2">{label}</div>
       <form>
-        <div className="mb-4">
-          <label
-            htmlFor="source"
-            className="block text-blue-500 font-bold mb-2"
-          >
-            Source
-          </label>
-          <input
-            type="text"
-            id="source"
-            name="source"
-            className="w-full border-2 border-blue-400 rounded py-2 px-3 mb-2"
-            placeholder="Source..."
-            value={formData.source}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className="mb-4">
-          <label
-            htmlFor="destination"
-            className="block text-blue-500 font-bold mb-2"
-          >
-            Destination
-          </label>
-          <input
-            type="text"
-            id="destination"
-            name="destination"
-            className="w-full border-2 border-blue-400 rounded py-2 px-3 mb-2"
-            placeholder="Destination..."
-            value={formData.destination}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className="mb-4">
-          <label
-            htmlFor="departureSchedule"
-            className="block text-blue-500 font-bold mb-2"
-          >
-            Departure Schedule
-          </label>
-          <input
-            type="datetime-local"
-            id="departureSchedule"
-            name="departureSchedule"
-            className="w-full border-2 border-blue-400 rounded py-2 px-3 mb-2"
-            placeholder="Departure Schedule..."
-            value={formData.departureSchedule}
-            min={new Date().toISOString().split('.')[0]}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-3 gap-2">
           <div className="mb-4">
             <label
-              htmlFor="firstChangePercent"
+              htmlFor="adultPrice"
               className="block text-blue-500 font-bold mb-2"
             >
-              First Change Percent
+              Adult Price
             </label>
             <input
               type="number"
-              id="firstChangePercent"
-              name="firstChangePercent"
+              id="adultPrice"
+              name="adultPrice"
               className="w-full border-2 border-blue-400 rounded py-2 px-3 mb-2"
-              placeholder="First Change Percent..."
-              value={formData.firstChangePercent}
+              placeholder="Adult Price..."
+              value={fareConditionFormData.adultPrice}
               onChange={handleChange}
               required
             />
@@ -103,18 +60,77 @@ const FareConditionForm = ({ label, formData, setFormData }) => {
 
           <div className="mb-4">
             <label
-              htmlFor="secondChangePercent"
+              htmlFor="childPrice"
               className="block text-blue-500 font-bold mb-2"
             >
-              Second Change Percent
+              Child Price
             </label>
             <input
               type="number"
-              id="secondChangePercent"
-              name="secondChangePercent"
+              id="childPrice"
+              name="childPrice"
               className="w-full border-2 border-blue-400 rounded py-2 px-3 mb-2"
-              placeholder="Second Change Percent..."
-              value={formData.secondChangePercent}
+              placeholder="Child Price..."
+              value={fareConditionFormData.childPrice}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="mb-4">
+            <label
+              htmlFor="infantPrice"
+              className="block text-blue-500 font-bold mb-2"
+            >
+              Infant Price
+            </label>
+            <input
+              type="number"
+              id="infantPrice"
+              name="infantPrice"
+              className="w-full border-2 border-blue-400 rounded py-2 px-3 mb-2"
+              placeholder="Infant Price..."
+              value={fareConditionFormData.infantPrice}
+              onChange={handleChange}
+              required
+            />
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 gap-2">
+          <div className="mb-4">
+            <label
+              htmlFor="maxWeeksBefore"
+              className="block text-blue-500 font-bold mb-2"
+            >
+              Maximum Weeks Before
+            </label>
+            <input
+              type="number"
+              id="maxWeeksBefore"
+              name="maxWeeksBefore"
+              className="w-full border-2 border-blue-400 rounded py-2 px-3 mb-2"
+              placeholder="Maximum Weeks Before..."
+              value={fareConditionFormData.maxWeeksBefore}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="mb-4">
+            <label
+              htmlFor="minWeeksBefore"
+              className="block text-blue-500 font-bold mb-2"
+            >
+              Minimum Weeks Before
+            </label>
+            <input
+              type="number"
+              id="minWeeksBefore"
+              name="minWeeksBefore"
+              className="w-full border-2 border-blue-400 rounded py-2 px-3 mb-2"
+              placeholder="Minimum Weeks Before..."
+              value={fareConditionFormData.minWeeksBefore}
               onChange={handleChange}
               required
             />
@@ -123,27 +139,20 @@ const FareConditionForm = ({ label, formData, setFormData }) => {
 
         <div className="mb-4">
           <label
-            htmlFor="refundDays"
+            htmlFor="cancelLessThan48h"
             className="block text-blue-500 font-bold mb-2"
           >
-            Refund Days
+            Charges for cancel less than 48 hours
           </label>
           <input
             type="number"
-            id="refundDays"
-            name="refundDays"
+            id="cancelLessThan48h"
+            name="cancelLessThan48h"
             className="w-full border-2 border-blue-400 rounded py-2 px-3 mb-2"
-            placeholder="Refund Days..."
-            value={formData.refundDays}
-            onChange={(e) =>
-              handleChange({
-                ...e,
-                target: {
-                  name: e.target.name,
-                  value: Number(e.target.value),
-                },
-              })
-            }
+            placeholder="Charges for cancel < 48h..."
+            value={fareConditionFormData.cancelLessThan48h}
+            onChange={handleChange}
+            required
           />
         </div>
       </form>

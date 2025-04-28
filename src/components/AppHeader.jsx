@@ -9,6 +9,8 @@ const AppHeader = () => {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated())
   const { logout } = useAuthStore()
 
+  const toggleMenu = () => showMenuRef.current.classList.toggle('hidden')
+
   return (
     <header className="bg-white">
       <nav
@@ -23,7 +25,7 @@ const AppHeader = () => {
         </div>
         <div className="flex lg:hidden">
           <button
-            onClick={() => showMenuRef.current.classList.toggle('hidden')}
+            onClick={toggleMenu}
             type="button"
             className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
           >
@@ -103,7 +105,7 @@ const AppHeader = () => {
               <img className="h-8 w-auto" src={AppLogo} alt="" />
             </Link>
             <button
-              onClick={() => showMenuRef.current.classList.toggle('hidden')}
+              onClick={toggleMenu}
               type="button"
               className="-m-2.5 rounded-md p-2.5 text-gray-700"
             >
@@ -129,18 +131,21 @@ const AppHeader = () => {
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className="space-y-2 py-6">
                 <Link
+                  onClick={toggleMenu}
                   to="/trips"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
                 >
                   Trips
                 </Link>
                 <Link
+                  onClick={toggleMenu}
                   to="/about"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
                 >
                   About Us
                 </Link>
                 <Link
+                  onClick={toggleMenu}
                   to="/contact-us"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
                 >

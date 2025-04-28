@@ -30,7 +30,7 @@ const UserCreateForm = ({
   }
 
   return (
-    <Card styles={'m-12 md:mx-auto p-6 bg-white md:max-w-120'}>
+    <Card styles={'m-12 mx-6 md:mx-auto p-6 bg-white md:max-w-120'}>
       <form onSubmit={submitForm}>
         <h4 className="my-5 text-blue-500 text-center font-bold text-3xl">
           {formTitle}

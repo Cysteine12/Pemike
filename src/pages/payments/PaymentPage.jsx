@@ -8,10 +8,9 @@ import TripDetail from '@/features/trips/TripDetail'
 const PaymentPage = () => {
   const { id } = useParams()
   const { fetchPayment, payments, loading } = usePaymentStore()
-  console.log(loading)
 
   useEffect(() => {
-    ;(async () => await fetchPayment(id))()
+    fetchPayment(id)
     window.scrollTo(0, 0)
   }, [])
 

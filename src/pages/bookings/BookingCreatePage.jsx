@@ -154,7 +154,7 @@ const BookingConfirmPage = () => {
                       {seats.map((seat) => (
                         <div
                           key={seat.id}
-                          className="grid grid-cols-[15%_50%_20%_15%] items-center py-2 my-1 bg-gray-200 text-white rounded"
+                          className="grid grid-cols-[15%_50%_25%_10%] items-center py-2 my-1 bg-gray-200 text-white rounded"
                         >
                           <span className="grid-p-1 px-2 text-blue-500 rounded-l">
                             {seat.seatNo}

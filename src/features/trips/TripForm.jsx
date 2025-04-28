@@ -17,7 +17,7 @@ const TripForm = ({
   }
 
   return (
-    <Card styles={'m-12 md:mx-auto p-6 bg-white md:max-w-120'}>
+    <Card styles={'m-6 md:mx-auto p-6 bg-white md:max-w-120 h-fit'}>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label

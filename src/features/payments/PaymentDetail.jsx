@@ -36,7 +36,7 @@ const PaymentDetail = ({ children, payment }) => {
 
         <li className="my-3 flex justify-between">
           <span className="flex text-blue-600">
-            <FaChair className={'mt-1 mr-3'} /> Seat
+            <FaChair className={'mt-1 mr-3'} /> Total Seat(s)
           </span>
           {payment.amount / payment.booking.trip.fare}
         </li>

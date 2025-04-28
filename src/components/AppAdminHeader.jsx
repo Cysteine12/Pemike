@@ -10,6 +10,8 @@ const AppAdminHeader = () => {
 
   const { user, loading, logout } = useAuthStore()
 
+  const toggleMenu = () => showMenuRef.current.classList.toggle('hidden')
+
   return (
     <header className="bg-white">
       <nav
@@ -24,7 +26,7 @@ const AppAdminHeader = () => {
         </div>
         <div className="flex lg:hidden">
           <button
-            onClick={() => showMenuRef.current.classList.toggle('hidden')}
+            onClick={toggleMenu}
             type="button"
             className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
           >
@@ -56,8 +58,11 @@ const AppAdminHeader = () => {
           <Link to="/admin/vehicles" className="font-semibold">
             Vehicles
           </Link>
-          <Link to="/bookings" className="font-semibold">
+          <Link to="/admin/bookings" className="font-semibold">
             Bookings
+          </Link>
+          <Link to="/admin/payments" className="font-semibold">
+            Payments
           </Link>
         </div>
 
@@ -85,16 +90,6 @@ const AppAdminHeader = () => {
                 >
                   <FaUser className="text-sm mt-1 mr-2" />
                   <span>My Profile</span>
-                </Link>
-              </li>
-
-              <li>
-                <Link
-                  to={'/admin/payments'}
-                  className="flex my-2 hover:text-blue-500"
-                >
-                  <FaList className="text-sm mt-1 mr-2" />
-                  <span>Payment History</span>
                 </Link>
               </li>
 
@@ -129,7 +124,7 @@ const AppAdminHeader = () => {
               <img className="h-8 w-auto" src={AppLogo} alt="" />
             </Link>
             <button
-              onClick={() => showMenuRef.current.classList.toggle('hidden')}
+              onClick={toggleMenu}
               type="button"
               className="-m-2.5 rounded-md p-2.5 text-gray-700"
             >
@@ -155,28 +150,32 @@ const AppAdminHeader = () => {
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className="space-y-2 py-6">
                 <Link
+                  onClick={toggleMenu}
                   to="/admin/dashboard"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
                 >
                   Dashboard
                 </Link>
                 <Link
+                  onClick={toggleMenu}
                   to="/admin/trips"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
                 >
                   Trips
                 </Link>
                 <Link
+                  onClick={toggleMenu}
                   to="/admin/vehicles"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
                 >
                   Vehicles
                 </Link>
                 <Link
+                  onClick={toggleMenu}
                   to="/admin/payments"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
                 >
-                  My Payments
+                  Payments
                 </Link>
               </div>
               <button
