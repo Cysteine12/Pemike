@@ -1,9 +1,11 @@
+import AppButton from '@/components/AppButton'
 import FareConditionForm from '@/features/trips/FareConditionForm'
 import TripForm from '@/features/trips/TripForm'
 import { useAdminStore } from '@/stores/useAdminStore'
 import { useTripStore } from '@/stores/useTripStore'
 import { useVehicleStore } from '@/stores/useVehicleStore'
 import { useEffect, useState } from 'react'
+import { FaRegArrowAltCircleRight } from 'react-icons/fa'
 import { useNavigate } from 'react-router'
 
 const TripCreatePage = () => {
@@ -21,7 +23,35 @@ const TripCreatePage = () => {
     refundDays: '',
     vehicleId: '',
     driverId: '',
-    fareConditions: [],
+    fareConditions: [
+      {
+        conditionLabel: 'WEEK_0_TO_2',
+        adultPrice: '',
+        childPrice: '',
+        infantPrice: '',
+        maxWeeksBefore: '2',
+        minWeeksBefore: '0',
+        cancelLessThan48h: '',
+      },
+      {
+        conditionLabel: 'WEEK_2_TO_4',
+        adultPrice: '',
+        childPrice: '',
+        infantPrice: '',
+        maxWeeksBefore: '4',
+        minWeeksBefore: '2',
+        cancelLessThan48h: '',
+      },
+      {
+        conditionLabel: 'WEEK_MORE_THAN_4',
+        adultPrice: '',
+        childPrice: '',
+        infantPrice: '',
+        maxWeeksBefore: null,
+        minWeeksBefore: '4',
+        cancelLessThan48h: '',
+      },
+    ],
   })
 
   useEffect(() => {
@@ -33,7 +63,10 @@ const TripCreatePage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    const res = await createTrip(formData)
+    const res = await createTrip({
+      ...formData,
+      departureSchedule: `${formData.departureSchedule}:00.000Z`,
+    })
     if (res && res.success) navigate(`/admin/trips/${res.data.id}`)
   }
 
@@ -43,33 +76,36 @@ const TripCreatePage = () => {
         <h4 className="text-blue-500 text-center font-bold text-2xl">
           Create New Trip
         </h4>
-        <div className="grid grid-cols-2">
-          <TripForm
-            formData={formData}
-            setFormData={setFormData}
-            drivers={users}
-            vehicles={vehicles}
-            handleSubmit={handleSubmit}
-          />
+        <form onSubmit={handleSubmit}>
+          <div className="grid grid-cols-2">
+            <TripForm
+              formData={formData}
+              setFormData={setFormData}
+              drivers={users}
+              vehicles={vehicles}
+              showSubmitBtn={false}
+            />
 
-          <div>
-            <FareConditionForm
-              label={'WEEK_0_TO_2'}
-              formData={formData}
-              setFormData={setFormData}
-            />
-            <FareConditionForm
-              label={'WEEK_2_TO_4'}
-              formData={formData}
-              setFormData={setFormData}
-            />
-            <FareConditionForm
-              label={'WEEK_MORE_THAN_4'}
-              formData={formData}
-              setFormData={setFormData}
-            />
+            <div>
+              {formData.fareConditions.map((fareCondition) => (
+                <FareConditionForm
+                  key={fareCondition.conditionLabel}
+                  formData={fareCondition}
+                  setFormData={setFormData}
+                />
+              ))}
+            </div>
           </div>
-        </div>
+
+          <div className="flex justify-center">
+            <AppButton
+              type="submit"
+              style="m-6 py-3 rounded-xl w-full md:max-w-100"
+            >
+              Submit <FaRegArrowAltCircleRight className="ml-1" />
+            </AppButton>
+          </div>
+        </form>
       </div>
     </main>
   )

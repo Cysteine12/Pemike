@@ -16,7 +16,8 @@ import {
 const TripsPage = () => {
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
-  const { fetchTrips, searchTripsByParams, trips, loading } = useTripStore()
+  const { fetchTrips, searchTripsByParams, deleteTrip, trips, loading } =
+    useTripStore()
 
   const source = searchParams.get('source')
 
@@ -33,6 +34,10 @@ const TripsPage = () => {
     window.scrollTo(0, 0)
     getTrips()
   }, [])
+
+  const handleDelete = async (tripId) => {
+    await deleteTrip(tripId)
+  }
 
   return (
     <>
@@ -115,7 +120,7 @@ const TripsPage = () => {
                             >
                               <AppButton
                                 style={
-                                  'bg-warning text-white btn-sm min-w-auto'
+                                  'bg-yellow-500 text-white btn-sm min-w-auto'
                                 }
                               >
                                 <FaEdit />
@@ -123,6 +128,7 @@ const TripsPage = () => {
                             </Link>
 
                             <AppButton
+                              onClick={() => handleDelete(trip.id)}
                               style={'bg-red-500 text-white btn-sm min-w-auto'}
                               className="mx-1"
                             >
@@ -134,15 +140,13 @@ const TripsPage = () => {
                     ))}
                   </tbody>
                 </table>
+                {trips.length < 1 && (
+                  <div className="p-4 text-center">
+                    No trip record found yet.
+                  </div>
+                )}
               </Card>
             </div>
-            {trips.length < 1 && (
-              <>
-                <Card>
-                  No trip matches your current location.Try another location.
-                </Card>
-              </>
-            )}
           </>
         )}
       </section>

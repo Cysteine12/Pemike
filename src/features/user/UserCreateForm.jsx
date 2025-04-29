@@ -26,6 +26,11 @@ const UserCreateForm = ({
     if (formData.password !== formData.confirmPassword) {
       return toast.error('Password does not match')
     }
+
+    if (formData.password.length < 7) {
+      return toast.error('Minimum password length is 7')
+    }
+
     handleSubmit()
   }
 
@@ -129,6 +134,7 @@ const UserCreateForm = ({
               type="password"
               id="password"
               name="password"
+              minLength="7"
               className="w-full border-2 border-blue-400 rounded py-2 px-3 mb-2"
               placeholder="Password..."
               value={formData.password}
@@ -145,6 +151,7 @@ const UserCreateForm = ({
               type="password"
               id="confirmPassword"
               name="confirmPassword"
+              minLength="7"
               className="w-full border-2 border-blue-400 rounded py-2 px-3 mb-2"
               placeholder="Confirm Password..."
               value={formData.confirmPassword}

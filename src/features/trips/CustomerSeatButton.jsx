@@ -4,7 +4,7 @@ import { useSeatStore } from '@/stores/useSeatStore'
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
 
-const SeatButton = ({ seatNo }) => {
+const CustomerSeatButton = ({ seatNo }) => {
   const { id } = useParams()
   const navigate = useNavigate()
   const { isCountdownActive, startCountdown } = useCountdownStore()
@@ -12,7 +12,10 @@ const SeatButton = ({ seatNo }) => {
   const { reserveSeat, sessionID } = useSeatStore()
   const seat = useSeatStore((state) =>
     state.seats.find((seat) => seat.seatNo === seatNo)
-  )
+  ) ?? {
+    seatNo,
+    status: 'AVAILABLE',
+  }
 
   useEffect(() => {
     setSeatStatusClass(getSeatStatusClass())
@@ -57,4 +60,4 @@ const SeatButton = ({ seatNo }) => {
   )
 }
 
-export default SeatButton
+export default CustomerSeatButton

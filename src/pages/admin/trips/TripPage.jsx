@@ -1,6 +1,8 @@
 import AppSpinner from '@/components/AppSpinner'
 import Card from '@/components/Card'
 import TripDetail from '@/features/trips/TripDetail'
+import SeatsLayout from '@/features/vehicles/SeatsLayout'
+import { useAdminStore } from '@/stores/useAdminStore'
 import { useTripStore } from '@/stores/useTripStore'
 import { formatDateIntl, formatTime } from '@/utils/dateFormatter'
 import { useEffect } from 'react'
@@ -16,9 +18,11 @@ import { useParams } from 'react-router'
 const TripPage = () => {
   const { id } = useParams()
   const { fetchTrip, trips, loading } = useTripStore()
+  const { fetchSeatsByTrip } = useAdminStore()
 
   useEffect(() => {
     fetchTrip(id)
+    fetchSeatsByTrip(id)
     window.scrollTo(0, 0)
   }, [])
 
@@ -33,7 +37,13 @@ const TripPage = () => {
         <AppSpinner />
       ) : (
         <div className="md:grid md:grid-cols-2 md:gap-10">
-          <TripDetail trip={trips[0]} />
+          <div className="md:px-4 mx-auto">
+            <TripDetail trip={trips[0]} />
+
+            <Card styles={'md:mx-auto mx-8 mb-9 bg-white'}>
+              <SeatsLayout />
+            </Card>
+          </div>
 
           <Card
             styles={
