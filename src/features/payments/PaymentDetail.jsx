@@ -34,7 +34,7 @@ const PaymentDetail = ({ children, payment }) => {
           </span>
         </li>
 
-        {payment.booking?.trip?.Seat > 0 && (
+        {payment.booking?.trip?.Seat && (
           <li className="my-3 flex justify-between">
             <span className="flex text-blue-600">
               <FaChair className={'mt-1 mr-3'} /> Seat Number(s)
