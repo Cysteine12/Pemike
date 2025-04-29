@@ -33,7 +33,7 @@ const TripDetail = ({ trip }) => {
             <FaBus className={'mt-1 mr-3'} /> Vehicle
           </span>
           <span>
-            {trip.vehicle.brand} {trip.vehicle.model} {trip.vehicle.category}
+            {trip.vehicle?.brand} {trip.vehicle?.model} {trip.vehicle?.category}
           </span>
         </li>
 
@@ -48,10 +48,14 @@ const TripDetail = ({ trip }) => {
         </li>
 
         <li className="my-3 flex justify-between">
-          <span className="flex text-blue-600">
-            <FaMoneyBill className={'mt-1 mr-3'} /> Fare Range
-          </span>
-          <span className="flex">{priceRange}</span>
+          {lowestPrice && (
+            <>
+              <span className="flex text-blue-600">
+                <FaMoneyBill className={'mt-1 mr-3'} /> Fare Range
+              </span>
+              <span className="flex">{priceRange}</span>
+            </>
+          )}
         </li>
 
         <li className="my-3 flex justify-between">

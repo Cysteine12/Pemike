@@ -36,11 +36,11 @@ const PaymentDetail = ({ children, payment }) => {
 
         <li className="my-3 flex justify-between">
           <span className="flex text-blue-600">
-            <FaChair className={'mt-1 mr-3'} /> Booked Seat(s)
+            <FaChair className={'mt-1 mr-3'} /> Seat Number(s)
           </span>
           <span>
             {payment.booking?.trip?.Seat?.map((seat) => (
-              <span key={seat.id} className="mx-1">
+              <span key={seat.id} className="mx-1 font-semibold">
                 {seat.seatNo}
               </span>
             ))}

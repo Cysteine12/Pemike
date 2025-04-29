@@ -27,7 +27,7 @@ const PaymentPage = () => {
         <div className="lg:grid grid-cols-2">
           <PaymentDetail payment={payments[0]} />
 
-          <TripDetail trip={payments[0].booking.trip} />
+          <TripDetail trip={payments[0].booking?.trip} />
         </div>
       )}
     </>
