@@ -45,7 +45,7 @@ const VehiclesPage = () => {
           <>
             <div className="mb-4 flex mx-auto max-w-[1000px]">
               <div className="mx-auto text-center text-blue-500 font-bold text-2xl ">
-                List of Available Vehicles
+                Vehicles List
               </div>
               <Link
                 to={'/admin/vehicles/create'}
