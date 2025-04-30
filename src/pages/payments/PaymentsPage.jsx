@@ -35,7 +35,9 @@ const PaymentsPage = () => {
               </div>
             </PaymentDetail>
           ))}
-          <Card styles={'m-5 bg-white'}>No payment record found!</Card>
+          {payments.length < 1 && (
+            <Card styles={'m-5 bg-white'}>No payment record found!</Card>
+          )}
         </div>
       )}
     </>

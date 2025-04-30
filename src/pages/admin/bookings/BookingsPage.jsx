@@ -3,7 +3,7 @@ import AppSpinner from '@/components/AppSpinner'
 import { Link } from 'react-router'
 import Card from '@/components/Card'
 import AppButton from '@/components/AppButton'
-import { FaEdit, FaEye, FaFileAlt } from 'react-icons/fa'
+import { FaEdit, FaEye } from 'react-icons/fa'
 import { useAdminStore } from '@/stores/useAdminStore'
 import { formatDateIntl, formatTime } from '@/utils/dateFormatter'
 
@@ -34,7 +34,7 @@ const BookingsPage = () => {
             </div>
 
             <div className="mx-auto max-w-[1000px]">
-              <Card styles={'bg-white'}>
+              <Card styles={'bg-white overflow-auto'}>
                 <table className="rounded-2xl" width="100%">
                   <thead className="">
                     <tr>

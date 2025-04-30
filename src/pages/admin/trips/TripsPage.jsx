@@ -61,7 +61,7 @@ const TripsPage = () => {
               {source && <span>Search result from: {source}</span>}
             </div>
             <div className="mx-auto max-w-[1000px]">
-              <Card styles={'bg-white'}>
+              <Card styles={'bg-white overflow-auto'}>
                 <table className="rounded-2xl" width="100%">
                   <thead className="">
                     <tr className="py-3 px-5">

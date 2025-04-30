@@ -12,6 +12,7 @@ import {
   FaClock,
   FaDollarSign,
   FaMoneyBillWave,
+  FaSquare,
 } from 'react-icons/fa'
 import { useParams } from 'react-router'
 
@@ -42,6 +43,18 @@ const TripPage = () => {
 
             <Card styles={'md:mx-auto mx-8 mb-9 bg-white'}>
               <SeatsLayout />
+
+              <div className="flex justify-evenly m-5">
+                <span className="flex items-center">
+                  <FaSquare className="mx-2 text-gray-500" /> Available
+                </span>
+                <span className="flex items-center">
+                  <FaSquare className="mx-2 text-green-500" /> Reserved
+                </span>
+                <span className="flex items-center">
+                  <FaSquare className="mx-2 text-blue-500" /> Booked
+                </span>
+              </div>
             </Card>
           </div>
 
