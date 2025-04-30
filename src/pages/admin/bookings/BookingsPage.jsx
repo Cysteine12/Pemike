@@ -73,9 +73,7 @@ const BookingsPage = () => {
                           {formatTime(payment.booking?.trip?.departureSchedule)}
                         </td>
                         <td className="py-3 px-2">{payment.booking?.status}</td>
-                        <td className="py-3 px-2">
-                          {payment.booking?.payment?.status}
-                        </td>
+                        <td className="py-3 px-2">{payment.status}</td>
                         <td className="py-3 px-2">
                           <div className="flex">
                             <Link
