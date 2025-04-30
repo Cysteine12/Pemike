@@ -35,12 +35,12 @@ class ErrorBoundary extends React.Component {
 
       return (
         this.props.fallback || (
-          <div className="py-56 text-center bg-orange-100 text-red-800 rounded">
+          <div className="py-60 text-center  text-red-800">
             <h2 className="font-semibold text-2xl">
               Sorry, something went wrong
             </h2>
             <button
-              onClick={this.handleRetry}
+              onClick={() => location.reload()}
               className="mx-auto mt-2 px-4 py-1 bg-blue-600 text-white rounded"
             >
               Retry

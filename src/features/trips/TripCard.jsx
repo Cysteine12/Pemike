@@ -1,5 +1,6 @@
 import AppButton from '@/components/AppButton'
 import Card from '@/components/Card'
+import Thumbnail from '@/assets/imgs/background.jpg'
 import { formatDateIntl, formatTime } from '@/utils/dateFormatter'
 import {
   FaArrowAltCircleRight,
@@ -13,7 +14,7 @@ const TripCard = ({ trip }) => {
   return (
     <Card styles={'mx-auto bg-white rounded-2xl p-0 my-5 lg:my-0'}>
       <img
-        src={trip.vehicle.thumbnail}
+        src={Thumbnail}
         alt="Vehicle Image"
         className="rounded-2xl rounded-b h-64 w-full"
       />

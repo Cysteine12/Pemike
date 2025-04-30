@@ -11,7 +11,7 @@ const BookingsPage = () => {
   const { fetchPaymentsByStatus, payments, loading } = useAdminStore()
 
   const getPaymentsByStatus = async () => {
-    const query = { page: 1, limit: 10 }
+    const query = { page: 1, limit: 50 }
     await fetchPaymentsByStatus({ status: 'success' }, query)
   }
 

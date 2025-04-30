@@ -6,7 +6,7 @@ const PaymentDetail = ({ children, payment }) => {
   return (
     <Card
       styles={
-        'md:mx-auto mx-8 mb-9 lg:min-w-[500px] border-1 border-blue-400 bg-blue-100 font-bold text-gray-700 h-fit'
+        'md:mx-auto mx-8 mb-9 lg:min-w-[500px] bg-white font-bold text-gray-700 h-fit'
       }
     >
       <ul>

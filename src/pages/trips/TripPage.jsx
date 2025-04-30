@@ -48,23 +48,25 @@ const TripPage = () => {
           >
             <SeatsLayout />
 
-            <div className="text-center font-bold">
-              Selected Seat(s):
-              {seats.map((seat) => (
-                <span key={seat.id}>
-                  {seat.sessionID === sessionID && (
-                    <span className="mx-1">{seat.seatNo}</span>
-                  )}
-                </span>
-              ))}
-            </div>
-
             {sessionID && (
-              <AppButton
-                onClick={handleSubmit}
-                text={'Proceed'}
-                style={'m-auto w-full max-w-56'}
-              />
+              <>
+                <div className="mb-2 text-center font-bold">
+                  Selected Seat(s):
+                  {seats.map((seat) => (
+                    <span key={seat.id}>
+                      {seat.sessionID === sessionID && (
+                        <span className="mx-1">{seat.seatNo}</span>
+                      )}
+                    </span>
+                  ))}
+                </div>
+
+                <AppButton
+                  onClick={handleSubmit}
+                  text={'Proceed'}
+                  style={'m-auto w-full max-w-56'}
+                />
+              </>
             )}
           </Card>
         </div>

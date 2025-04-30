@@ -1,4 +1,6 @@
 const formatDateIntl = (datetime) => {
+  if (!datetime) return
+
   const newDate = new Date(datetime)
 
   const f = new Intl.DateTimeFormat('en-uk', {
@@ -10,12 +12,16 @@ const formatDateIntl = (datetime) => {
 }
 
 const formatDate = (datetime) => {
+  if (!datetime) return
+
   const newDate = new Date(datetime).toString()
 
   return newDate.substring(0, 10)
 }
 
 const formatTime = (datetime) => {
+  if (!datetime) return
+
   const newDate = new Date(datetime).toString()
 
   return newDate.substring(16, 21)
