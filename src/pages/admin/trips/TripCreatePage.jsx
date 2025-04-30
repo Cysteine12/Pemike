@@ -77,7 +77,7 @@ const TripCreatePage = () => {
           Create New Trip
         </h4>
         <form onSubmit={handleSubmit}>
-          <div className="grid grid-cols-2">
+          <div className="md:grid md:grid-cols-2">
             <TripForm
               formData={formData}
               setFormData={setFormData}
