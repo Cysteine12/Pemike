@@ -29,6 +29,7 @@ import VehicleEditPage from '@/pages/admin/vehicles/VehicleEditPage'
 import ErrorBoundary from '@/components/ErrorBoundary'
 import AdminBookingsPage from '@/pages/admin/bookings/BookingsPage'
 import AdminPaymentsPage from '@/pages/admin/payments/PaymentsPage'
+import AdminPaymentPage from '@/pages/admin/payments/PaymentPage'
 
 const router = createBrowserRouter([
   {
@@ -196,6 +197,10 @@ const router = createBrowserRouter([
           {
             path: '',
             element: <ErrorBoundary children={<AdminPaymentsPage />} />,
+          },
+          {
+            path: ':id',
+            element: <ErrorBoundary children={<AdminPaymentPage />} />,
           },
         ],
       },

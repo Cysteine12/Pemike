@@ -42,7 +42,7 @@ const PaymentsPage = () => {
                       <th className="py-3 px-2">Passenger</th>
                       <th className="py-3 px-2">Amount</th>
                       <th className="py-3 px-2">Reference</th>
-                      <th className="py-3 px-2">Payment Status</th>
+                      <th className="py-3 px-2">Status</th>
                       <th className="py-3 px-2">Date</th>
                       <th className="py-3 px-2">Manage</th>
                     </tr>
