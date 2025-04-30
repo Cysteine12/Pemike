@@ -7,17 +7,17 @@ import { FaEdit, FaEye } from 'react-icons/fa'
 import { useAdminStore } from '@/stores/useAdminStore'
 import { formatDateIntl, formatTime } from '@/utils/dateFormatter'
 
-const BookingsPage = () => {
-  const { fetchPaymentsByStatus, payments, loading } = useAdminStore()
+const PaymentsPage = () => {
+  const { fetchPayments, payments, loading } = useAdminStore()
 
-  const getPaymentsByStatus = async () => {
+  const getPayments = async () => {
     const query = { page: 1, limit: 10 }
-    await fetchPaymentsByStatus({ status: 'success' }, query)
+    await fetchPayments({ status: 'success' }, query)
   }
 
   useEffect(() => {
     window.scrollTo(0, 0)
-    getPaymentsByStatus()
+    getPayments()
   }, [])
 
   return (
@@ -29,7 +29,7 @@ const BookingsPage = () => {
           <>
             <div className="mb-4 flex mx-auto max-w-[1000px]">
               <div className="mx-auto text-center text-blue-500 font-bold text-2xl ">
-                Bookings List
+                Payments List
               </div>
             </div>
 
@@ -40,11 +40,10 @@ const BookingsPage = () => {
                     <tr>
                       <th className="py-3 px-2"></th>
                       <th className="py-3 px-2">Passenger</th>
-                      <th className="py-3 px-2">Source</th>
-                      <th className="py-3 px-2">Destination</th>
-                      <th className="py-3 px-2">Schedule</th>
-                      <th className="py-3 px-2">Booking Status</th>
+                      <th className="py-3 px-2">Amount</th>
+                      <th className="py-3 px-2">Reference</th>
                       <th className="py-3 px-2">Payment Status</th>
+                      <th className="py-3 px-2">Date</th>
                       <th className="py-3 px-2">Manage</th>
                     </tr>
                   </thead>
@@ -60,21 +59,12 @@ const BookingsPage = () => {
                           {payment.booking?.user?.firstName}{' '}
                           {payment.booking?.user?.lastName}
                         </td>
+                        <td className="py-3 px-2">{payment.amount}</td>
+                        <td className="py-3 px-2">{payment.reference}</td>
+                        <td className="py-3 px-2">{payment.status}</td>
                         <td className="py-3 px-2">
-                          {payment.booking?.trip?.source}
-                        </td>
-                        <td className="py-3 px-2">
-                          {payment.booking?.trip?.destination}
-                        </td>
-                        <td className="py-3 px-2">
-                          {formatDateIntl(
-                            payment.booking?.trip?.departureSchedule
-                          )}{' '}
-                          {formatTime(payment.booking?.trip?.departureSchedule)}
-                        </td>
-                        <td className="py-3 px-2">{payment.booking?.status}</td>
-                        <td className="py-3 px-2">
-                          {payment.booking?.payment?.status}
+                          {formatDateIntl(payment.updatedAt)}{' '}
+                          {formatTime(payment.updatedAt)}
                         </td>
                         <td className="py-3 px-2">
                           <div className="flex">
@@ -88,19 +78,6 @@ const BookingsPage = () => {
                                 }
                               >
                                 <FaEye />
-                              </AppButton>
-                            </Link>
-
-                            <Link
-                              to={`/admin/payments/${payment.id}/edit`}
-                              className="mx-1"
-                            >
-                              <AppButton
-                                style={
-                                  'bg-yellow-500 text-white btn-sm min-w-auto'
-                                }
-                              >
-                                <FaEdit />
                               </AppButton>
                             </Link>
                           </div>
@@ -122,4 +99,4 @@ const BookingsPage = () => {
     </>
   )
 }
-export default BookingsPage
+export default PaymentsPage

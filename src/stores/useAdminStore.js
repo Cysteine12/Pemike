@@ -128,11 +128,13 @@ export const useAdminStore = create((set, get) => ({
     }
   },
 
-  fetchPaymentsByStatus: async ({ page, limit }) => {
+  fetchPaymentsByStatus: async ({ status }, { page, limit }) => {
     set({ loading: true, error: null })
 
     try {
-      const res = await API.get(`/admin/payments?page=${page}&limit=${limit}`)
+      const res = await API.get(
+        `/admin/payments/status/${status}?page=${page}&limit=${limit}`
+      )
 
       if (!res.data.success) return toast.error(res.data.message)
 

@@ -35,7 +35,7 @@ const CustomerSeatButton = ({ seatNo }) => {
     return seat && seat.seatNo === currentSeatNo && seat.status !== 'AVAILABLE'
   }
 
-  const handleClick = async (e, seatNo) => {
+  const handleClick = async (e) => {
     e.target.disabled = true
 
     let newSeat = {
@@ -51,7 +51,7 @@ const CustomerSeatButton = ({ seatNo }) => {
 
   return (
     <button
-      onClick={(e) => handleClick(e, seatNo)}
+      onClick={handleClick}
       className={`m-4 my-5 py-1 w-8 rounded ${seatStatusClass}`}
       disabled={hasBeenReserved(seatNo)}
     >

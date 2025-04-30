@@ -22,21 +22,25 @@ const AdminSeatButton = ({ seatNo }) => {
       return 'bg-gray-400 hover:cursor-pointer hover:bg-blue-500'
     }
     if (seat.status === 'BOOKED' && !seat.bookingId) {
-      return 'bg-green-500 hover:cursor-not-allowed'
+      return 'bg-green-500 hover:cursor-pointer'
     }
     return 'bg-blue-400 hover:cursor-not-allowed'
   }
 
   const hasBeenReserved = (currentSeatNo) => {
-    return seat && seat.seatNo === currentSeatNo && seat.status !== 'AVAILABLE'
+    return (
+      seat &&
+      seat.seatNo === currentSeatNo &&
+      seat.status !== 'AVAILABLE' &&
+      seat.bookingId
+    )
   }
 
-  const handleClick = async (e, seatNo) => {
-    e.target.disabled = true
-
+  const handleClick = async () => {
     let newSeat = {
       tripId: id,
-      seatNo,
+      seatNo: seat.seatNo,
+      status: seat.status === 'AVAILABLE' ? 'BOOKED' : 'AVAILABLE',
     }
     const res = await reserveSeat(newSeat)
     if (!res?.success) return
@@ -44,7 +48,7 @@ const AdminSeatButton = ({ seatNo }) => {
 
   return (
     <button
-      onClick={(e) => handleClick(e, seatNo)}
+      onClick={handleClick}
       className={`m-4 my-5 py-1 w-8 rounded ${seatStatusClass}`}
       disabled={hasBeenReserved(seatNo)}
     >

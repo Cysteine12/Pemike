@@ -8,7 +8,6 @@ import AppButton from '@/components/AppButton'
 import TripDetail from '@/features/trips/TripDetail'
 import useSessionStorage from '@/hooks/useSessionStorage'
 import SeatsLayout from '@/features/vehicles/SeatsLayout'
-import { FaSquare } from 'react-icons/fa'
 
 const TripPage = () => {
   const { id } = useParams()
@@ -59,18 +58,6 @@ const TripPage = () => {
             </div>
 
             <SeatsLayout />
-
-            <div className="flex justify-evenly m-5">
-              <span className="flex items-center">
-                <FaSquare className="mx-2 text-gray-500" /> Available
-              </span>
-              <span className="flex items-center">
-                <FaSquare className="mx-2 text-green-500" /> Reserved
-              </span>
-              <span className="flex items-center">
-                <FaSquare className="mx-2 text-blue-500" /> Booked
-              </span>
-            </div>
             <br />
 
             {sessionID && (

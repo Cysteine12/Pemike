@@ -1,19 +1,11 @@
 import AppSpinner from '@/components/AppSpinner'
 import Card from '@/components/Card'
+import FareConditionCard from '@/features/trips/FareConditionCard'
 import TripDetail from '@/features/trips/TripDetail'
 import SeatsLayout from '@/features/vehicles/SeatsLayout'
 import { useAdminStore } from '@/stores/useAdminStore'
 import { useTripStore } from '@/stores/useTripStore'
-import { formatDateIntl, formatTime } from '@/utils/dateFormatter'
 import { useEffect } from 'react'
-import {
-  FaAngleLeft,
-  FaBus,
-  FaClock,
-  FaDollarSign,
-  FaMoneyBillWave,
-  FaSquare,
-} from 'react-icons/fa'
 import { useParams } from 'react-router'
 
 const TripPage = () => {
@@ -43,18 +35,6 @@ const TripPage = () => {
 
             <Card styles={'md:mx-auto mx-8 mb-9 bg-white'}>
               <SeatsLayout />
-
-              <div className="flex justify-evenly m-5">
-                <span className="flex items-center">
-                  <FaSquare className="mx-2 text-gray-500" /> Available
-                </span>
-                <span className="flex items-center">
-                  <FaSquare className="mx-2 text-green-500" /> Reserved
-                </span>
-                <span className="flex items-center">
-                  <FaSquare className="mx-2 text-blue-500" /> Booked
-                </span>
-              </div>
             </Card>
           </div>
 
@@ -68,65 +48,11 @@ const TripPage = () => {
             </h3>
 
             {trips[0].FareCondition?.map((fareCondition) => (
-              <div key={fareCondition.id}>
-                <h5 className="text-center text-xl">
-                  {fareCondition.conditionLabel}
-                </h5>
-                <ul className="mt-8 md:my-0 md:mx-16">
-                  <li className="my-4 flex justify-between items-center">
-                    <span className="flex text-blue-500">
-                      <FaBus className={'mt-1 mr-3'} /> Minimum weeks before:
-                    </span>
-
-                    <span>{fareCondition.minWeeksBefore}</span>
-                  </li>
-                  <li className="my-4 flex justify-between items-center">
-                    <span className="flex text-blue-500">
-                      <FaBus className={'mt-1 mr-3'} /> Maximum weeks before:
-                    </span>
-
-                    <span>{fareCondition.maxWeeksBefore ?? 'Not Set'}</span>
-                  </li>
-                  <li className="my-4 flex justify-between items-center">
-                    <span className="flex text-blue-500">
-                      <FaDollarSign className={'mt-1 mr-3'} /> Adult Price:
-                    </span>
-
-                    <span>₦{fareCondition.adultPrice}</span>
-                  </li>
-                  <li className="my-4 flex justify-between items-center">
-                    <span className="flex text-blue-500">
-                      <FaDollarSign className={'mt-1 mr-3'} /> Child Price:
-                    </span>
-
-                    <span>₦{fareCondition.childPrice}</span>
-                  </li>
-                  <li className="my-4 flex justify-between items-center">
-                    <span className="flex text-blue-500">
-                      <FaDollarSign className={'mt-1 mr-3'} /> Infant Price:
-                    </span>
-
-                    <span>₦{fareCondition.infantPrice}</span>
-                  </li>
-                  <li className="my-4 flex justify-between items-center">
-                    <span className="flex text-blue-500 items-center">
-                      <FaMoneyBillWave className={'mr-3'} /> Cancel Charge(
-                      <FaAngleLeft /> 48hours):
-                    </span>
-
-                    <span>{fareCondition.cancelLessThan48h}%</span>
-                  </li>
-                  <li className="my-4 flex justify-between items-center">
-                    <span className="flex text-blue-500">
-                      <FaClock className={'mt-1 mr-3'} /> Last Updated:
-                    </span>
-                    <span>
-                      {formatDateIntl(trips[0].updatedAt)} |{' '}
-                      {formatTime(trips[0].updatedAt)}
-                    </span>
-                  </li>
-                </ul>
-              </div>
+              <FareConditionCard
+                key={fareCondition.id}
+                fareCondition={fareCondition}
+                trip={trips[0]}
+              />
             ))}
           </Card>
         </div>

@@ -137,7 +137,7 @@ function showSlides() {
   const slider = document.getElementById('slider')
   const Slides = document.querySelectorAll('.slide')
   totalSlides = Slides.length
-  let slideWidth = document.querySelector('.slide').offsetWidth + 20 // Adjust for spacing
+  let slideWidth = document.querySelector('.slide')?.offsetWidth + 20 // Adjust for spacing
   slider.style.transform = `translateX(-${Tindex * slideWidth}px)`
 }
 
