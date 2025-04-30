@@ -62,9 +62,9 @@ const TripDetail = ({ trip }) => {
           <span className="flex text-blue-600">
             <FaMapMarkerAlt className={'mt-1 mr-3'} /> Journey
           </span>
-          <span className="flex">
-            {trip.source}
-            <FaArrowAltCircleRight className="mt-1 mx-2" />
+          <span className="flex items-center flex-wrap justify-end">
+            {trip.source}{' '}
+            <FaArrowAltCircleRight className="inline-block mx-2" />{' '}
             {trip.destination}
           </span>
         </li>

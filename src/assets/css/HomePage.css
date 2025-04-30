@@ -924,7 +924,7 @@ body.menu-open {
 .footer {
   color: #fff;
   padding-inline: 10px;
-
+  background: #06308a !important;
   font-family: 'Lato', sans-serif;
   display: flex;
   justify-content: space-between;
@@ -996,7 +996,7 @@ body.menu-open {
 
 /* Copyright Section */
 .copyright {
-  background: rgb(35, 15, 134);
+  background: #071e6b !important;
   color: #bbb;
   text-align: center;
   padding: 10px;

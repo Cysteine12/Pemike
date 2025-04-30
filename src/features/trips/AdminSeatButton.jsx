@@ -49,7 +49,7 @@ const AdminSeatButton = ({ seatNo }) => {
   return (
     <button
       onClick={handleClick}
-      className={`m-4 my-5 py-1 w-8 rounded ${seatStatusClass}`}
+      className={`m-4 py-1 w-8 rounded ${seatStatusClass}`}
       disabled={hasBeenReserved(seatNo)}
     >
       {seatNo}

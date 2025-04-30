@@ -4,7 +4,10 @@ import { Link } from 'react-router'
 const AppFooter = () => {
   return (
     <section>
-      <footer className="footer bg-blue-600">
+      <footer
+        className="footer"
+        style={{ backgroundColor: '#155dfc !important' }}
+      >
         {/* <!-- Column 1 --> */}
         <div className="footer-column">
           <img src={AppLogo} alt="Pemike Logo" />

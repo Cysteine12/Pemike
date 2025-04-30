@@ -43,9 +43,11 @@ const TripPage = () => {
 
           <Card
             styles={
-              'mx-8 py-12 px-4 bg-white rounded-2xl md:mx-auto md:min-w-100'
+              'mx-8 pb-8 px-4 bg-white rounded-2xl md:mx-auto md:min-w-100'
             }
           >
+            <SeatsLayout />
+
             <div className="text-center font-bold">
               Selected Seat(s):
               {seats.map((seat) => (
@@ -56,9 +58,6 @@ const TripPage = () => {
                 </span>
               ))}
             </div>
-
-            <SeatsLayout />
-            <br />
 
             {sessionID && (
               <AppButton

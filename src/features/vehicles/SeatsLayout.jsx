@@ -13,7 +13,7 @@ const SeatsLayout = () => {
 
   return (
     <>
-      <div className="p-5 text-center">
+      <div className="p-2 text-center">
         <h4 className="text-2xl text-blue-500">Current Seat Map</h4>
         <span>Select your preferred seat(s) below</span>
       </div>
