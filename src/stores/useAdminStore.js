@@ -146,4 +146,21 @@ export const useAdminStore = create((set, get) => ({
       set({ loading: false })
     }
   },
+
+  fetchPayment: async (id) => {
+    set({ loading: true, error: null })
+
+    try {
+      const res = await API.get(`/admin/payments/${id}`)
+
+      if (!res.data.success) return toast.error(res.data.message)
+
+      set({ payments: [res.data.data] })
+    } catch (err) {
+      set({ error: err.response?.data?.message })
+      toast.error(get().error)
+    } finally {
+      set({ loading: false })
+    }
+  },
 }))

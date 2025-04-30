@@ -9,12 +9,12 @@ import {
 } from 'react-icons/fa'
 
 const TripDetail = ({ trip }) => {
-  const lowestPrice = trip.FareCondition?.reduce((pre, curr) => {
+  const lowestPrice = trip?.FareCondition?.reduce((pre, curr) => {
     if (curr.childPrice < pre) return curr.childPrice
     return pre
   }, trip.FareCondition[0].childPrice)
 
-  const highestPrice = trip.FareCondition?.reduce((pre, curr) => {
+  const highestPrice = trip?.FareCondition?.reduce((pre, curr) => {
     if (curr.adultPrice > pre) return curr.adultPrice
     return pre
   }, 0)
@@ -33,7 +33,8 @@ const TripDetail = ({ trip }) => {
             <FaBus className={'mt-1 mr-3'} /> Vehicle
           </span>
           <span>
-            {trip.vehicle?.brand} {trip.vehicle?.model} {trip.vehicle?.category}
+            {trip?.vehicle?.brand} {trip?.vehicle?.model}{' '}
+            {trip?.vehicle?.category}
           </span>
         </li>
 
@@ -42,8 +43,8 @@ const TripDetail = ({ trip }) => {
             <FaClock className={'mt-1 mr-3'} /> Departure
           </span>
           <span>
-            {formatDateIntl(trip.departureSchedule)} |{' '}
-            {formatTime(trip.departureSchedule)}
+            {formatDateIntl(trip?.departureSchedule)} |{' '}
+            {formatTime(trip?.departureSchedule)}
           </span>
         </li>
 
@@ -63,9 +64,9 @@ const TripDetail = ({ trip }) => {
             <FaMapMarkerAlt className={'mt-1 mr-3'} /> Journey
           </span>
           <span className="flex items-center flex-wrap justify-end">
-            {trip.source}{' '}
+            {trip?.source}{' '}
             <FaArrowAltCircleRight className="inline-block mx-2" />{' '}
-            {trip.destination}
+            {trip?.destination}
           </span>
         </li>
       </ul>

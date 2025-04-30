@@ -26,11 +26,11 @@ const PaymentPage = () => {
         <AppSpinner />
       ) : (
         <div className="lg:grid lg:grid-cols-2">
-          <PaymentDetail payment={payments[0]} />
-
           <UserDetail user={payments[0].booking?.user} />
 
           <TripDetail trip={payments[0].booking?.trip} />
+
+          <PaymentDetail payment={payments[0]} />
         </div>
       )}
     </>
