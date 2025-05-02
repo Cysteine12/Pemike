@@ -52,6 +52,9 @@ const AppAdminHeader = () => {
           <Link to="/admin/dashboard" className="font-semibold">
             Dashboard
           </Link>
+          <Link to="/admin/users" className="font-semibold">
+            Users
+          </Link>
           <Link to="/admin/trips" className="font-semibold">
             Trips
           </Link>
@@ -155,6 +158,13 @@ const AppAdminHeader = () => {
                   className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
                 >
                   Dashboard
+                </Link>
+                <Link
+                  onClick={toggleMenu}
+                  to="/admin/users"
+                  className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
+                >
+                  Users
                 </Link>
                 <Link
                   onClick={toggleMenu}

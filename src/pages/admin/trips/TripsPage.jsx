@@ -63,7 +63,7 @@ const TripsPage = () => {
             <div className="mx-auto max-w-[1000px]">
               <Card styles={'bg-white overflow-auto'}>
                 <table className="rounded-2xl" width="100%">
-                  <thead className="">
+                  <thead>
                     <tr className="py-3 px-5">
                       <th className="py-3 px-2"></th>
                       <th className="py-3 px-2">Vehicle</th>

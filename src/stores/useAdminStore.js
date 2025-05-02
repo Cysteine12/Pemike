@@ -48,6 +48,25 @@ export const useAdminStore = create((set, get) => ({
     }
   },
 
+  searchUsersByName: async ({ name }, { page, limit }) => {
+    set({ loading: true, error: null })
+
+    try {
+      const res = await API.get(
+        `/admin/users/search?search=${name}&page=${page}&limit=${limit}`
+      )
+
+      if (!res.data.success) return toast.error(res.data.message)
+
+      set({ users: res.data.data })
+    } catch (err) {
+      set({ error: err.response?.data?.message })
+      toast.error(get().error)
+    } finally {
+      set({ loading: false })
+    }
+  },
+
   fetchUser: async (id) => {
     set({ loading: true, error: null })
 
@@ -134,6 +153,44 @@ export const useAdminStore = create((set, get) => ({
     try {
       const res = await API.get(
         `/admin/payments/status/${status}?page=${page}&limit=${limit}`
+      )
+
+      if (!res.data.success) return toast.error(res.data.message)
+
+      set({ payments: res.data.data })
+    } catch (err) {
+      set({ error: err.response?.data?.message })
+      toast.error(get().error)
+    } finally {
+      set({ loading: false })
+    }
+  },
+
+  fetchPaymentsByBookingStatus: async ({ status }, { page, limit }) => {
+    set({ loading: true, error: null })
+
+    try {
+      const res = await API.get(
+        `/admin/payments/booking/status/${status}?page=${page}&limit=${limit}`
+      )
+
+      if (!res.data.success) return toast.error(res.data.message)
+
+      set({ payments: res.data.data })
+    } catch (err) {
+      set({ error: err.response?.data?.message })
+      toast.error(get().error)
+    } finally {
+      set({ loading: false })
+    }
+  },
+
+  searchPaymentsByReference: async ({ status }, { page, limit }) => {
+    set({ loading: true, error: null })
+
+    try {
+      const res = await API.get(
+        `/admin/payments?text=${status}&page=${page}&limit=${limit}`
       )
 
       if (!res.data.success) return toast.error(res.data.message)

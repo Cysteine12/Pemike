@@ -26,11 +26,30 @@ export const useVehicleStore = create((set, get) => ({
     }
   },
 
+  fetchVehiclesByStatus: async ({ status }, { page, limit }) => {
+    set({ loading: true, error: null })
+
+    try {
+      const res = await API.get(
+        `/vehicles/status/${status}?page=${page}&limit=${limit}`
+      )
+
+      if (!res.data.success) return toast.error(res.data.message)
+
+      set({ vehicles: res.data.data })
+    } catch (err) {
+      set({ error: err.response?.data?.message })
+      toast.error(get().error)
+    } finally {
+      set({ loading: false })
+    }
+  },
+
   searchVehiclesByLicense: async ({ licenseNo }) => {
     set({ loading: true, error: null })
 
     try {
-      const res = await API.get(`/vehicles/search?licenseNo=${licenseNo}`)
+      const res = await API.get(`/vehicles/search?search=${licenseNo}`)
 
       if (!res.data.success) return toast.error(res.data.message)
 

@@ -30,6 +30,8 @@ import ErrorBoundary from '@/components/ErrorBoundary'
 import AdminBookingsPage from '@/pages/admin/bookings/BookingsPage'
 import AdminPaymentsPage from '@/pages/admin/payments/PaymentsPage'
 import AdminPaymentPage from '@/pages/admin/payments/PaymentPage'
+import UsersPage from '@/pages/admin/users/UsersPage'
+import UserPage from '@/pages/admin/users/UserPage'
 
 const router = createBrowserRouter([
   {
@@ -143,6 +145,19 @@ const router = createBrowserRouter([
       {
         path: 'dashboard',
         element: <ErrorBoundary children={<AdminDashboardPage />} />,
+      },
+      {
+        path: 'users',
+        children: [
+          {
+            path: '',
+            element: <ErrorBoundary children={<UsersPage />} />,
+          },
+          {
+            path: ':id',
+            element: <ErrorBoundary children={<UserPage />} />,
+          },
+        ],
       },
       {
         path: 'trips',

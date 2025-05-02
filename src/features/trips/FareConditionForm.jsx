@@ -5,7 +5,7 @@ const FareConditionForm = ({ formData, setFormData }) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
       fareConditions: prevFormData.fareConditions.map((fareCondition) => {
-        if (fareCondition.conditionLabel === formData.label)
+        if (fareCondition.conditionLabel === formData.conditionLabel)
           return {
             ...fareCondition,
             [e.target.name]: e.target.value,
@@ -13,6 +13,7 @@ const FareConditionForm = ({ formData, setFormData }) => {
         return fareCondition
       }),
     }))
+    console.log(formData)
   }
 
   return (
