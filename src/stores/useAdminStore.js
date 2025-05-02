@@ -185,12 +185,12 @@ export const useAdminStore = create((set, get) => ({
     }
   },
 
-  searchPaymentsByReference: async ({ status }, { page, limit }) => {
+  searchPaymentsByReference: async ({ reference }, { page, limit }) => {
     set({ loading: true, error: null })
 
     try {
       const res = await API.get(
-        `/admin/payments?text=${status}&page=${page}&limit=${limit}`
+        `/admin/payments/search?search=${reference}&page=${page}&limit=${limit}`
       )
 
       if (!res.data.success) return toast.error(res.data.message)

@@ -48,7 +48,7 @@ const UsersPage = () => {
           </Link>
         </div>
 
-        <div className="mb-4 flex mx-auto max-w-[1000px]">
+        <div className="mb-4 md:flex mx-auto max-w-[1000px]">
           <SearchBox
             placeholder={'Search for a name...'}
             searchText={name}

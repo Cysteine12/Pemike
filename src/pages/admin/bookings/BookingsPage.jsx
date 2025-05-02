@@ -41,7 +41,7 @@ const BookingsPage = () => {
           </div>
         </div>
 
-        <div className="mb-4 flex mx-auto max-w-[1000px]">
+        <div className="mb-4 md:flex justify-center mx-auto max-w-[1000px]">
           <ToggleModal
             currFeatureType={status}
             features={[

@@ -7,7 +7,7 @@ const SearchBox = ({ placeholder, searchText, handleSearch }) => {
   const handleChange = (e) => debounce(handleSearch(e.target.value), 2000)
 
   return (
-    <div className="mx-auto">
+    <div className="mx-auto mb-5 w-fit">
       <div className="flex rounded-lg border-2 border-blue-500">
         <input
           type="search"

@@ -48,7 +48,7 @@ const TripsPage = () => {
           <>
             <div className="mb-4 flex mx-auto max-w-[1000px]">
               <div className="mx-auto text-center text-blue-500 font-bold text-2xl ">
-                List of Available Trips
+                Trips List
               </div>
               <AppButton
                 onClick={() => navigate('/admin/trips/create')}
