@@ -1,6 +1,6 @@
 import { FaSpinner } from 'react-icons/fa'
 
-const AppSpinner = ({ loading, style }) => {
+const AppSpinner = (loading, style) => {
   return (
     loading && (
       <FaSpinner
