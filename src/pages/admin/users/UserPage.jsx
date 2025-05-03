@@ -93,11 +93,11 @@ const UserPage = () => {
           </Card>
 
           {payments.map((payment) => (
-            <>
+            <div className="my-5 grid md:grid-cols-2 bg-gray-100 rounded-lg">
               <TripDetail trip={payment.booking?.trip} />
 
               <PaymentDetail payment={payment} />
-            </>
+            </div>
           ))}
         </>
       )}

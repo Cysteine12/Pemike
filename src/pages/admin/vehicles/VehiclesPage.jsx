@@ -103,7 +103,7 @@ const VehiclesPage = () => {
 
               <tbody>
                 {loading ? (
-                  <AppSpinner />
+                  <AppSpinner style={''} />
                 ) : (
                   vehicles.map((vehicle, index) => (
                     <tr
