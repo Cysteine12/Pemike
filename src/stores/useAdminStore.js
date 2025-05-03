@@ -84,6 +84,26 @@ export const useAdminStore = create((set, get) => ({
     }
   },
 
+  createUser: async (newUser) => {
+    set({ loading: true, error: null })
+
+    try {
+      const res = await API.post(`/admin/users`, newUser)
+
+      if (!res.data.success) return toast.error(res.data.message)
+
+      set({ message: res.data.message })
+
+      toast.success(get().message)
+      return res.data
+    } catch (err) {
+      set({ error: err.response?.data?.message })
+      toast.error(get().error)
+    } finally {
+      set({ loading: false })
+    }
+  },
+
   fetchSeatsByTrip: async (id) => {
     set({ loading: true, error: null })
 
@@ -172,6 +192,25 @@ export const useAdminStore = create((set, get) => ({
     try {
       const res = await API.get(
         `/admin/payments/booking/status/${status}?page=${page}&limit=${limit}`
+      )
+
+      if (!res.data.success) return toast.error(res.data.message)
+
+      set({ payments: res.data.data })
+    } catch (err) {
+      set({ error: err.response?.data?.message })
+      toast.error(get().error)
+    } finally {
+      set({ loading: false })
+    }
+  },
+
+  fetchPaymentsByBookingUser: async ({ userId }, { page, limit }) => {
+    set({ loading: true, error: null })
+
+    try {
+      const res = await API.get(
+        `/admin/payments/booking/user/${userId}?page=${page}&limit=${limit}`
       )
 
       if (!res.data.success) return toast.error(res.data.message)

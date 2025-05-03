@@ -10,7 +10,7 @@ import { Link, useNavigate } from 'react-router'
 const LoginPage = () => {
   const navigate = useNavigate()
   const passwordRef = useRef()
-  const { login, verifyEmail } = useAuthStore()
+  const { login, verifyEmail, loading } = useAuthStore()
   const { authNavigate } = useAuthNavigate(navigate)
 
   const [email, setEmail] = useState('')
@@ -99,7 +99,11 @@ const LoginPage = () => {
           </div>
 
           <div className="flex justify-center">
-            <AppButton type="submit" style="mt-4 py-3 rounded-xl w-full">
+            <AppButton
+              loading={loading}
+              type="submit"
+              style="mt-4 py-3 rounded-xl w-full"
+            >
               Login <FaRegArrowAltCircleRight className="ml-1" />
             </AppButton>
           </div>

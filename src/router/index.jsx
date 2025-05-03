@@ -2,19 +2,22 @@ import { createBrowserRouter } from 'react-router'
 import MainLayout from '@/layouts/MainLayout'
 import GuestLayout from '@/layouts/GuestLayout'
 import UserLayout from '@/layouts/UserLayout'
+import ErrorBoundary from '@/components/ErrorBoundary'
 import HomePage from '@/pages/HomePage'
 import AboutPage from '@/pages/AboutPage'
 import NotFound from '@/pages/NotFoundPage'
 import TripsPage from '@/pages/trips/TripsPage'
 import TripPage from '@/pages/trips/TripPage'
-import BookingCreatePage from '@/pages/bookings/BookingCreatePage'
-import PaymentVerifyPage from '@/pages/payments/PaymentVerifyPage'
-import PaymentPage from '@/pages/payments/PaymentPage'
-import ProfileUpdatePage from '@/pages/users/ProfileUpdatePage'
-import UserDashboardPage from '@/pages/users/UserDashboardPage'
 import LoginPage from '@/pages/auth/LoginPage'
 import RegisterPage from '@/pages/auth/RegisterPage'
+import UserDashboardPage from '@/pages/users/UserDashboardPage'
+import ProfilePage from '@/pages/users/ProfilePage'
+import ProfileEditPage from '@/pages/users/ProfileEditPage'
+import ProfilePasswordChangePage from '@/pages/users/ProfilePasswordChangePage'
+import BookingCreatePage from '@/pages/bookings/BookingCreatePage'
+import PaymentVerifyPage from '@/pages/payments/PaymentVerifyPage'
 import PaymentsPage from '@/pages/payments/PaymentsPage'
+import PaymentPage from '@/pages/payments/PaymentPage'
 import ContactPage from '@/pages/ContactPage'
 import ServicesPage from '@/pages/ServicesPage'
 import AdminLayout from '@/layouts/AdminLayout'
@@ -26,12 +29,12 @@ import VehiclesPage from '@/pages/admin/vehicles/VehiclesPage'
 import VehiclePage from '@/pages/admin/vehicles/VehiclePage'
 import VehicleCreatePage from '@/pages/admin/vehicles/VehicleCreatePage'
 import VehicleEditPage from '@/pages/admin/vehicles/VehicleEditPage'
-import ErrorBoundary from '@/components/ErrorBoundary'
+import UsersPage from '@/pages/admin/users/UsersPage'
+import UserCreatePage from '@/pages/admin/users/UserCreatePage'
+import UserPage from '@/pages/admin/users/UserPage'
 import AdminBookingsPage from '@/pages/admin/bookings/BookingsPage'
 import AdminPaymentsPage from '@/pages/admin/payments/PaymentsPage'
 import AdminPaymentPage from '@/pages/admin/payments/PaymentPage'
-import UsersPage from '@/pages/admin/users/UsersPage'
-import UserPage from '@/pages/admin/users/UserPage'
 
 const router = createBrowserRouter([
   {
@@ -70,15 +73,6 @@ const router = createBrowserRouter([
         element: <ErrorBoundary children={<ServicesPage />} />,
       },
       {
-        path: 'profile',
-        children: [
-          {
-            path: 'edit',
-            element: <ErrorBoundary children={<ProfileUpdatePage />} />,
-          },
-        ],
-      },
-      {
         path: '/trips',
         children: [
           {
@@ -105,6 +99,23 @@ const router = createBrowserRouter([
           {
             path: 'dashboard',
             element: <ErrorBoundary children={<UserDashboardPage />} />,
+          },
+        ],
+      },
+      {
+        path: 'profile',
+        children: [
+          {
+            path: '',
+            element: <ErrorBoundary children={<ProfilePage />} />,
+          },
+          {
+            path: 'edit',
+            element: <ErrorBoundary children={<ProfileEditPage />} />,
+          },
+          {
+            path: 'change-password',
+            element: <ErrorBoundary children={<ProfilePasswordChangePage />} />,
           },
         ],
       },
@@ -154,6 +165,10 @@ const router = createBrowserRouter([
             element: <ErrorBoundary children={<UsersPage />} />,
           },
           {
+            path: 'create',
+            element: <ErrorBoundary children={<UserCreatePage />} />,
+          },
+          {
             path: ':id',
             element: <ErrorBoundary children={<UserPage />} />,
           },
@@ -167,12 +182,12 @@ const router = createBrowserRouter([
             element: <ErrorBoundary children={<AdminTripsPage />} />,
           },
           {
-            path: ':id',
-            element: <ErrorBoundary children={<AdminTripPage />} />,
-          },
-          {
             path: 'create',
             element: <ErrorBoundary children={<TripCreatePage />} />,
+          },
+          {
+            path: ':id',
+            element: <ErrorBoundary children={<AdminTripPage />} />,
           },
         ],
       },
@@ -184,12 +199,12 @@ const router = createBrowserRouter([
             element: <ErrorBoundary children={<VehiclesPage />} />,
           },
           {
-            path: ':id',
-            element: <ErrorBoundary children={<VehiclePage />} />,
-          },
-          {
             path: 'create',
             element: <ErrorBoundary children={<VehicleCreatePage />} />,
+          },
+          {
+            path: ':id',
+            element: <ErrorBoundary children={<VehiclePage />} />,
           },
           {
             path: ':id/edit',

@@ -78,10 +78,7 @@ const AppUserHeader = () => {
               className="absolute hidden mt-10 p-3 text-gray-500 bg-white rounded shadow-2xl"
             >
               <li>
-                <Link
-                  to={'/dashboard'}
-                  className="flex my-2 hover:text-blue-500"
-                >
+                <Link to={'/profile'} className="flex my-2 hover:text-blue-500">
                   <FaUser className="text-sm mt-1 mr-2" />
                   <span>My Profile</span>
                 </Link>
@@ -179,9 +176,17 @@ const AppUserHeader = () => {
                   to="/payments"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
                 >
-                  My Payments
+                  Payments
                 </Link>
               </div>
+
+              <Link
+                onClick={toggleMenu}
+                to="/profile"
+                className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
+              >
+                Profile
+              </Link>
               <button
                 onClick={() => logout()}
                 className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50 cursor-pointer"

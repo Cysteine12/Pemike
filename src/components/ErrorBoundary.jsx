@@ -13,7 +13,7 @@ class ErrorBoundary extends React.Component {
   componentDidCatch(error, info) {
     if (import.meta.env.VITE_NODE_ENV === 'production') {
       //  Log to monitioring service
-      console.log('Error caught:', error, info)
+      // console.log('Error caught:', error, info)
     } else {
       console.error(error, info)
     }

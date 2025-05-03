@@ -13,7 +13,6 @@ const FareConditionForm = ({ formData, setFormData }) => {
         return fareCondition
       }),
     }))
-    console.log(formData)
   }
 
   return (

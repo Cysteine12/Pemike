@@ -86,13 +86,30 @@ export const useAuthStore = create((set, get) => ({
 
   refreshToken: async () => {
     set({ loading: true, error: null })
-    console.log('ran')
     try {
       await API2.post(`/auth/refresh-token`)
       return
     } catch (err) {
       set({ error: err.response?.data?.message })
       toast.error(get().error)
+    } finally {
+      set({ loading: false })
+    }
+  },
+
+  changePassword: async (newUser) => {
+    set({ loading: true, error: null })
+
+    try {
+      const res = await API.post(`/auth/change-password`, newUser)
+      if (!res.data.success) return toast.error(res.data.message)
+
+      set({ message: res.data.message })
+
+      toast.success(get().message)
+      return res.data
+    } catch (err) {
+      set({ error: err.response?.data?.message })
     } finally {
       set({ loading: false })
     }

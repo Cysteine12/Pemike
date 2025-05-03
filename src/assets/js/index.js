@@ -21,7 +21,6 @@ export const startCarousel = () => {
 
   function showSlide(i) {
     slides.forEach((slide, idx) => {
-      // console.log('')
       dots[idx].classList.toggle('active', idx === i)
       slide.classList.toggle('active', idx === i)
     })
