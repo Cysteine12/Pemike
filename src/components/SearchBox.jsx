@@ -7,7 +7,7 @@ const SearchBox = ({ placeholder, searchText, handleSearch }) => {
   const debouncedQuery = useDebounce(query, 1000)
 
   useEffect(() => {
-    if (debouncedQuery) handleSearch(query)
+    handleSearch(query)
   }, [debouncedQuery])
 
   return (
